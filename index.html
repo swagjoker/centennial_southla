@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centennial Advisers | South LA Apartment Specialists</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="logo2.png" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── INTRO ANIMATION ── */
+    #intro {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(160deg, #010810 0%, #030f22 45%, #050e1e 100%);
+      overflow: hidden;
+    }
+    #intro.intro-out { animation: introFadeOut 1s ease forwards; }
+    @keyframes introFadeOut { to { opacity: 0; pointer-events: none; } }
+
+    /* studio lighting: central glow + top spot */
+    .intro-light {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 52%, rgba(15,55,140,0.32) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 50% 48%, rgba(0,180,200,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 80% at 50% -10%, rgba(30,90,200,0.18) 0%, transparent 60%);
+    }
+    /* subtle floor reflection */
+    .intro-floor {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,10,30,0.55) 100%);
+      pointer-events: none;
+    }
+
+    /* logo springs up inside title block */
+    .intro-logo-title {
+      height: clamp(120px, 18vw, 220px);
+      width: auto; display: block;
+      margin-bottom: 1.4rem;
+      opacity: 0; transform: translateY(44px);
+      filter: drop-shadow(0 0 24px rgba(0,180,200,0.45));
+    }
+    .intro-logo-title.spring {
+      animation: wordSpring 0.75s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+
+    /* title text — centered, shown after sweep */
+    #intro-title {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      z-index: 4; opacity: 0; pointer-events: none;
+      text-align: center;
+    }
+    #intro-title.visible { opacity: 1; }
+    #intro-title.title-out { animation: titleFade 1.6s ease forwards; }
+    @keyframes titleFade { to { opacity: 0; } }
+
+    .intro-word {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      font-weight: 300; letter-spacing: 0.35em;
+      color: #ffffff; text-transform: uppercase;
+      opacity: 0; transform: translateY(44px);
+      text-shadow: 0 0 60px rgba(0,180,200,0.25);
+    }
+    .intro-word.spring {
+      animation: wordSpring 0.75s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes wordSpring {
+      0%   { opacity: 0; transform: translateY(44px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    :root {
+      --navy: #0d1520;
+      --navy-mid: #131f2e;
+      --teal: #00b4c8;
+      --teal-light: #4dd4e2;
+      --teal-dim: rgba(0,180,200,0.18);
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --white: #ffffff;
+      --glass-bg: rgba(255,255,255,0.055);
+      --glass-border: rgba(0,180,200,0.18);
+      --glass-border-gold: rgba(201,169,110,0.18);
+      --text-muted: rgba(255,255,255,0.52);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5%;
+      backdrop-filter: blur(24px);
+      background: rgba(13,21,32,0.82);
+      border-bottom: 1px solid rgba(0,180,200,0.12);
+      transition: padding 0.3s;
+    }
+    .logo-img {
+      height: 46px; width: auto; object-fit: contain;
+      display: block;
+    }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      padding: 0.6rem 1.6rem;
+      border: 1px solid var(--teal);
+      color: var(--teal); background: transparent;
+      font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); color: var(--navy); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(13,21,32,0.52) 0%, rgba(13,21,32,0.82) 65%, var(--navy) 100%),
+        url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      padding: 0 5%; padding-top: 6rem;
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); border: 1px solid rgba(0,180,200,0.3);
+      padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.8rem;
+      backdrop-filter: blur(10px); background: rgba(0,180,200,0.07);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6.5vw, 6rem);
+      font-weight: 300; line-height: 1.08; max-width: 16ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--teal-light); }
+    .hero p {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 48ch; line-height: 1.75; margin-bottom: 2.8rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.4rem;
+      background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 700;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-outline {
+      padding: 0.9rem 2.4rem;
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 5rem;
+      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 300; color: var(--teal);
+    }
+    .stat-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; margin-top: 0.2rem; }
+
+    /* ── NEIGHBORHOOD STRIP ── */
+    .neighborhood-strip {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0; background: rgba(0,0,0,0.25);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .neighborhood-item {
+      flex: 1; min-width: 130px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.3rem 1rem;
+      border-right: 1px solid var(--glass-border);
+      transition: background 0.2s; cursor: pointer;
+    }
+    .neighborhood-item:last-child { border-right: none; }
+    .neighborhood-item:hover { background: var(--teal-dim); }
+    .neighborhood-icon { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .neighborhood-name { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; }
+    .neighborhood-count { font-size: 0.68rem; color: var(--teal); margin-top: 0.15rem; }
+
+    /* ── SEARCH BAR ── */
+    .search-bar {
+      margin: 2.5rem 5%; padding: 1.8rem 2rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px; backdrop-filter: blur(20px);
+      display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem; align-items: end;
+    }
+    .search-field label {
+      display: block; font-size: 0.66rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .search-field select, .search-field input {
+      width: 100%; background: transparent;
+      border: none; border-bottom: 1px solid rgba(255,255,255,0.14);
+      color: var(--white); font-size: 0.93rem; padding: 0.4rem 0;
+      outline: none; font-family: 'Inter', sans-serif;
+    }
+    .search-field select option { background: var(--navy-mid); }
+    .search-btn {
+      padding: 0.75rem 2rem;
+      background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .search-btn:hover { background: var(--teal-light); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 5%; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2;
+      margin-bottom: 3.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--teal-light); }
+
+    /* ── FEATURED LISTINGS ── */
+    #listings { background: var(--navy); }
+    .listings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; }
+    .listings-header .section-title { margin-bottom: 0; }
+    .view-all {
+      font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid var(--teal); padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .view-all:hover { opacity: 0.7; }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .property-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; overflow: hidden;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,180,200,0.3);
+      border-color: rgba(0,180,200,0.4);
+    }
+    .card-img { position: relative; height: 210px; overflow: hidden; }
+    .card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .property-card:hover .card-img img { transform: scale(1.05); }
+    .card-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--teal); color: var(--navy);
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 2px;
+    }
+    .card-badge.new { background: #2ecc71; color: #fff; }
+    .card-badge.hot { background: #e67e22; color: #fff; }
+    .tour-btn {
+      position: absolute; bottom: 1rem; right: 1rem;
+      background: rgba(13,21,32,0.85); border: 1px solid rgba(0,180,200,0.3);
+      color: var(--white); font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.42rem 0.85rem;
+      border-radius: 100px; cursor: pointer; backdrop-filter: blur(10px);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tour-btn:hover { background: rgba(0,180,200,0.18); border-color: var(--teal); color: var(--teal); }
+    .tour-btn svg { width: 13px; height: 13px; }
+
+    /* ── FAVORITE BUTTON ── */
+    .fav-btn {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(13,21,32,0.75); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .fav-btn:hover { background: rgba(13,21,32,0.9); border-color: rgba(255,80,100,0.5); color: rgba(255,80,100,0.7); }
+    .fav-btn.saved { background: rgba(255,50,80,0.15); border-color: rgba(255,80,100,0.6); color: #ff5064; }
+    .fav-btn.pop { animation: favPop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes favPop { 0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1); } }
+
+    .card-body { padding: 1.4rem; }
+    .card-location { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem; font-weight: 400; color: var(--white);
+      margin-bottom: 0.1rem;
+    }
+    .card-price span { font-size: 0.9rem; color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 400; }
+    .card-address { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.1rem; }
+    .card-meta {
+      display: flex; gap: 1.2rem;
+      padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .meta-item { font-size: 0.75rem; color: var(--text-muted); }
+    .meta-item strong { display: block; font-size: 0.92rem; color: var(--white); font-weight: 500; }
+
+    /* ── VIRTUAL TOUR ── */
+    #tour {
+      background: linear-gradient(135deg, #0c1828 0%, #131f2e 100%);
+      padding: 6rem 5%;
+    }
+    .tour-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .tour-preview {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: #000; aspect-ratio: 16/10; cursor: pointer;
+    }
+    .tour-preview img { width: 100%; height: 100%; object-fit: cover; opacity: 0.78; }
+    .tour-play {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(13,21,32,0.42);
+      transition: background 0.3s;
+    }
+    .tour-preview:hover .tour-play { background: rgba(13,21,32,0.28); }
+    .play-ring {
+      width: 80px; height: 80px; border-radius: 50%;
+      border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px); background: rgba(0,180,200,0.1);
+      margin-bottom: 1rem; transition: transform 0.3s, background 0.3s;
+    }
+    .tour-preview:hover .play-ring { transform: scale(1.08); background: rgba(0,180,200,0.2); }
+    .play-ring svg { width: 28px; height: 28px; fill: var(--teal); margin-left: 4px; }
+    .tour-label { font-size: 0.76rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,180,200,0.8); }
+
+    .tour-dots { display: flex; gap: 0.6rem; margin-top: 1rem; justify-content: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.2s; }
+    .dot.active { background: var(--teal); }
+
+    .tour-content .section-label { margin-bottom: 0.8rem; }
+    .tour-content .section-title { margin-bottom: 1.2rem; }
+    .tour-content p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; }
+    .tour-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .tour-feature {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.84rem; color: rgba(255,255,255,0.72);
+    }
+    .feature-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: rgba(0,180,200,0.08); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    /* ── AGENTS ── */
+    #agents { background: var(--navy); }
+    .agents-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem;
+    }
+    .agent-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 2rem 1.5rem; text-align: center;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .agent-card:hover { transform: translateY(-5px); border-color: rgba(0,180,200,0.4); }
+    .agent-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      border: 2px solid var(--teal); overflow: hidden; margin: 0 auto 1.2rem;
+    }
+    .agent-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .agent-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem;
+    }
+    .agent-title { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .agent-zone { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .agent-stats { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.3rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .agent-stat { font-size: 0.72rem; color: var(--text-muted); }
+    .agent-stat strong { display: block; font-size: 1rem; color: var(--white); font-weight: 500; }
+    .agent-social { display: flex; justify-content: center; gap: 0.6rem; }
+    .social-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── TRUST BAND ── */
+    #trust {
+      padding: 4rem 5%;
+      background: linear-gradient(90deg, rgba(0,180,200,0.06) 0%, rgba(0,180,200,0.02) 100%);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .trust-inner { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2.5rem; align-items: center; }
+    .trust-item { text-align: center; }
+    .trust-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .trust-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .trust-desc { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--navy-mid); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .testimonial-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 2rem; backdrop-filter: blur(20px);
+    }
+    .stars { color: var(--teal); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .testimonial-text {
+      line-height: 1.75; color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;
+      font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 0.9rem; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 1px solid var(--glass-border); }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-name { font-size: 0.84rem; font-weight: 500; }
+    .author-sub { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── CONTACT ── */
+    #contact { background: linear-gradient(135deg, #0c1828 0%, var(--navy) 100%); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; margin-bottom: 1.2rem; line-height: 1.2;
+    }
+    .contact-info h2 em { font-style: italic; color: var(--teal-light); }
+    .contact-info p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; }
+    .detail-icon {
+      width: 42px; height: 42px; border-radius: 8px;
+      background: rgba(0,180,200,0.08); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .detail-label { font-size: 0.66rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; }
+    .detail-value { font-size: 0.9rem; color: var(--white); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label {
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: var(--white); padding: 0.85rem 1rem; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s; resize: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); }
+    .form-group select option { background: var(--navy-mid); }
+    .form-submit {
+      padding: 1rem 2.5rem; background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer; border-radius: 2px; margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.2s; align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080e18;
+      padding: 3rem 5% 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .footer-logo { height: 38px; width: auto; object-fit: contain; }
+    .footer-tagline { font-size: 0.76rem; color: var(--text-muted); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-copy { font-size: 0.7rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(6,10,20,0.92); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      width: 90%; max-width: 860px;
+      background: var(--navy-mid); border: 1px solid var(--glass-border);
+      border-radius: 10px; overflow: hidden;
+      transform: scale(0.95); transition: transform 0.3s;
+    }
+    .modal-overlay.active .modal { transform: scale(1); }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.6rem; border-bottom: 1px solid var(--glass-border);
+    }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+    .modal-close {
+      background: transparent; border: none; color: var(--text-muted);
+      font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-body { aspect-ratio: 16/9; background: #000; position: relative; }
+    .modal-body img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+    .modal-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+    }
+    .modal-placeholder span { font-size: 3rem; }
+    .modal-placeholder p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ── NAV LOGO GLOW PULSE ── */
+    @keyframes logoPulse {
+      0%   { filter: none; }
+      40%  { filter: drop-shadow(0 0 12px rgba(0,180,200,0.85)); }
+      100% { filter: none; }
+    }
+    .logo-img.glow-pulse { animation: logoPulse 1.8s ease forwards; }
+
+    /* ── HERO CONTENT STAGGER REVEAL ── */
+    .hero-animate {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    .hero-animate.hero-visible {
+      animation: heroReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes heroReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SCROLL GALLERY ── */
+    #scroll-gallery-wrap { position: relative; height: 600vh; }
+    #scroll-gallery-stage {
+      position: sticky; top: 0;
+      height: 100vh; overflow: hidden;
+    }
+    .gallery-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.9s ease;
+    }
+    .gallery-slide.active { opacity: 1; }
+    .gallery-slide img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(1.06);
+      transition: transform 1.4s ease-out;
+    }
+    .gallery-slide.active img { transform: scale(1); }
+    .gallery-slide::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(6,10,20,0.88) 0%,
+        rgba(6,10,20,0.35) 40%,
+        rgba(6,10,20,0.08) 70%,
+        transparent 100%
+      );
+    }
+    .gallery-info {
+      position: absolute; bottom: 13%; left: 8%; z-index: 2;
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.7s ease 0.25s, transform 0.7s ease 0.25s;
+    }
+    .gallery-slide.active .gallery-info { opacity: 1; transform: translateY(0); }
+    .gallery-info-tag {
+      font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.8rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .gallery-info-tag::before {
+      content: ''; display: block;
+      width: 32px; height: 1px; background: var(--teal);
+    }
+    .gallery-info-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 300; line-height: 0.95;
+      color: #fff; margin-bottom: 1.1rem;
+    }
+    .gallery-info-stats {
+      font-size: 0.85rem; color: rgba(255,255,255,0.62);
+      letter-spacing: 0.08em;
+    }
+    .gallery-dots {
+      position: absolute; right: 2.5rem; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 0.65rem; z-index: 3;
+    }
+    .gallery-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.22);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .gallery-dot.active { background: var(--teal); transform: scale(1.5); }
+    .gallery-counter {
+      position: absolute; top: 2.2rem; right: 3rem; z-index: 3;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem; letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.35);
+    }
+    .gallery-counter span { color: var(--teal); }
+    .gallery-scroll-hint {
+      position: absolute; bottom: 2.5rem; right: 8%; z-index: 3;
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      display: flex; align-items: flex-end; gap: 0.7rem;
+    }
+    .gallery-scroll-hint::after {
+      content: ''; display: block;
+      width: 1px; height: 38px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    }
+
+    /* ── CARD SHIMMER ── */
+    .property-card { position: relative; }
+    .property-card::before {
+      content: '';
+      position: absolute; top: 0; left: -80%;
+      width: 60%; height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.055) 50%,
+        transparent 100%
+      );
+      transform: skewX(-15deg);
+      transition: left 0.65s ease;
+      pointer-events: none; z-index: 1;
+    }
+    .property-card:hover::before { left: 140%; }
+
+    /* ── TYPING CURSOR ── */
+    .hero-cursor {
+      display: inline-block;
+      width: 2px; height: 0.8em;
+      background: var(--teal-light);
+      vertical-align: text-bottom;
+      margin-left: 3px;
+      animation: cursorBlink 0.65s step-end infinite;
+    }
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── CUSTOM SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--teal-light); }
+
+    /* ── FLOATING LABELS ── */
+    .float-label { position: relative; }
+    .float-label label {
+      position: absolute !important;
+      left: 1rem; top: 0.88rem;
+      font-size: 0.9rem; font-weight: 400;
+      color: var(--text-muted) !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+      margin-bottom: 0 !important;
+      transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease, letter-spacing 0.2s ease;
+      pointer-events: none;
+    }
+    .float-label input,
+    .float-label textarea,
+    .float-label select {
+      padding-top: 1.35rem !important;
+      padding-bottom: 0.45rem !important;
+    }
+    .float-label input:focus ~ label,
+    .float-label input:not(:placeholder-shown) ~ label,
+    .float-label textarea:focus ~ label,
+    .float-label textarea:not(:placeholder-shown) ~ label,
+    .float-label select:focus ~ label,
+    .float-label.has-value label {
+      top: 0.28rem;
+      font-size: 0.6rem;
+      color: var(--teal) !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .tour-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .search-bar { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      .hero-stats { gap: 1.8rem; flex-wrap: wrap; }
+      .listings-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .neighborhood-strip { overflow-x: auto; flex-wrap: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- INTRO ANIMATION -->
+<div id="intro">
+  <div class="intro-light"></div>
+  <div class="intro-floor"></div>
+  <div id="intro-title">
+    <img class="intro-logo-title" src="logo2.png" alt="Centennial Advisers" />
+    <span class="intro-word">Centennial</span>
+    <span class="intro-word">Advisers</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <img class="logo-img" src="logo2.png" alt="Centennial Advisers" />
+  <ul class="nav-links">
+    <li><a href="#listings">Listings</a></li>
+    <li><a href="#tour">Virtual Tour</a></li>
+    <li><a href="#agents">Advisors</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Schedule Tour</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">✦ South LA&rsquo;s Premier Apartment Specialists</div>
+  <h1>Find Your <em>Perfect</em> Apartment in South LA</h1>
+  <p>Centennial Advisers connects you with professionally managed 3&ndash;5 story apartment communities across Inglewood, Torrance, Carson, and beyond &mdash; vetted by locals who know every block.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('listings').scrollIntoView({behavior:'smooth'})">Browse Listings</button>
+    <button class="btn-outline" onclick="openTourModal()">Watch Virtual Tour</button>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num" data-count="4862" data-suffix="">4,862</div>
+      <div class="stat-label">Transactions</div>
+    </div>
+    <div>
+      <div class="stat-num" data-count="1114" data-suffix="">1,114</div>
+      <div class="stat-label">1031 Exchanges</div>
+    </div>
+    <div>
+      <div class="stat-num" data-count="241" data-suffix="">241</div>
+      <div class="stat-label">Years of Brokerage</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEIGHBORHOOD STRIP -->
+<div class="neighborhood-strip">
+  <div class="neighborhood-item"><div class="neighborhood-icon">🏟️</div><div class="neighborhood-name">Inglewood</div><div class="neighborhood-count">14 listings</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🌊</div><div class="neighborhood-name">Torrance</div><div class="neighborhood-count">11 listings</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🏡</div><div class="neighborhood-name">Carson</div><div class="neighborhood-count">9 listings</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">✈️</div><div class="neighborhood-name">Hawthorne</div><div class="neighborhood-count">7 listings</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🌿</div><div class="neighborhood-name">Gardena</div><div class="neighborhood-count">8 listings</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🏙️</div><div class="neighborhood-name">Compton</div><div class="neighborhood-count">6 listings</div></div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar fade-up">
+  <div class="search-field">
+    <label>Neighborhood</label>
+    <select>
+      <option>All South LA</option>
+      <option>Inglewood</option>
+      <option>Torrance</option>
+      <option>Carson</option>
+      <option>Hawthorne</option>
+      <option>Gardena</option>
+      <option>Compton</option>
+    </select>
+  </div>
+  <div class="search-field">
+    <label>Bedrooms</label>
+    <select>
+      <option>Any</option>
+      <option>Studio</option>
+      <option>1 Bedroom</option>
+      <option>2 Bedrooms</option>
+      <option>3+ Bedrooms</option>
+    </select>
+  </div>
+  <div class="search-field">
+    <label>Monthly Budget</label>
+    <select>
+      <option>Any Price</option>
+      <option>Under $1,800/mo</option>
+      <option>$1,800 &ndash; $2,500/mo</option>
+      <option>$2,500 &ndash; $3,500/mo</option>
+      <option>$3,500+/mo</option>
+    </select>
+  </div>
+  <button class="search-btn">Find Units</button>
+</div>
+
+<!-- FEATURED LISTINGS -->
+<section id="listings">
+  <div class="listings-header">
+    <div>
+      <div class="section-label">Available Now</div>
+      <h2 class="section-title">Apartment <em>Communities</em></h2>
+    </div>
+    <a href="#" class="view-all">View All Listings &rarr;</a>
+  </div>
+
+  <div class="property-grid">
+
+    <div class="property-card fade-up">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80" alt="Inglewood Modern Loft" />
+        <span class="card-badge new">New</span>
+        <button class="tour-btn" onclick="openTourModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          360&deg; Tour
+        </button>
+        <button class="fav-btn" onclick="toggleFav(this)" aria-label="Save listing">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-location">📍 Inglewood</div>
+        <div class="card-price">$2,400 <span>/ mo</span></div>
+        <div class="card-address">Inglewood Modern Loft &mdash; Steps from SoFi Stadium</div>
+        <div class="card-meta">
+          <div class="meta-item"><strong>2</strong>Beds</div>
+          <div class="meta-item"><strong>2</strong>Baths</div>
+          <div class="meta-item"><strong>1,100</strong>Sq Ft</div>
+          <div class="meta-item"><strong>3F</strong>Floor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.1s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Torrance Coastal" />
+        <span class="card-badge">Available</span>
+        <button class="tour-btn" onclick="openTourModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          360&deg; Tour
+        </button>
+        <button class="fav-btn" onclick="toggleFav(this)" aria-label="Save listing">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-location">📍 Torrance</div>
+        <div class="card-price">$3,200 <span>/ mo</span></div>
+        <div class="card-address">Torrance Coastal Retreat &mdash; 2 mi from Pacific</div>
+        <div class="card-meta">
+          <div class="meta-item"><strong>3</strong>Beds</div>
+          <div class="meta-item"><strong>2</strong>Baths</div>
+          <div class="meta-item"><strong>1,600</strong>Sq Ft</div>
+          <div class="meta-item"><strong>4F</strong>Floor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.2s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80" alt="Gardena Garden" />
+        <span class="card-badge hot">Hot</span>
+        <button class="tour-btn" onclick="openTourModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          360&deg; Tour
+        </button>
+        <button class="fav-btn" onclick="toggleFav(this)" aria-label="Save listing">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-location">📍 Gardena</div>
+        <div class="card-price">$2,100 <span>/ mo</span></div>
+        <div class="card-address">Gardena Garden Apt &mdash; Private Outdoor Space</div>
+        <div class="card-meta">
+          <div class="meta-item"><strong>2</strong>Beds</div>
+          <div class="meta-item"><strong>1</strong>Baths</div>
+          <div class="meta-item"><strong>950</strong>Sq Ft</div>
+          <div class="meta-item"><strong>2F</strong>Floor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.05s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80" alt="Hawthorne Studio" />
+        <span class="card-badge">Available</span>
+        <button class="tour-btn" onclick="openTourModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          360&deg; Tour
+        </button>
+        <button class="fav-btn" onclick="toggleFav(this)" aria-label="Save listing">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-location">📍 Hawthorne</div>
+        <div class="card-price">$1,750 <span>/ mo</span></div>
+        <div class="card-address">Hawthorne Studio Plus &mdash; Near LAX Corridor</div>
+        <div class="card-meta">
+          <div class="meta-item"><strong>1</strong>Bed</div>
+          <div class="meta-item"><strong>1</strong>Bath</div>
+          <div class="meta-item"><strong>700</strong>Sq Ft</div>
+          <div class="meta-item"><strong>2F</strong>Floor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.15s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&q=80" alt="Carson Family" />
+        <span class="card-badge new">New</span>
+        <button class="tour-btn" onclick="openTourModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          360&deg; Tour
+        </button>
+        <button class="fav-btn" onclick="toggleFav(this)" aria-label="Save listing">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-location">📍 Carson</div>
+        <div class="card-price">$2,850 <span>/ mo</span></div>
+        <div class="card-address">Carson Family Residence &mdash; Quiet Neighborhood</div>
+        <div class="card-meta">
+          <div class="meta-item"><strong>3</strong>Beds</div>
+          <div class="meta-item"><strong>2</strong>Baths</div>
+          <div class="meta-item"><strong>1,450</strong>Sq Ft</div>
+          <div class="meta-item"><strong>3F</strong>Floor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.25s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80" alt="Compton Townhome" />
+        <span class="card-badge hot">New Build</span>
+        <button class="tour-btn" onclick="openTourModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+          360&deg; Tour
+        </button>
+        <button class="fav-btn" onclick="toggleFav(this)" aria-label="Save listing">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-location">📍 Compton</div>
+        <div class="card-price">$2,650 <span>/ mo</span></div>
+        <div class="card-address">Compton Townhome &mdash; Rooftop Terrace</div>
+        <div class="card-meta">
+          <div class="meta-item"><strong>3</strong>Beds</div>
+          <div class="meta-item"><strong>2.5</strong>Baths</div>
+          <div class="meta-item"><strong>1,300</strong>Sq Ft</div>
+          <div class="meta-item"><strong>4F</strong>Floor</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCROLL GALLERY -->
+<div id="scroll-gallery-wrap">
+  <div id="scroll-gallery-stage">
+
+    <div class="gallery-slide active">
+      <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=80" alt="Inglewood" />
+      <div class="gallery-info">
+        <div class="gallery-info-tag">South LA</div>
+        <div class="gallery-info-name">Inglewood</div>
+        <div class="gallery-info-stats">14 Listings &nbsp;&middot;&nbsp; From $2,400/mo</div>
+      </div>
+    </div>
+
+    <div class="gallery-slide">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80" alt="Torrance" />
+      <div class="gallery-info">
+        <div class="gallery-info-tag">South LA</div>
+        <div class="gallery-info-name">Torrance</div>
+        <div class="gallery-info-stats">11 Listings &nbsp;&middot;&nbsp; From $3,200/mo</div>
+      </div>
+    </div>
+
+    <div class="gallery-slide">
+      <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1800&q=80" alt="Carson" />
+      <div class="gallery-info">
+        <div class="gallery-info-tag">South LA</div>
+        <div class="gallery-info-name">Carson</div>
+        <div class="gallery-info-stats">9 Listings &nbsp;&middot;&nbsp; From $2,850/mo</div>
+      </div>
+    </div>
+
+    <div class="gallery-slide">
+      <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1800&q=80" alt="Hawthorne" />
+      <div class="gallery-info">
+        <div class="gallery-info-tag">South LA</div>
+        <div class="gallery-info-name">Hawthorne</div>
+        <div class="gallery-info-stats">7 Listings &nbsp;&middot;&nbsp; From $1,750/mo</div>
+      </div>
+    </div>
+
+    <div class="gallery-slide">
+      <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1800&q=80" alt="Gardena" />
+      <div class="gallery-info">
+        <div class="gallery-info-tag">South LA</div>
+        <div class="gallery-info-name">Gardena</div>
+        <div class="gallery-info-stats">8 Listings &nbsp;&middot;&nbsp; From $2,100/mo</div>
+      </div>
+    </div>
+
+    <div class="gallery-slide">
+      <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1800&q=80" alt="Compton" />
+      <div class="gallery-info">
+        <div class="gallery-info-tag">South LA</div>
+        <div class="gallery-info-name">Compton</div>
+        <div class="gallery-info-stats">6 Listings &nbsp;&middot;&nbsp; From $2,650/mo</div>
+      </div>
+    </div>
+
+    <div class="gallery-dots">
+      <div class="gallery-dot active"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+      <div class="gallery-dot"></div>
+    </div>
+
+    <div class="gallery-counter"><span>01</span> / 06</div>
+    <div class="gallery-scroll-hint">Scroll to explore</div>
+
+  </div>
+</div>
+
+<!-- VIRTUAL TOUR -->
+<section id="tour">
+  <div class="tour-layout">
+    <div>
+      <div class="tour-preview" onclick="openTourModal()">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&q=80" alt="Virtual Apartment Tour" />
+        <div class="tour-play">
+          <div class="play-ring">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <span class="tour-label">Walk Through Virtually</span>
+        </div>
+      </div>
+      <div class="tour-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+    <div class="tour-content fade-up">
+      <div class="section-label">Immersive Walkthrough</div>
+      <h2 class="section-title">Tour Every <em>Unit</em> Remotely</h2>
+      <p>Our 360&deg; apartment walkthroughs let you explore floor plans, finishes, and community amenities from your phone &mdash; before you ever schedule an in-person visit.</p>
+      <div class="tour-features">
+        <div class="tour-feature"><div class="feature-icon">🔭</div>4K 360&deg; Photography</div>
+        <div class="tour-feature"><div class="feature-icon">📐</div>Interactive Floor Plans</div>
+        <div class="tour-feature"><div class="feature-icon">🏊</div>Common Area Tours</div>
+        <div class="tour-feature"><div class="feature-icon">🌅</div>View from Each Floor</div>
+        <div class="tour-feature"><div class="feature-icon">📦</div>Storage &amp; Parking</div>
+        <div class="tour-feature"><div class="feature-icon">🎧</div>Advisor Audio Guide</div>
+      </div>
+      <button class="btn-primary" onclick="openTourModal()">Launch Full Tour</button>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAND -->
+<div id="trust">
+  <div class="trust-inner">
+    <div class="trust-item fade-up">
+      <div class="trust-icon">🏆</div>
+      <div class="trust-title">10+ Years Local</div>
+      <div class="trust-desc">South LA Real Estate Specialists</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">🔍</div>
+      <div class="trust-title">Every Unit Vetted</div>
+      <div class="trust-desc">Personally Inspected Before Listing</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-title">8-Day Placement</div>
+      <div class="trust-desc">Avg. First Showing to Signed Lease</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">🤝</div>
+      <div class="trust-title">Client-First Always</div>
+      <div class="trust-desc">We Only Win When You Find Home</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">📋</div>
+      <div class="trust-title">No Hidden Fees</div>
+      <div class="trust-desc">Transparent from First Call to Keys</div>
+    </div>
+  </div>
+</div>
+
+<!-- AGENTS -->
+<section id="agents">
+  <div class="section-label">Our Team</div>
+  <h2 class="section-title">Meet Your <em>Centennial</em> Advisers</h2>
+  <div class="agents-grid">
+
+    <div class="agent-card fade-up">
+      <div class="agent-avatar">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80" alt="Justin White" />
+      </div>
+      <div class="agent-name">Justin White</div>
+      <div class="agent-title">Managing Director</div>
+      <div class="agent-zone">Inglewood &bull; Compton &bull; South LA</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><strong>12yr</strong>Local Exp</div>
+        <div class="agent-stat"><strong>200+</strong>Placed</div>
+        <div class="agent-stat"><strong>7 Days</strong>Avg Lease</div>
+      </div>
+      <div class="agent-social">
+        <button class="social-btn">in</button>
+        <button class="social-btn">✉</button>
+        <button class="social-btn">☎</button>
+      </div>
+    </div>
+
+    <div class="agent-card fade-up" style="transition-delay:0.1s">
+      <div class="agent-avatar">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80" alt="Sofia Reyes" />
+      </div>
+      <div class="agent-name">Sofia Reyes</div>
+      <div class="agent-title">Rental Specialist</div>
+      <div class="agent-zone">Torrance &bull; Carson &bull; Gardena</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><strong>8yr</strong>Local Exp</div>
+        <div class="agent-stat"><strong>140+</strong>Placed</div>
+        <div class="agent-stat"><strong>8 Days</strong>Avg Lease</div>
+      </div>
+      <div class="agent-social">
+        <button class="social-btn">in</button>
+        <button class="social-btn">✉</button>
+        <button class="social-btn">☎</button>
+      </div>
+    </div>
+
+    <div class="agent-card fade-up" style="transition-delay:0.2s">
+      <div class="agent-avatar">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="James Park" />
+      </div>
+      <div class="agent-name">James Park</div>
+      <div class="agent-title">Community Adviser</div>
+      <div class="agent-zone">Hawthorne &bull; Gardena &bull; LAX Area</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><strong>7yr</strong>Local Exp</div>
+        <div class="agent-stat"><strong>95+</strong>Placed</div>
+        <div class="agent-stat"><strong>9 Days</strong>Avg Lease</div>
+      </div>
+      <div class="agent-social">
+        <button class="social-btn">in</button>
+        <button class="social-btn">✉</button>
+        <button class="social-btn">☎</button>
+      </div>
+    </div>
+
+    <div class="agent-card fade-up" style="transition-delay:0.3s">
+      <div class="agent-avatar">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80" alt="Aisha Thompson" />
+      </div>
+      <div class="agent-name">Aisha Thompson</div>
+      <div class="agent-title">Relocation Expert</div>
+      <div class="agent-zone">All South LA &bull; Inglewood &bull; Carson</div>
+      <div class="agent-stats">
+        <div class="agent-stat"><strong>6yr</strong>Local Exp</div>
+        <div class="agent-stat"><strong>80+</strong>Placed</div>
+        <div class="agent-stat"><strong>8 Days</strong>Avg Lease</div>
+      </div>
+      <div class="agent-social">
+        <button class="social-btn">in</button>
+        <button class="social-btn">✉</button>
+        <button class="social-btn">☎</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">Resident Stories</div>
+  <h2 class="section-title">Trusted by <em>South LA</em></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Marcus found us a 3-bedroom in Inglewood within a week. He knew every complex, every landlord. We signed our lease in 7 days and couldn't be happier."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="David T." /></div>
+        <div><div class="author-name">David &amp; Rachel T.</div><div class="author-sub">Moved to Inglewood, 2024</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up" style="transition-delay:0.1s">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"The virtual walkthrough saved me three trips. I was relocating from San Jose and Sofia guided me through every Torrance unit remotely. Signed without ever visiting."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Priya M." /></div>
+        <div><div class="author-name">Priya M.</div><div class="author-sub">Relocated to Torrance, 2025</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up" style="transition-delay:0.2s">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Every unit Centennial showed me was exactly what they described — no surprises. Aisha advocated for us and got the landlord to waive the pet deposit. Outstanding."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Thomas K." /></div>
+        <div><div class="author-name">Thomas K.</div><div class="author-sub">Moved to Carson, 2025</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-info fade-up">
+      <div class="section-label">Get in Touch</div>
+      <h2>Let&rsquo;s Find Your <em>Perfect Place</em></h2>
+      <p>Whether you&rsquo;re relocating to South LA for the first time or upgrading your current situation &mdash; our advisers will match you with the right unit at the right price, fast.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">📍</div>
+          <div>
+            <div class="detail-label">Office</div>
+            <div class="detail-value">Long Beach, CA 90802</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">📞</div>
+          <div>
+            <div class="detail-label">Phone</div>
+            <div class="detail-value">(562) 269-4844</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">✉️</div>
+          <div>
+            <div class="detail-label">Email</div>
+            <div class="detail-value">hello@centennialadvisers.com</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">🕐</div>
+          <div>
+            <div class="detail-label">Hours</div>
+            <div class="detail-value">Mon &ndash; Sat, 9AM &ndash; 6PM PST</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form fade-up" onsubmit="handleFormSubmit(event)">
+      <div class="form-row">
+        <div class="form-group float-label">
+          <input type="text" placeholder=" " required />
+          <label>First Name</label>
+        </div>
+        <div class="form-group float-label">
+          <input type="text" placeholder=" " required />
+          <label>Last Name</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group float-label">
+          <input type="email" placeholder=" " required />
+          <label>Email</label>
+        </div>
+        <div class="form-group float-label">
+          <input type="tel" placeholder=" " />
+          <label>Phone</label>
+        </div>
+      </div>
+      <div class="form-group float-label has-value">
+        <select>
+          <option value="">Select a neighborhood&hellip;</option>
+          <option>Inglewood</option>
+          <option>Torrance</option>
+          <option>Carson</option>
+          <option>Hawthorne</option>
+          <option>Gardena</option>
+          <option>Compton</option>
+          <option>Open to any South LA</option>
+        </select>
+        <label>Neighborhood Interest</label>
+      </div>
+      <div class="form-group float-label has-value">
+        <select>
+          <option>Under $1,800/mo</option>
+          <option>$1,800 &ndash; $2,500/mo</option>
+          <option>$2,500 &ndash; $3,500/mo</option>
+          <option>$3,500+/mo</option>
+        </select>
+        <label>Monthly Budget</label>
+      </div>
+      <div class="form-group float-label">
+        <textarea rows="4" placeholder=" "></textarea>
+        <label>Message</label>
+      </div>
+      <button type="submit" class="form-submit">Send Message &rarr;</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <img class="footer-logo" src="logo2.png" alt="Centennial Advisers" />
+    <div class="footer-tagline">South LA&rsquo;s Most Trusted Apartment Specialists</div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2026 Centennial Advisers. All rights reserved. South LA Real Estate.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Fair Housing</a>
+      <a href="#">Terms</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<!-- TOUR MODAL -->
+<div class="modal-overlay" id="tourModal" onclick="closeTourModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Virtual Tour &mdash; Inglewood Modern Loft</div>
+      <button class="modal-close" onclick="closeTourModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&q=80" alt="Apartment Tour" />
+      <div class="modal-placeholder">
+        <span>🎬</span>
+        <p>360&deg; Apartment Walkthrough &mdash; Integration Ready</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  function openTourModal() {
+    document.getElementById('tourModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeTourModal(e) {
+    if (!e || e.target === document.getElementById('tourModal') || e.currentTarget.classList.contains('modal-close')) {
+      document.getElementById('tourModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.querySelectorAll('.dot').forEach((dot) => {
+    dot.addEventListener('click', () => {
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+
+  // ── SCROLL GALLERY ──
+  (function () {
+    const wrap   = document.getElementById('scroll-gallery-wrap');
+    const slides = document.querySelectorAll('.gallery-slide');
+    const dots   = document.querySelectorAll('.gallery-dot');
+    const counter = document.querySelector('.gallery-counter');
+    const total  = slides.length;
+    let current  = 0;
+
+    function update() {
+      const rect     = wrap.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const scrollable = rect.height - window.innerHeight;
+      if (scrolled < 0 || scrolled > scrollable) return;
+
+      const idx = Math.min(Math.floor((scrolled / scrollable) * total), total - 1);
+      if (idx === current) return;
+
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      slides[idx].classList.add('active');
+      dots[idx].classList.add('active');
+      counter.innerHTML = `<span>${String(idx + 1).padStart(2, '0')}</span> / 06`;
+      current = idx;
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+  })();
+
+  function runStatCounters() {
+    document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+      const target   = parseInt(el.dataset.count);
+      const suffix   = el.dataset.suffix;
+      const duration = 1500;
+      const start    = performance.now();
+      (function tick(now) {
+        const p      = Math.min((now - start) / duration, 1);
+        const eased  = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    });
+  }
+
+  function typewriterH1(el) {
+    const plain      = 'Find Your Perfect Apartment in South LA';
+    const italicWord = 'Perfect';
+    const iStart     = plain.indexOf(italicWord);
+    const iEnd       = iStart + italicWord.length;
+    const speed      = 42;
+    let i = 0;
+
+    function buildHTML(upTo) {
+      if (upTo <= iStart)  return plain.slice(0, upTo);
+      if (upTo <= iEnd)    return plain.slice(0, iStart) + '<em>' + plain.slice(iStart, upTo) + '</em>';
+      return plain.slice(0, iStart) + '<em>' + italicWord + '</em>' + plain.slice(iEnd, upTo);
+    }
+
+    (function type() {
+      el.innerHTML = buildHTML(i) + '<span class="hero-cursor"></span>';
+      if (i < plain.length) { i++; setTimeout(type, speed); }
+      else setTimeout(() => { el.innerHTML = buildHTML(plain.length); }, 900);
+    })();
+  }
+
+  function toggleFav(btn) {
+    btn.classList.toggle('saved');
+    btn.textContent = btn.classList.contains('saved') ? '♥' : '♡';
+    btn.classList.remove('pop');
+    void btn.offsetWidth; // reflow to restart animation
+    btn.classList.add('pop');
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#2ecc71';
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 3000);
+  }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '0.75rem 5%' : '1.1rem 5%';
+
+    // Hero parallax — shift background as user scrolls down
+    const hero = document.getElementById('hero');
+    if (window.scrollY <= hero.offsetHeight) {
+      hero.style.backgroundPositionY = `calc(50% + ${(window.scrollY * 0.3).toFixed(1)}px)`;
+    }
+  }, { passive: true });
+
+  // ── INTRO SEQUENCE ──
+  (function () {
+    const intro  = document.getElementById('intro');
+    const title  = document.getElementById('intro-title');
+    const logoEl = title.querySelector('.intro-logo-title');
+    const words  = title.querySelectorAll('.intro-word');
+
+    document.body.style.overflow = 'hidden';
+
+    // Hide hero content for staggered reveal once intro fades
+    const heroSelectors = ['.hero-tag', '#hero h1', '#hero p', '.hero-btns', '.hero-stats'];
+    const heroAnimEls = [];
+    heroSelectors.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) { el.classList.add('hero-animate'); heroAnimEls.push(el); }
+    });
+
+    // Clear h1 so typewriter fills it in on reveal
+    const h1El = heroAnimEls[1];
+    if (h1El) h1El.innerHTML = '';
+
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+
+    const canvas = document.createElement('canvas');
+    canvas.width  = W; canvas.height = H;
+    canvas.style.cssText = 'position:absolute;inset:0;z-index:2;pointer-events:none;';
+    intro.insertBefore(canvas, title);
+    const ctx = canvas.getContext('2d');
+
+    const LINE_DUR = 700;  // blue line sweeps across
+
+    const centreY = H * 0.5;
+
+    let startTime = null;
+
+    function tick(ts) {
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+      const totalP  = Math.min(elapsed / LINE_DUR, 1);
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Thin teal line sweeps left → right
+      const lineX  = totalP * W * 2 - W;
+      const lineDL = Math.max(0, lineX);
+      const lineDR = Math.min(W, lineX + W);
+      if (lineDR > lineDL) {
+        ctx.shadowBlur  = 14;
+        ctx.shadowColor = 'rgba(0,180,200,0.9)';
+        ctx.fillStyle   = '#00b4c8';
+        ctx.fillRect(lineDL, centreY - 1, lineDR - lineDL, 2);
+      }
+
+      if (totalP < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        let fs = performance.now();
+        (function fadeCanvas(t) {
+          const fp = Math.min((t - fs) / 280, 1);
+          canvas.style.opacity = String(1 - fp);
+          if (fp < 1) {
+            requestAnimationFrame(fadeCanvas);
+          } else {
+            // Trails fully gone — spring logo then words
+            title.classList.add('visible');
+            logoEl.classList.add('spring');
+            setTimeout(() => words[0].classList.add('spring'), 260);
+            setTimeout(() => words[1].classList.add('spring'), 480);
+            setTimeout(() => title.classList.add('title-out'), 2800);
+            setTimeout(() => {
+              intro.classList.add('intro-out');
+              // Stagger hero content in as intro fades out
+              heroAnimEls.forEach((el, i) => {
+                setTimeout(() => {
+                  el.classList.add('hero-visible');
+                  if (i === 1) typewriterH1(el);           // h1 types itself in
+                  if (i === 4) setTimeout(runStatCounters, 300); // stats count up
+                }, i * 220);
+              });
+              // Glow pulse the nav logo
+              const navLogo = document.querySelector('.logo-img');
+              if (navLogo) navLogo.classList.add('glow-pulse');
+            }, 3700);
+            setTimeout(() => { intro.remove(); document.body.style.overflow = ''; }, 4750);
+          }
+        })(fs);
+      }
+    }
+
+    const preload = new Image();
+    preload.onload = preload.onerror = () => requestAnimationFrame(tick);
+    preload.src = 'logo2.png';
+  })();
+</script>
+</body>
+</html>
