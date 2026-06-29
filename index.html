@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centennial Advisers | South LA Apartment Specialists</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="logo2.png" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── INTRO ANIMATION ── */
+    #intro {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(160deg, #010810 0%, #030f22 45%, #050e1e 100%);
+      overflow: hidden;
+    }
+    #intro.intro-out { animation: introFadeOut 1s ease forwards; }
+    @keyframes introFadeOut { to { opacity: 0; pointer-events: none; } }
+
+    /* studio lighting: central glow + top spot */
+    .intro-light {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 55% at 50% 52%, rgba(15,55,140,0.32) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 50% 48%, rgba(0,180,200,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 80% at 50% -10%, rgba(30,90,200,0.18) 0%, transparent 60%);
+    }
+    /* subtle floor reflection */
+    .intro-floor {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,10,30,0.55) 100%);
+      pointer-events: none;
+    }
+
+    /* logo springs up inside title block */
+    .intro-logo-title {
+      height: clamp(120px, 18vw, 220px);
+      width: auto; display: block;
+      margin-bottom: 1.4rem;
+      opacity: 0; transform: translateY(44px);
+      filter: drop-shadow(0 0 24px rgba(0,180,200,0.45));
+    }
+    .intro-logo-title.spring {
+      animation: wordSpring 0.75s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+
+    /* title text — centered, shown after sweep */
+    #intro-title {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      z-index: 4; opacity: 0; pointer-events: none;
+      text-align: center;
+    }
+    #intro-title.visible { opacity: 1; }
+    #intro-title.title-out { animation: titleFade 1.6s ease forwards; }
+    @keyframes titleFade { to { opacity: 0; } }
+
+    .intro-word {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 6.5vw, 5.2rem);
+      font-weight: 300; letter-spacing: 0.35em;
+      color: #ffffff; text-transform: uppercase;
+      opacity: 0; transform: translateY(44px);
+      text-shadow: 0 0 60px rgba(0,180,200,0.25);
+    }
+    .intro-word.spring {
+      animation: wordSpring 0.75s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes wordSpring {
+      0%   { opacity: 0; transform: translateY(44px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    :root {
+      --navy: #0d1520;
+      --navy-mid: #131f2e;
+      --teal: #00b4c8;
+      --teal-light: #4dd4e2;
+      --teal-dim: rgba(0,180,200,0.18);
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --white: #ffffff;
+      --glass-bg: rgba(255,255,255,0.055);
+      --glass-border: rgba(0,180,200,0.18);
+      --glass-border-gold: rgba(201,169,110,0.18);
+      --text-muted: rgba(255,255,255,0.52);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5%;
+      backdrop-filter: blur(24px);
+      background: rgba(13,21,32,0.82);
+      border-bottom: 1px solid rgba(0,180,200,0.12);
+      transition: padding 0.3s;
+    }
+    .logo-img {
+      height: 46px; width: auto; object-fit: contain;
+      display: block;
+    }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      padding: 0.6rem 1.6rem;
+      border: 1px solid var(--teal);
+      color: var(--teal); background: transparent;
+      font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); color: var(--navy); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(13,21,32,0.52) 0%, rgba(13,21,32,0.82) 65%, var(--navy) 100%),
+        url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      padding: 0 5%; padding-top: 6rem;
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); border: 1px solid rgba(0,180,200,0.3);
+      padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.8rem;
+      backdrop-filter: blur(10px); background: rgba(0,180,200,0.07);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6.5vw, 6rem);
+      font-weight: 300; line-height: 1.08; max-width: 16ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--teal-light); }
+    .hero p {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 48ch; line-height: 1.75; margin-bottom: 2.8rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.4rem;
+      background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 700;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-outline {
+      padding: 0.9rem 2.4rem;
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 5rem;
+      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 300; color: var(--teal);
+    }
+    .stat-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; margin-top: 0.2rem; }
+
+
+    /* ── MARKET DATA BAR ── */
+    .market-data-bar {
+      display: flex; justify-content: space-around; flex-wrap: wrap;
+      background: rgba(0,180,200,0.04);
+      border-top: 1px solid rgba(0,180,200,0.12);
+      border-bottom: 1px solid rgba(0,180,200,0.12);
+    }
+    .market-data-item {
+      flex: 1; min-width: 130px;
+      padding: 1.1rem 1rem; text-align: center;
+      border-right: 1px solid rgba(0,180,200,0.08);
+    }
+    .market-data-item:last-child { border-right: none; }
+    .market-data-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem; font-weight: 300;
+      color: var(--teal); line-height: 1; margin-bottom: 0.25rem;
+    }
+    .market-data-label {
+      font-size: 0.6rem; color: var(--text-muted);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ── ARTICLE CARDS ── */
+    .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.65rem; }
+    .article-tag {
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--teal); font-weight: 600;
+    }
+    .article-date { font-size: 0.6rem; color: var(--text-muted); }
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; line-height: 1.3;
+      color: var(--white); margin-bottom: 0.65rem;
+    }
+    .article-summary {
+      font-size: 0.77rem; color: var(--text-muted);
+      line-height: 1.65; margin-bottom: 1rem;
+    }
+    .article-link {
+      font-size: 0.7rem; color: var(--teal);
+      letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .article-link:hover { color: var(--teal-light); }
+
+
+    /* ── NEIGHBORHOOD STRIP ── */
+    .neighborhood-strip {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0; background: rgba(0,0,0,0.25);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .neighborhood-item {
+      flex: 1; min-width: 130px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.3rem 1rem;
+      border-right: 1px solid var(--glass-border);
+      transition: background 0.2s; cursor: pointer;
+    }
+    .neighborhood-item:last-child { border-right: none; }
+    .neighborhood-item:hover { background: var(--teal-dim); }
+    .neighborhood-icon { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .neighborhood-name { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; }
+    .neighborhood-count { font-size: 0.68rem; color: var(--teal); margin-top: 0.15rem; }
+
+    /* ── SEARCH BAR ── */
+    .search-bar {
+      margin: 2.5rem 5%; padding: 1.8rem 2rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px; backdrop-filter: blur(20px);
+      display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem; align-items: end;
+    }
+    .search-field label {
+      display: block; font-size: 0.66rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .search-field select, .search-field input {
+      width: 100%; background: transparent;
+      border: none; border-bottom: 1px solid rgba(255,255,255,0.14);
+      color: var(--white); font-size: 0.93rem; padding: 0.4rem 0;
+      outline: none; font-family: 'Inter', sans-serif;
+    }
+    .search-field select option { background: var(--navy-mid); }
+    .search-btn {
+      padding: 0.75rem 2rem;
+      background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .search-btn:hover { background: var(--teal-light); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 5%; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2;
+      margin-bottom: 3.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--teal-light); }
+
+    /* ── FEATURED LISTINGS ── */
+    #listings { background: var(--navy); }
+    .listings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; }
+    .listings-header .section-title { margin-bottom: 0; }
+    .view-all {
+      font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid var(--teal); padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .view-all:hover { opacity: 0.7; }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .property-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; overflow: hidden;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,180,200,0.3);
+      border-color: rgba(0,180,200,0.4);
+    }
+    .card-img { position: relative; height: 210px; overflow: hidden; }
+    .card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .property-card:hover .card-img img { transform: scale(1.05); }
+    .card-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--teal); color: var(--navy);
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 2px;
+    }
+    .card-badge.new { background: #2ecc71; color: #fff; }
+    .card-badge.hot { background: #e67e22; color: #fff; }
+    .tour-btn {
+      position: absolute; bottom: 1rem; right: 1rem;
+      background: rgba(13,21,32,0.85); border: 1px solid rgba(0,180,200,0.3);
+      color: var(--white); font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.42rem 0.85rem;
+      border-radius: 100px; cursor: pointer; backdrop-filter: blur(10px);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tour-btn:hover { background: rgba(0,180,200,0.18); border-color: var(--teal); color: var(--teal); }
+    .tour-btn svg { width: 13px; height: 13px; }
+
+    /* ── FAVORITE BUTTON ── */
+    .fav-btn {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(13,21,32,0.75); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .fav-btn:hover { background: rgba(13,21,32,0.9); border-color: rgba(255,80,100,0.5); color: rgba(255,80,100,0.7); }
+    .fav-btn.saved { background: rgba(255,50,80,0.15); border-color: rgba(255,80,100,0.6); color: #ff5064; }
+    .fav-btn.pop { animation: favPop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes favPop { 0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1); } }
+
+    .card-body { padding: 1.4rem; }
+    .card-location { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem; font-weight: 400; color: var(--white);
+      margin-bottom: 0.1rem;
+    }
+    .card-price span { font-size: 0.9rem; color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 400; }
+    .card-address { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.1rem; }
+    .card-meta {
+      display: flex; gap: 1.2rem;
+      padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .meta-item { font-size: 0.75rem; color: var(--text-muted); }
+    .meta-item strong { display: block; font-size: 0.92rem; color: var(--white); font-weight: 500; }
+
+    /* ── VIRTUAL TOUR ── */
+    #tour {
+      background: linear-gradient(135deg, #0c1828 0%, #131f2e 100%);
+      padding: 6rem 5%;
+    }
+    .tour-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .tour-preview {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: #000; aspect-ratio: 16/10; cursor: pointer;
+    }
+    .tour-preview img { width: 100%; height: 100%; object-fit: cover; opacity: 0.78; }
+    .tour-play {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(13,21,32,0.42);
+      transition: background 0.3s;
+    }
+    .tour-preview:hover .tour-play { background: rgba(13,21,32,0.28); }
+    .play-ring {
+      width: 80px; height: 80px; border-radius: 50%;
+      border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px); background: rgba(0,180,200,0.1);
+      margin-bottom: 1rem; transition: transform 0.3s, background 0.3s;
+    }
+    .tour-preview:hover .play-ring { transform: scale(1.08); background: rgba(0,180,200,0.2); }
+    .play-ring svg { width: 28px; height: 28px; fill: var(--teal); margin-left: 4px; }
+    .tour-label { font-size: 0.76rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,180,200,0.8); }
+
+    .tour-dots { display: flex; gap: 0.6rem; margin-top: 1rem; justify-content: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.2s; }
+    .dot.active { background: var(--teal); }
+
+    .tour-content .section-label { margin-bottom: 0.8rem; }
+    .tour-content .section-title { margin-bottom: 1.2rem; }
+    .tour-content p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; }
+    .tour-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .tour-feature {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.84rem; color: rgba(255,255,255,0.72);
+    }
+    .feature-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: rgba(0,180,200,0.08); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    /* ── AGENTS ── */
+    #agents { background: var(--navy); }
+    .agents-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem;
+    }
+    .agent-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 2rem 1.5rem; text-align: center;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .agent-card:hover { transform: translateY(-5px); border-color: rgba(0,180,200,0.4); }
+    .agent-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      border: 2px solid var(--teal); overflow: hidden; margin: 0 auto 1.2rem;
+    }
+    .agent-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .agent-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem;
+    }
+    .agent-title { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .agent-zone { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .agent-stats { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.3rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .agent-stat { font-size: 0.72rem; color: var(--text-muted); }
+    .agent-stat strong { display: block; font-size: 1rem; color: var(--white); font-weight: 500; }
+    .agent-social { display: flex; justify-content: center; gap: 0.6rem; }
+    .social-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── TRUST BAND ── */
+    #trust {
+      padding: 4rem 5%;
+      background: linear-gradient(90deg, rgba(0,180,200,0.06) 0%, rgba(0,180,200,0.02) 100%);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .trust-inner { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2.5rem; align-items: center; }
+    .trust-item { text-align: center; }
+    .trust-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .trust-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .trust-desc { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--navy-mid); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .testimonial-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 2rem; backdrop-filter: blur(20px);
+    }
+    .stars { color: var(--teal); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .testimonial-text {
+      line-height: 1.75; color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;
+      font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 0.9rem; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 1px solid var(--glass-border); }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-name { font-size: 0.84rem; font-weight: 500; }
+    .author-sub { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── AVAILABLE PROPERTIES ── */
+    #available {
+      background: #0a1520;
+      padding: 5rem 5%;
+    }
+    .avail-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.8rem;
+    }
+    .avail-subhead {
+      font-size: 0.85rem; color: var(--text-muted);
+      max-width: 380px; text-align: right; line-height: 1.6;
+    }
+    .avail-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.8rem;
+    }
+    .avail-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; overflow: hidden;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .avail-card:hover {
+      box-shadow: 0 6px 32px rgba(0,180,200,0.1);
+      border-color: rgba(0,180,200,0.25);
+    }
+    .avail-card-img {
+      position: relative; height: 230px; overflow: hidden; background: #0c1828;
+    }
+    .avail-card-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease, opacity 0.3s;
+    }
+    .avail-card:hover .avail-card-img img { transform: scale(1.03); }
+    .avail-hood-badge {
+      position: absolute; top: 0.85rem; left: 0.85rem;
+      background: var(--teal); color: var(--white);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.65rem; border-radius: 3px;
+      pointer-events: none;
+    }
+    .avail-img-toggle {
+      position: absolute; bottom: 0.75rem; right: 0.75rem;
+      display: flex; gap: 2px; background: rgba(0,0,0,0.55);
+      border-radius: 4px; overflow: hidden; backdrop-filter: blur(6px);
+    }
+    .img-toggle-btn {
+      background: transparent; border: none; color: rgba(255,255,255,0.6);
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.3rem 0.65rem; cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .img-toggle-btn.active { background: var(--teal); color: var(--white); }
+    .avail-card-body { padding: 1.4rem 1.5rem 1.6rem; }
+    .avail-address { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .avail-city { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.9rem; }
+    .avail-details {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.85rem; flex-wrap: wrap;
+    }
+    .avail-detail { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .avail-detail strong { color: var(--white); }
+    .avail-detail-sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); flex-shrink: 0;
+    }
+    .avail-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.2rem; }
+    .avail-actions { display: flex; align-items: center; gap: 1rem; }
+    .avail-cta {
+      background: var(--teal); color: var(--white); border: none;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 0.6rem 1.3rem; border-radius: 4px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .avail-cta:hover { background: var(--teal-light); }
+    .avail-map-link {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .avail-map-link:hover { color: var(--teal); }
+    @media (max-width: 800px) {
+      .avail-grid { grid-template-columns: 1fr; }
+      .avail-subhead { text-align: left; }
+      .avail-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── MARKET TICKER ── */
+    #market-ticker {
+      background: #0a1520;
+      border-bottom: 1px solid rgba(0,180,200,0.18);
+      padding: 1rem 5%;
+    }
+    .ticker-label {
+      font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--teal); margin-bottom: 0.75rem; font-weight: 600;
+    }
+    .ticker-stats {
+      display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+    }
+    .ticker-stat { display: flex; flex-direction: column; gap: 0.15rem; padding: 0 1.5rem 0 0; }
+    .ticker-stat:first-child { padding-left: 0; }
+    .ticker-val { font-size: 1.25rem; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+    .ticker-key { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+    .ticker-divider { width: 1px; height: 2.2rem; background: rgba(255,255,255,0.1); margin: 0 1.5rem 0 0; flex-shrink: 0; }
+
+    /* ── FEATURED REPORT CARD ── */
+    .featured-report {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: 10px; overflow: hidden;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 3rem;
+      transition: box-shadow 0.3s;
+    }
+    .featured-report:hover { box-shadow: 0 8px 40px rgba(0,180,200,0.12); }
+    .featured-report-img { position: relative; min-height: 340px; overflow: hidden; }
+    .featured-report-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .featured-report:hover .featured-report-img img { transform: scale(1.04); }
+    .featured-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--teal); color: var(--white);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 3px;
+    }
+    .featured-report-body {
+      padding: 2.5rem 2.5rem 2rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .featured-report-title {
+      font-size: 1.45rem; font-weight: 800; color: var(--white);
+      line-height: 1.3; margin: 0.6rem 0 1rem; letter-spacing: -0.02em;
+    }
+    .featured-report-summary {
+      font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem;
+    }
+    .featured-report-byline { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: rgba(255,255,255,0.45); }
+    .byline-dot { color: rgba(255,255,255,0.25); }
+
+    /* ── ARTICLE BYLINE & READ TIME ── */
+    .article-byline { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-bottom: 0.6rem; margin-top: -0.3rem; }
+    .article-read-time {
+      font-size: 0.6rem; color: rgba(255,255,255,0.35);
+      border-left: 1px solid rgba(255,255,255,0.15); padding-left: 0.6rem;
+    }
+
+    /* ── FROM THE DESK ── */
+    #from-the-desk {
+      background: linear-gradient(180deg, #0a1825 0%, #0c1d2e 100%);
+      padding: 5rem 5% 4rem;
+    }
+    .desk-header { margin-bottom: 2.5rem; }
+    .desk-intro { font-size: 0.9rem; color: var(--text-muted); max-width: 560px; margin-top: 0.75rem; }
+    .desk-carousel { position: relative; overflow: hidden; }
+    .desk-card { display: none; }
+    .desk-card.active { display: block; }
+    .desk-card-inner {
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 0; border-radius: 10px; overflow: hidden;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .desk-card-text { padding: 2.8rem 3rem 2.8rem 2.8rem; display: flex; flex-direction: column; justify-content: center; }
+    .desk-card-title {
+      font-size: 1.3rem; font-weight: 800; color: var(--white);
+      line-height: 1.35; margin: 0.5rem 0 1.1rem; letter-spacing: -0.02em;
+    }
+    .desk-card-excerpt { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.8rem; }
+    .desk-card-byline { display: flex; align-items: center; gap: 0.85rem; }
+    .desk-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--teal); display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--white); flex-shrink: 0;
+    }
+    .desk-author { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+    .desk-role { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+    .desk-card-img { overflow: hidden; min-height: 380px; }
+    .desk-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .desk-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.2rem; margin-top: 1.8rem;
+    }
+    .desk-prev, .desk-next {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white); width: 40px; height: 40px; border-radius: 50%;
+      font-size: 1rem; cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .desk-prev:hover, .desk-next:hover { background: var(--teal); border-color: var(--teal); }
+    .desk-dots { display: flex; gap: 0.5rem; align-items: center; }
+    .desk-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .desk-dot.active { background: var(--teal); transform: scale(1.3); }
+    .desk-source-link {
+      display: inline-block; margin-top: 1.2rem;
+      font-size: 0.75rem; color: var(--teal); text-decoration: none;
+      font-weight: 600; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .desk-source-link:hover { color: var(--teal-light); }
+    @media (max-width: 860px) {
+      .featured-report { grid-template-columns: 1fr; }
+      .featured-report-img { min-height: 220px; }
+      .desk-card-inner { grid-template-columns: 1fr; }
+      .desk-card-img { min-height: 200px; }
+      .desk-card-text { padding: 1.8rem; }
+      .ticker-stats { gap: 0; }
+    }
+
+    /* ── SITE CTA BANNER ── */
+    #site-cta {
+      background: linear-gradient(90deg, #003d5c 0%, #005c82 100%);
+      border-top: 2px solid var(--teal);
+      border-bottom: 2px solid rgba(0,180,200,0.3);
+      padding: 2.4rem 5%;
+    }
+    .site-cta-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .site-cta-text { display: flex; flex-direction: column; gap: 0.35rem; }
+    .site-cta-label {
+      font-size: 1.35rem; font-weight: 700; color: var(--white);
+      letter-spacing: -0.01em;
+    }
+    .site-cta-sub {
+      font-size: 0.9rem; color: rgba(255,255,255,0.65);
+    }
+    .site-cta-btn {
+      display: inline-block;
+      background: var(--teal); color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .site-cta-btn:hover { background: var(--teal-light); transform: translateY(-1px); }
+    @media (max-width: 640px) {
+      .site-cta-inner { flex-direction: column; align-items: flex-start; }
+      .site-cta-btn { width: 100%; text-align: center; }
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: linear-gradient(135deg, #0c1828 0%, var(--navy) 100%); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; margin-bottom: 1.2rem; line-height: 1.2;
+    }
+    .contact-info h2 em { font-style: italic; color: var(--teal-light); }
+    .contact-info p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; }
+    .detail-icon {
+      width: 42px; height: 42px; border-radius: 8px;
+      background: rgba(0,180,200,0.08); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .detail-label { font-size: 0.66rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; }
+    .detail-value { font-size: 0.9rem; color: var(--white); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label {
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: var(--white); padding: 0.85rem 1rem; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s; resize: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); }
+    .form-group select option { background: var(--navy-mid); }
+    .form-submit {
+      padding: 1rem 2.5rem; background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer; border-radius: 2px; margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.2s; align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080e18;
+      padding: 3rem 5% 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .footer-logo { height: 38px; width: auto; object-fit: contain; }
+    .footer-tagline { font-size: 0.76rem; color: var(--text-muted); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-copy { font-size: 0.7rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(6,10,20,0.92); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      width: 90%; max-width: 860px;
+      background: var(--navy-mid); border: 1px solid var(--glass-border);
+      border-radius: 10px; overflow: hidden;
+      transform: scale(0.95); transition: transform 0.3s;
+    }
+    .modal-overlay.active .modal { transform: scale(1); }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.6rem; border-bottom: 1px solid var(--glass-border);
+    }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+    .modal-close {
+      background: transparent; border: none; color: var(--text-muted);
+      font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-body { aspect-ratio: 16/9; background: #000; position: relative; }
+    .modal-body img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+    .modal-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+    }
+    .modal-placeholder span { font-size: 3rem; }
+    .modal-placeholder p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ── NAV LOGO GLOW PULSE ── */
+    @keyframes logoPulse {
+      0%   { filter: none; }
+      40%  { filter: drop-shadow(0 0 12px rgba(0,180,200,0.85)); }
+      100% { filter: none; }
+    }
+    .logo-img.glow-pulse { animation: logoPulse 1.8s ease forwards; }
+
+    /* ── HERO CONTENT STAGGER REVEAL ── */
+    .hero-animate {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    .hero-animate.hero-visible {
+      animation: heroReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes heroReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── FEATURED PROPERTY NEWS SIDEBAR ── */
+    .featured-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .featured-news-label {
+      font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 1.2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .news-card {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .news-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .news-category {
+      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.35rem;
+    }
+    .news-title {
+      font-size: 0.84rem; font-weight: 500; line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+    .news-title a {
+      color: var(--white); text-decoration: none;
+      transition: color 0.2s;
+      display: inline;
+    }
+    .news-title a::after {
+      content: ' ↗';
+      font-size: 0.7em;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .news-title a:hover { color: var(--teal-light); }
+    .news-title a:hover::after { opacity: 0.8; }
+    .news-summary {
+      font-size: 0.72rem; color: var(--text-muted);
+      line-height: 1.65; margin-bottom: 0.4rem;
+    }
+    .news-source { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+    @media (max-width: 1100px) { .featured-layout { grid-template-columns: 1fr; } }
+
+    /* ── CARD SHIMMER ── */
+    .property-card { position: relative; }
+    .property-card::before {
+      content: '';
+      position: absolute; top: 0; left: -80%;
+      width: 60%; height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.055) 50%,
+        transparent 100%
+      );
+      transform: skewX(-15deg);
+      transition: left 0.65s ease;
+      pointer-events: none; z-index: 1;
+    }
+    .property-card:hover::before { left: 140%; }
+
+    /* ── TYPING CURSOR ── */
+    .hero-cursor {
+      display: inline-block;
+      width: 2px; height: 0.8em;
+      background: var(--teal-light);
+      vertical-align: text-bottom;
+      margin-left: 3px;
+      animation: cursorBlink 0.65s step-end infinite;
+    }
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── FEATURED PROPERTY ── */
+    #featured-property {
+      background: linear-gradient(160deg, #080e18 0%, #0d1520 60%, #0a1218 100%);
+      padding: 6rem 5%; position: relative;
+      border-bottom: 1px solid rgba(201,169,110,0.18);
+    }
+    #featured-property::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,169,110,0.05) 0%, transparent 70%);
+    }
+    .featured-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(201,169,110,0.05));
+      border: 1px solid rgba(201,169,110,0.4);
+      color: var(--gold); font-size: 0.68rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 0.4rem 1.1rem; border-radius: 100px; margin-bottom: 1.8rem;
+    }
+    .featured-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .featured-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15;
+    }
+    .featured-title em { font-style: italic; color: var(--gold-light); }
+    .featured-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; letter-spacing: 0.05em; }
+    .featured-price-block { text-align: right; }
+    .featured-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 300; color: var(--gold-light); line-height: 1;
+    }
+    .featured-price-label { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+    .featured-images {
+      display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.2rem; margin-bottom: 1.8rem;
+    }
+    .featured-img-wrap {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.2);
+    }
+    .featured-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block; min-height: 360px;
+      transition: transform 0.5s ease;
+    }
+    .featured-img-wrap:hover img { transform: scale(1.03); }
+    .featured-img-label {
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75); background: rgba(6,10,20,0.78);
+      border: 1px solid rgba(201,169,110,0.2); padding: 0.3rem 0.8rem;
+      border-radius: 100px; backdrop-filter: blur(8px);
+    }
+    .featured-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.4rem;
+    }
+    .featured-stat {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.14);
+      border-radius: 8px; padding: 1.3rem 1.5rem; backdrop-filter: blur(10px);
+    }
+    .featured-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300; color: var(--gold-light); margin-bottom: 0.2rem;
+    }
+    .featured-stat-label { font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .featured-locations {
+      display: flex; flex-wrap: wrap; gap: 0;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; margin-bottom: 2.5rem; overflow: hidden;
+    }
+    .featured-loc-item {
+      flex: 1; min-width: 180px; padding: 1.1rem 1.6rem;
+      display: flex; align-items: center; gap: 0.8rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.8rem; color: rgba(255,255,255,0.55);
+    }
+    .featured-loc-item:last-child { border-right: none; }
+    .featured-loc-item strong { display: block; color: var(--white); font-size: 0.88rem; margin-bottom: 0.1rem; }
+    .featured-loc-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .featured-loc-icon img { height: 30px; width: auto; object-fit: contain; }
+    .featured-loc-logos { display: flex; align-items: center; gap: 0.7rem; flex-shrink: 0; }
+    .featured-loc-logos img { height: 22px; width: auto; object-fit: contain; }
+    .btn-featured {
+      padding: 1rem 2.8rem;
+      background: linear-gradient(135deg, var(--gold), #b8964a);
+      color: #0a1218; border: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border-radius: 2px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-featured:hover { opacity: 0.88; transform: translateY(-1px); }
+    .featured-cta { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
+    .featured-cta-note { font-size: 0.72rem; color: var(--text-muted); }
+    @media (max-width: 900px) {
+      .featured-images { grid-template-columns: 1fr; }
+      .featured-stats { grid-template-columns: 1fr 1fr; }
+      .featured-header { flex-direction: column; }
+      .featured-price-block { text-align: left; }
+    }
+
+    /* Places autocomplete dropdown */
+    .pac-container {
+      background: #131f2e;
+      border: 1px solid rgba(0,180,200,0.25);
+      border-radius: 6px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      font-family: 'Inter', sans-serif;
+      margin-top: 4px;
+    }
+    .pac-item {
+      color: rgba(255,255,255,0.65);
+      border-top: 1px solid rgba(0,180,200,0.08);
+      padding: 0.55rem 1rem; cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .pac-item:hover { background: rgba(0,180,200,0.08); }
+    .pac-item-query { color: #fff; font-size: 0.88rem; }
+    .pac-matched { color: var(--teal); font-weight: 600; }
+    .pac-icon { display: none; }
+
+    /* ── CUSTOM SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--teal-light); }
+
+    /* ── FLOATING LABELS ── */
+    .float-label { position: relative; }
+    .float-label label {
+      position: absolute !important;
+      left: 1rem; top: 0.88rem;
+      font-size: 0.9rem; font-weight: 400;
+      color: var(--text-muted) !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+      margin-bottom: 0 !important;
+      transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease, letter-spacing 0.2s ease;
+      pointer-events: none;
+    }
+    .float-label input,
+    .float-label textarea,
+    .float-label select {
+      padding-top: 1.35rem !important;
+      padding-bottom: 0.45rem !important;
+    }
+    .float-label input:focus ~ label,
+    .float-label input:not(:placeholder-shown) ~ label,
+    .float-label textarea:focus ~ label,
+    .float-label textarea:not(:placeholder-shown) ~ label,
+    .float-label select:focus ~ label,
+    .float-label.has-value label {
+      top: 0.28rem;
+      font-size: 0.6rem;
+      color: var(--teal) !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .tour-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .search-bar { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      .hero-stats { gap: 1.8rem; flex-wrap: wrap; }
+      .listings-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .neighborhood-strip { overflow-x: auto; flex-wrap: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- INTRO ANIMATION -->
+<div id="intro">
+  <div class="intro-light"></div>
+  <div class="intro-floor"></div>
+  <div id="intro-title">
+    <img class="intro-logo-title" src="logo2.png" alt="Centennial Advisers" />
+    <span class="intro-word">Centennial</span>
+    <span class="intro-word">Advisers</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <img class="logo-img" src="logo2.png" alt="Centennial Advisers" />
+  <ul class="nav-links">
+    <li><a href="#listings">Insights</a></li>
+    <li><a href="#agents">Advisors</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">✦ South LA&rsquo;s Premier Multifamily Investment Advisers</div>
+  <h1>Invest in South LA&rsquo;s <em>Multifamily</em> Market</h1>
+  <p>Centennial Advisers helps property owners and investors acquire income-producing multifamily buildings across Inglewood, Torrance, Carson, and the surrounding South LA submarkets.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('listings').scrollIntoView({behavior:'smooth'})">View Insights</button>
+    <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser</button>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num" data-count="4862" data-suffix="">4,862</div>
+      <div class="stat-label">Transactions</div>
+    </div>
+    <div>
+      <div class="stat-num" data-count="1114" data-suffix="">1,114</div>
+      <div class="stat-label">1031 Exchanges</div>
+    </div>
+    <div>
+      <div class="stat-num" data-count="15" data-suffix="">15</div>
+      <div class="stat-label">Years in South LA</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- NEIGHBORHOOD STRIP -->
+<div class="neighborhood-strip">
+  <div class="neighborhood-item"><div class="neighborhood-icon">🏟️</div><div class="neighborhood-name">Inglewood</div><div class="neighborhood-count">14 opportunities</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🌊</div><div class="neighborhood-name">Torrance</div><div class="neighborhood-count">11 opportunities</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🏡</div><div class="neighborhood-name">Carson</div><div class="neighborhood-count">9 opportunities</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">✈️</div><div class="neighborhood-name">Hawthorne</div><div class="neighborhood-count">7 opportunities</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🌿</div><div class="neighborhood-name">Gardena</div><div class="neighborhood-count">8 opportunities</div></div>
+  <div class="neighborhood-item"><div class="neighborhood-icon">🏙️</div><div class="neighborhood-name">Compton</div><div class="neighborhood-count">6 opportunities</div></div>
+</div>
+
+
+<!-- MARKET DATA BAR -->
+<div class="market-data-bar">
+  <div class="market-data-item">
+    <div class="market-data-num">5.2%</div>
+    <div class="market-data-label">Avg Cap Rate &middot; South LA</div>
+  </div>
+  <div class="market-data-item">
+    <div class="market-data-num">$385K</div>
+    <div class="market-data-label">Avg Price Per Unit</div>
+  </div>
+  <div class="market-data-item">
+    <div class="market-data-num">4.1%</div>
+    <div class="market-data-label">Q2 Vacancy Rate</div>
+  </div>
+  <div class="market-data-item">
+    <div class="market-data-num">+18%</div>
+    <div class="market-data-label">YOY Transaction Volume</div>
+  </div>
+  <div class="market-data-item">
+    <div class="market-data-num">55+</div>
+    <div class="market-data-label">Active Opportunities</div>
+  </div>
+</div>
+
+
+
+<!-- FEATURED PROPERTY -->
+<section id="featured-property" class="reveal">
+
+  <div class="featured-badge">★ &nbsp;Featured Market Insight</div>
+
+  <div class="featured-layout">
+    <div class="featured-main">
+  <div class="featured-header">
+    <div>
+      <h2 class="featured-title">Inglewood&rsquo;s Market Street Corridor<br><em>The Case for Multifamily Investment</em></h2>
+      <div class="featured-subtitle">Submarket Analysis &nbsp;&middot;&nbsp; Inglewood, CA</div>
+    </div>
+
+  </div>
+
+  <div class="featured-images">
+    <div class="featured-img-wrap">
+      <img
+        src="https://maps.googleapis.com/maps/api/staticmap?center=720+N+Market+St,+Inglewood,+CA+90301&zoom=18&size=1200x640&scale=2&maptype=satellite&markers=color:0xc9a96e|size:mid|720+N+Market+St,+Inglewood,+CA+90301&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0"
+        alt="Aerial view of 720 N Market St, Inglewood"
+      />
+      <div class="featured-img-label">Satellite Aerial View</div>
+    </div>
+    <div class="featured-img-wrap">
+      <img
+        src="https://maps.googleapis.com/maps/api/streetview?size=800x640&scale=2&location=720+N+Market+St,+Inglewood,+CA+90301&fov=90&pitch=10&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0"
+        alt="Street view of 720 N Market St, Inglewood"
+        onerror="this.parentElement.style.display='none'"
+      />
+      <div class="featured-img-label">Street View</div>
+    </div>
+  </div>
+
+
+
+  <div class="featured-locations">
+    <div class="featured-loc-item">
+      <div class="featured-loc-icon">✈️</div>
+      <div><strong>4 mi &nbsp;·&nbsp; 10 min</strong>to LAX Airport</div>
+    </div>
+    <div class="featured-loc-item">
+      <div class="featured-loc-icon">🏟️</div>
+      <div><strong>2 mi &nbsp;·&nbsp; 7 min</strong>to SoFi Stadium</div>
+    </div>
+    <div class="featured-loc-item">
+      <div class="featured-loc-icon">🏢</div>
+      <div><strong>6 mi &nbsp;·&nbsp; 20 min</strong>to Google, Amazon &amp; SpaceX</div>
+    </div>
+  </div>
+
+  <div class="featured-cta">
+    <button class="btn-featured" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser &rarr;</button>
+    <div class="featured-cta-note">Our advisers will personally follow up within 24 hours</div>
+  </div>
+    </div><!-- /featured-main -->
+
+    <div class="featured-news">
+      <div class="featured-news-label">Market Context</div>
+
+      <div class="news-card">
+        <div class="news-category">Transit</div>
+        <div class="news-title"><a href="https://www.laconservancy.org/save-places/issues/inglewood-transit-connector-project/" target="_blank" rel="noopener">Inglewood Transit Connector Rephased for 2028 Olympics</a></div>
+        <div class="news-summary">The elevated people mover was paused in April 2025 due to funding gaps. The city is now focused on mobility hubs, bus &amp; bike lanes, and Market Street improvements. 720 N. Market sits within walking distance of the planned Downtown Inglewood K Line station.</div>
+        <div class="news-source">laconservancy.org</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-category">Development</div>
+        <div class="news-title"><a href="https://2urbangirls.com/2026/03/inside-the-city-will-shuttered-inglewood-school-become-housing/" target="_blank" rel="noopener">Shuttered Inglewood School May Become Affordable Housing</a></div>
+        <div class="news-summary">A vacant school at 150 N. Market Street &mdash; just blocks away &mdash; is slated for an affordable housing project by Thomas Safran &amp; Associates, reflecting investment pressure building along the Market Street corridor.</div>
+        <div class="news-source">2urbangirls.com</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-category">Olympics</div>
+        <div class="news-title"><a href="https://thelalocal.org/neighborhoods/inglewood/inglewood-eminent-domain-olympics-transit-connector/" target="_blank" rel="noopener">Businesses Displaced Near Inglewood for Olympic Transit Build-Out</a></div>
+        <div class="news-summary">Properties near Inglewood are being acquired via eminent domain as the city prepares for the 2028 Olympics, with sites cleared for new metro stations and transit infrastructure serving the Olympic corridor.</div>
+        <div class="news-source">thelalocal.org</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-category">Policy</div>
+        <div class="news-title"><a href="https://rentcheckme.com/articles/rent-control-in-inglewood" target="_blank" rel="noopener">Rent Control in Inglewood: What Investors Need to Know</a></div>
+        <div class="news-summary">Inglewood caps rent increases at 3% annually for buildings with 5+ units. Landlords cannot evict without legal cause and must pay relocation costs for no-fault evictions. Rents are stable &mdash; but annual growth is structurally capped.</div>
+        <div class="news-source">rentcheckme.com</div>
+      </div>
+
+    </div><!-- /featured-news -->
+  </div><!-- /featured-layout -->
+
+</section>
+
+<!-- AVAILABLE PROPERTIES -->
+<section id="available">
+  <div class="avail-header">
+    <div>
+      <div class="section-label">Currently Available</div>
+      <h2 class="section-title">Properties for Sale <em>Across South LA</em></h2>
+    </div>
+    <p class="avail-subhead">Entire buildings available for acquisition. Contact our team for full offering packages and current pricing.</p>
+  </div>
+  <div class="avail-grid">
+    <div class="avail-card fade-up" style="transition-delay:0.0s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=834%20E%20Hyde%20Park%20Blvd%2C%20Inglewood%2C%20CA%2090302&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=834%20E%20Hyde%20Park%20Blvd%2C%20Inglewood%2C%20CA%2090302&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|834%20E%20Hyde%20Park%20Blvd%2C%20Inglewood%2C%20CA%2090302&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=834%20E%20Hyde%20Park%20Blvd%2C%20Inglewood%2C%20CA%2090302&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="834 E Hyde Park Blvd" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=834%20E%20Hyde%20Park%20Blvd%2C%20Inglewood%2C%20CA%2090302&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|834%20E%20Hyde%20Park%20Blvd%2C%20Inglewood%2C%20CA%2090302&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Inglewood</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">834 E Hyde Park Blvd</div>
+        <div class="avail-city">Inglewood, CA 90302</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>12</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail">Built <strong>1963</strong></span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">12-unit apartment building one mile from SoFi Stadium. Walking distance to the Metro K Line and the planned Florence/West transit hub.</p>
+        <div class="avail-actions">
+          <button class="avail-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Details &rarr;</button>
+          <a href="https://www.google.com/maps/search/?api=1&query=834+E+Hyde+Park+Blvd,+Inglewood,+CA+90302" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card fade-up" style="transition-delay:0.1s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=4209%20W%20El%20Segundo%20Blvd%2C%20Hawthorne%2C%20CA%2090250&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=4209%20W%20El%20Segundo%20Blvd%2C%20Hawthorne%2C%20CA%2090250&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|4209%20W%20El%20Segundo%20Blvd%2C%20Hawthorne%2C%20CA%2090250&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=4209%20W%20El%20Segundo%20Blvd%2C%20Hawthorne%2C%20CA%2090250&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="4209 W El Segundo Blvd" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=4209%20W%20El%20Segundo%20Blvd%2C%20Hawthorne%2C%20CA%2090250&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|4209%20W%20El%20Segundo%20Blvd%2C%20Hawthorne%2C%20CA%2090250&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Hawthorne</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">4209 W El Segundo Blvd</div>
+        <div class="avail-city">Hawthorne, CA 90250</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>8</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail">Built <strong>1968</strong></span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">8-unit building in the LAX corridor. Strong occupancy driven by airport and tech-adjacent employment demand along the El Segundo Blvd strip.</p>
+        <div class="avail-actions">
+          <button class="avail-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Details &rarr;</button>
+          <a href="https://www.google.com/maps/search/?api=1&query=4209+W+El+Segundo+Blvd,+Hawthorne,+CA+90250" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card fade-up" style="transition-delay:0.2s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=3615%20Emerald%20St%2C%20Torrance%2C%20CA%2090503&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=3615%20Emerald%20St%2C%20Torrance%2C%20CA%2090503&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|3615%20Emerald%20St%2C%20Torrance%2C%20CA%2090503&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=3615%20Emerald%20St%2C%20Torrance%2C%20CA%2090503&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="3615 Emerald St" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=3615%20Emerald%20St%2C%20Torrance%2C%20CA%2090503&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|3615%20Emerald%20St%2C%20Torrance%2C%20CA%2090503&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Torrance</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">3615 Emerald St</div>
+        <div class="avail-city">Torrance, CA 90503</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>10</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail">Built <strong>1971</strong></span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">10-unit building in central Torrance. Low vacancy submarket with stable tenant base and rents running below South Bay coastal comps.</p>
+        <div class="avail-actions">
+          <button class="avail-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Details &rarr;</button>
+          <a href="https://www.google.com/maps/search/?api=1&query=3615+Emerald+St,+Torrance,+CA+90503" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card fade-up" style="transition-delay:0.3s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=1540%20W%20135th%20St%2C%20Gardena%2C%20CA%2090249&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=1540%20W%20135th%20St%2C%20Gardena%2C%20CA%2090249&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|1540%20W%20135th%20St%2C%20Gardena%2C%20CA%2090249&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=1540%20W%20135th%20St%2C%20Gardena%2C%20CA%2090249&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="1540 W 135th St" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=1540%20W%20135th%20St%2C%20Gardena%2C%20CA%2090249&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|1540%20W%20135th%20St%2C%20Gardena%2C%20CA%2090249&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Gardena</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">1540 W 135th St</div>
+        <div class="avail-city">Gardena, CA 90249</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>6</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail">Built <strong>1965</strong></span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">6-unit building in Gardena. Consistent rent collections and below-market in-place rents offer upside for a new owner willing to renovate.</p>
+        <div class="avail-actions">
+          <button class="avail-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Details &rarr;</button>
+          <a href="https://www.google.com/maps/search/?api=1&query=1540+W+135th+St,+Gardena,+CA+90249" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET DATA TICKER -->
+<div id="market-ticker">
+  <div class="ticker-label">South LA Market Pulse &mdash; Q2 2026</div>
+  <div class="ticker-stats">
+    <div class="ticker-stat">
+      <span class="ticker-val">4.8%</span>
+      <span class="ticker-key">Avg Cap Rate</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-stat">
+      <span class="ticker-val">96.2%</span>
+      <span class="ticker-key">Avg Occupancy</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-stat">
+      <span class="ticker-val">$312K</span>
+      <span class="ticker-key">Median Price / Unit</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-stat">
+      <span class="ticker-val">+6.1%</span>
+      <span class="ticker-key">YoY Rent Growth</span>
+    </div>
+    <div class="ticker-divider"></div>
+    <div class="ticker-stat">
+      <span class="ticker-val">38</span>
+      <span class="ticker-key">Days on Market (Avg)</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED LISTINGS -->
+<section id="listings">
+  <div class="listings-header">
+    <div>
+      <div class="section-label">Market Intelligence</div>
+      <h2 class="section-title">Recent Reports <em>&amp; Insights</em></h2>
+    </div>
+    <a href="#" class="view-all">View All Reports &rarr;</a>
+  </div>
+
+  <!-- FEATURED HERO CARD -->
+  <div class="featured-report fade-up">
+    <div class="featured-report-img">
+      <img src="https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?w=900&q=80" alt="Inglewood aerial view with Olympic stadium construction" />
+      <span class="featured-badge">Featured Report</span>
+    </div>
+    <div class="featured-report-body">
+      <div class="article-meta">
+        <span class="article-tag">Market Report</span>
+        <span class="article-date">June 2026</span>
+        <span class="article-read-time">6 min read</span>
+      </div>
+      <h3 class="featured-report-title">Inglewood Multifamily: Q2 2026 Market Overview</h3>
+      <p class="featured-report-summary">Cap rates in Inglewood&rsquo;s core submarket have compressed as Olympic infrastructure spending pulls in institutional buyers. SoFi Stadium is fully operational, the 2028 Games are two years out, and transaction volume is up. Here&rsquo;s what the numbers are showing across the submarket right now.</p>
+      <div class="featured-report-byline">
+        <span class="byline-name">Centennial Advisers Research Team</span>
+      </div>
+      <a href="#contact" class="article-link" style="margin-top:1.2rem;display:inline-block;">Read Full Report &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ARTICLE GRID -->
+  <div class="property-grid">
+
+    <div class="property-card fade-up" style="transition-delay:0.0s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=600&q=80" alt="South Bay beachfront apartments Torrance" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Submarket Analysis</span>
+          <span class="article-date">May 2026</span>
+          <span class="article-read-time">5 min read</span>
+        </div>
+        <div class="article-title">Torrance &amp; South Bay: Value-Add Plays in a Stabilizing Market</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">Torrance has held steady with low vacancy and rents running below what the South Bay&rsquo;s coastal submarkets command. There&rsquo;s real upside for operators willing to put in the work.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.1s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80" alt="City hall gavel rent control legislation" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Policy Brief</span>
+          <span class="article-date">May 2026</span>
+          <span class="article-read-time">4 min read</span>
+        </div>
+        <div class="article-title">How Rent Control Is Reshaping South LA Valuations</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">New rent stabilization measures across Inglewood and Gardena are changing underwriting assumptions. What investors need to factor in before buying.</div>
+        <a href="https://rentcheckme.com/articles/rent-control-in-inglewood" target="_blank" rel="noopener" class="article-link">Read Article &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.2s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="LAX airport aerial view with planes" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Investment Thesis</span>
+          <span class="article-date">April 2026</span>
+          <span class="article-read-time">5 min read</span>
+        </div>
+        <div class="article-title">The LAX Corridor: Why Airport-Adjacent Assets Are Outperforming</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">Properties near LAX in Hawthorne and Lawndale are running above-average occupancy and seeing stronger rent growth than most of South LA right now.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.05s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Tax documents and exchange paperwork on desk" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Transaction Insight</span>
+          <span class="article-date">April 2026</span>
+          <span class="article-read-time">4 min read</span>
+        </div>
+        <div class="article-title">1031 Exchange Activity Surges Across South Los Angeles</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">Investors rolling out of Orange County and the San Fernando Valley are landing in South LA for their 1031s, and transaction volume is up year over year to prove it.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.15s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Construction site new apartment building frame" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Strategy</span>
+          <span class="article-date">March 2026</span>
+          <span class="article-read-time">6 min read</span>
+        </div>
+        <div class="article-title">New Construction vs. Value-Add: Which Strategy Wins in South LA?</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">With construction costs elevated and entitlement timelines long, experienced operators are finding better risk-adjusted returns in well-located value-add assets.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" style="transition-delay:0.25s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=600&q=80" alt="Multifamily apartment exterior South LA neighborhood" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Market Report</span>
+          <span class="article-date">March 2026</span>
+          <span class="article-read-time">5 min read</span>
+        </div>
+        <div class="article-title">Gardena &amp; Carson: The Quiet Outperformers of 2025</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">While Inglewood grabbed headlines, Gardena and Carson quietly posted some of South LA&rsquo;s strongest rent-to-price ratios and lowest vacancy rates of the year.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FROM THE DESK -->
+<section id="from-the-desk">
+  <div class="desk-header">
+    <div class="section-label">Analyst Perspective</div>
+    <h2 class="section-title">From the Desk <em>of Our Interns</em></h2>
+    <p class="desk-intro">Research and field notes from our intern team.</p>
+  </div>
+
+  <div class="desk-carousel">
+    <div class="desk-card active" id="desk-card-0">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Investment Analysis</span>
+            <span class="article-date">June 2026</span>
+            <span class="article-read-time">5 min read</span>
+          </div>
+          <h3 class="desk-card-title">Inglewood Just Used Eminent Domain to Build a Transit Hub &mdash; Here&rsquo;s What It Means for Investors</h3>
+          <p class="desk-card-excerpt">Inglewood just voted to seize an entire city block on Market Street, and it is one of the biggest signs yet that this neighborhood is changing fast. The City Council voted 4-0 to force the sale of eight properties at Market Street and Florence Avenue to build a brand new transit hub connecting the Metro K Line directly to SoFi Stadium, Kia Forum, and Intuit Dome. The city has set aside $125 million to make it happen, with completion targeted before the 2028 Olympics. Here is the part that matters for investors. The demolition is happening at the south end of Market Street. 720 N. Market sits north of it, meaning this property gets the benefit of a transit hub being built down the block without any of the disruption. When a Metro-connected hub opens on your street ahead of the FIFA World Cup, Super Bowl LXI, and the 2028 Olympics, rents do not stay where they are. 720 N. Market Street is a fully renovated 16-unit building with $750,000 already invested in capital improvements, including solar panels, a new roof, copper repipe, and fully remodeled units. Strong in-place cash flow, a transit hub being built at the end of the block, and a global event calendar driving demand for the next three years. This is what buying before the market fully reprices looks like.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">JL</div>
+            <div>
+              <div class="desk-author">James Lai</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+          <a href="https://thelalocal.org/neighborhoods/inglewood/inglewood-eminent-domain-olympics-transit-connector/" target="_blank" rel="noopener" class="desk-source-link">Read Source Article &rarr;</a>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80" alt="Metro transit station bus terminal urban infrastructure" />
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-card" id="desk-card-1">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Development</span>
+            <span class="article-date">April 2026</span>
+            <span class="article-read-time">5 min read</span>
+          </div>
+          <h3 class="desk-card-title">Market Street Is Getting an $8.5M Facelift Before the Olympics</h3>
+          <p class="desk-card-excerpt">Inglewood&rsquo;s historic Market Street is getting a major makeover. The City Council voted unanimously to distribute $8.5 million in state grant money to businesses along the corridor running south from Florence Avenue, with grants of up to $250,000 going to nearly 36 restaurants and retailers for full interior and exterior renovations. The city is targeting completion before the 2028 Olympic Games, and the work is already underway right outside the doors of 720 N. Market Street. For years, Market Street sat largely dormant while the rest of Inglewood boomed around SoFi Stadium and Intuit Dome. That is now changing fast. Mayor James T. Butts has set his sights on turning the corridor into a destination rivaling Old Town Pasadena, and $8.5 million in public funding is what is backing that vision. For apartment owners, this is the part that matters most: when a city invests millions into beautifying the exact street your building sits on, your property value rises without you spending a dollar. Stronger foot traffic means stronger tenant demand, lower vacancy, and more leverage to raise rents at renewal. Inglewood is also set to host the FIFA World Cup this summer, Super Bowl LXI in 2027, and the 2028 Olympics. Each event brings global attention and outside investors competing for a limited pool of quality properties. Buying now means buying before this market fully reprices.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">SR</div>
+            <div>
+              <div class="desk-author">Sofia Reyes</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+          <a href="https://archive.is/20260413105710/https://laist.com/news/inglewoods-historic-market-street-has-been-a-ghost-town-now-its-getting-an-8-5m-facelift" target="_blank" rel="noopener" class="desk-source-link">Read Source Article &rarr;</a>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80" alt="Urban street corridor revitalization commercial district" />
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-card" id="desk-card-2">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Policy</span>
+            <span class="article-date">June 2026</span>
+            <span class="article-read-time">4 min read</span>
+          </div>
+          <h3 class="desk-card-title">South Bay Housing Trust Approves $6M Loan for Affordable Housing in Hawthorne</h3>
+          <p class="desk-card-excerpt">The South Bay Housing Trust just approved a $6 million loan to fund a 93-unit affordable housing development in Hawthorne. As rents across the South Bay continue to rise, local organizations are making serious moves to ensure lower-income families still have access to stable housing in the communities they call home. This directly affects you. Whether you are renting, owning, or investing, the availability of affordable housing shapes property values, neighborhood stability, and the overall direction of the local market. More housing options mean a more balanced market, and that benefits everyone involved. Large-scale funding like this is also a signal worth paying attention to. When governments and housing trusts start backing major affordable developments, it reflects real shifts happening in the market. Those shifts create real opportunities for buyers and investors who pay attention. Staying ahead of what is happening in the South Bay is what we do at Centennial Advisers &mdash; we track what&rsquo;s happening in the market so you can make informed decisions.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">DK</div>
+            <div>
+              <div class="desk-author">Daniel Kim</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+          <a href="https://www.dailybreeze.com/2026/06/03/south-bay-housing-trust-approves-6m-loan-for-affordable-housing-in-hawthorne/" target="_blank" rel="noopener" class="desk-source-link">Read Source Article &rarr;</a>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?w=600&q=80" alt="Affordable housing apartment complex residential development" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="desk-nav">
+    <button class="desk-prev" onclick="shiftDesk(-1)" aria-label="Previous">&larr;</button>
+    <div class="desk-dots">
+      <span class="desk-dot active" onclick="goDesk(0)"></span>
+      <span class="desk-dot" onclick="goDesk(1)"></span>
+      <span class="desk-dot" onclick="goDesk(2)"></span>
+    </div>
+    <button class="desk-next" onclick="shiftDesk(1)" aria-label="Next">&rarr;</button>
+  </div>
+</section>
+
+<!-- TRUST BAND -->
+<div id="trust">
+  <div class="trust-inner">
+    <div class="trust-item fade-up">
+      <div class="trust-icon">🏆</div>
+      <div class="trust-title">10+ Years Local</div>
+      <div class="trust-desc">South LA Real Estate Specialists</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">🔍</div>
+      <div class="trust-title">Every Asset Underwritten</div>
+      <div class="trust-desc">Personally Analyzed Before Presenting</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-title">45-Day Close</div>
+      <div class="trust-desc">Avg. Contract to Close on Our Deals</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">🤝</div>
+      <div class="trust-title">Client-First Always</div>
+      <div class="trust-desc">We Only Win When You Close</div>
+    </div>
+    <div class="trust-item fade-up">
+      <div class="trust-icon">📋</div>
+      <div class="trust-title">No Hidden Fees</div>
+      <div class="trust-desc">Transparent from First Call to Close</div>
+    </div>
+  </div>
+</div>
+
+<!-- AGENTS -->
+<section id="agents">
+  <div class="section-label">Our Coverage</div>
+  <h2 class="section-title">South LA <em>Market</em> Specialists</h2>
+  <div class="agents-grid">
+
+    <div class="agent-card fade-up">
+      <div class="agent-avatar">
+        <img src="justinwhite.png" alt="Justin White" />
+      </div>
+      <div class="agent-name">Justin White</div>
+      <div class="agent-title">Managing Director</div>
+      <div class="agent-social">
+        <a href="https://www.linkedin.com/in/justin-white-79a1175/" target="_blank" rel="noopener" class="social-btn">in</a>
+        <button class="social-btn">✉</button>
+        <button class="social-btn">☎</button>
+      </div>
+    </div>
+
+    <div class="agent-card fade-up" style="transition-delay:0.1s">
+      <div class="agent-avatar">
+        <img src="ryanrayburn.png" alt="Ryan Rayburn" />
+      </div>
+      <div class="agent-name">Ryan Rayburn</div>
+      <div class="agent-title">Executive Vice President</div>
+      <div class="agent-zone">Expert in Southern California Apartments</div>
+      <div class="agent-social">
+        <a href="https://www.linkedin.com/in/ryan-c-rayburn-3613687/" target="_blank" rel="noopener" class="social-btn">in</a>
+        <button class="social-btn">✉</button>
+        <button class="social-btn">☎</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">What Investors Are Saying</div>
+  <h2 class="section-title">Trusted by South LA <em>Investors</em></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Centennial had market data on Inglewood that I couldn't find anywhere else. They identified the right asset at the right basis and we closed in 45 days."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="David T." /></div>
+        <div><div class="author-name">David &amp; Rachel T.</div><div class="author-sub">Acquired 12-unit in Inglewood, 2024</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up" style="transition-delay:0.1s">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"I was a first-time multifamily buyer and the team walked me through every submarket. I ended up with a Torrance 8-unit that's already outperforming my proforma."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Priya M." /></div>
+        <div><div class="author-name">Priya M.</div><div class="author-sub">First-time Multifamily Investor, 2025</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up" style="transition-delay:0.2s">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"The rent control analysis they gave us before closing saved us from a deal that looked good on paper but wasn't. That kind of local knowledge is rare."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Thomas K." /></div>
+        <div><div class="author-name">Thomas K.</div><div class="author-sub">Acquired 16-unit in Carson, 2025</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEBSITE CTA BANNER -->
+<div id="site-cta">
+  <div class="site-cta-inner">
+    <div class="site-cta-text">
+      <span class="site-cta-label">Ready to connect with a real adviser?</span>
+      <span class="site-cta-sub">Visit our main website for listings, deal flow, and direct advisory services.</span>
+    </div>
+    <a href="https://centennialadvisers.com/" target="_blank" rel="noopener" class="site-cta-btn">
+      Go to CentennialAdvisers.com &rarr;
+    </a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-info fade-up">
+      <div class="section-label">Get in Touch</div>
+      <h2>Let&rsquo;s Talk About <em>South LA</em></h2>
+      <p>Whether you&rsquo;re buying your first multifamily building or adding to an existing portfolio, our advisers know South LA well enough to help you make the right call.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">📍</div>
+          <div>
+            <div class="detail-label">Office</div>
+            <div class="detail-value">Long Beach, CA 90802</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">📞</div>
+          <div>
+            <div class="detail-label">Phone</div>
+            <div class="detail-value">(562) 269-4844</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">✉️</div>
+          <div>
+            <div class="detail-label">Email</div>
+            <div class="detail-value">james.lai@centennialadvisers.com</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">🕐</div>
+          <div>
+            <div class="detail-label">Hours</div>
+            <div class="detail-value">Mon &ndash; Sat, 9AM &ndash; 6PM PST</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <form class="contact-form fade-up" onsubmit="handleFormSubmit(event)">
+      <input type="hidden" name="access_key" value="a3e78e83-cce4-4ab7-8043-525541170274" />
+      <input type="hidden" name="subject" value="New Inquiry — Centennial Advisers" />
+      <input type="hidden" name="from_name" value="Centennial Advisers Website" />
+      <div class="form-row">
+        <div class="form-group float-label">
+          <input type="text" name="first_name" placeholder=" " required />
+          <label>First Name</label>
+        </div>
+        <div class="form-group float-label">
+          <input type="text" name="last_name" placeholder=" " required />
+          <label>Last Name</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group float-label">
+          <input type="email" name="email" placeholder=" " required />
+          <label>Email</label>
+        </div>
+        <div class="form-group float-label">
+          <input type="tel" name="phone" placeholder=" " />
+          <label>Phone</label>
+        </div>
+      </div>
+      <div class="form-group float-label">
+        <input type="text" id="address-autocomplete" name="current_address" placeholder=" " autocomplete="off" />
+        <label>Your Current Address</label>
+      </div>
+      <div class="form-group float-label has-value">
+        <select name="neighborhood">
+          <option value="">Select a neighborhood&hellip;</option>
+          <option>Inglewood</option>
+          <option>Torrance</option>
+          <option>Carson</option>
+          <option>Hawthorne</option>
+          <option>Gardena</option>
+          <option>Compton</option>
+          <option>Open to any South LA</option>
+        </select>
+        <label>Neighborhood Interest</label>
+      </div>
+      <div class="form-group float-label has-value">
+        <select name="budget">
+          <option value="">Select a range&hellip;</option>
+          <option>Under $2M</option>
+          <option>$2M &ndash; $5M</option>
+          <option>$5M &ndash; $10M</option>
+          <option>$10M+</option>
+        </select>
+        <label>Investment Budget</label>
+      </div>
+      <div class="form-group float-label">
+        <textarea rows="4" name="message" placeholder=" "></textarea>
+        <label>Message</label>
+      </div>
+      <button type="submit" class="form-submit">Send Message &rarr;</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <img class="footer-logo" src="logo2.png" alt="Centennial Advisers" />
+    <div class="footer-tagline">South LA&rsquo;s Most Trusted Apartment Specialists</div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2026 Centennial Advisers. All rights reserved. South LA Real Estate.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Fair Housing</a>
+      <a href="#">Terms</a>
+      <a href="#">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.dot').forEach((dot) => {
+    dot.addEventListener('click', () => {
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+
+
+
+  window.initMap = function () {
+    const input = document.getElementById('address-autocomplete');
+    if (input && google.maps.places) {
+      new google.maps.places.Autocomplete(input, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+        fields: ['formatted_address'],
+      });
+    }
+  };
+
+  function runStatCounters() {
+    document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+      const target   = parseInt(el.dataset.count);
+      const suffix   = el.dataset.suffix;
+      const duration = 1500;
+      const start    = performance.now();
+      (function tick(now) {
+        const p      = Math.min((now - start) / duration, 1);
+        const eased  = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    });
+  }
+
+  function typewriterH1(el) {
+    const plain      = 'Invest in South LA\'s Multifamily Market';
+    const italicWord = 'Multifamily';
+    const iStart     = plain.indexOf(italicWord);
+    const iEnd       = iStart + italicWord.length;
+    const speed      = 42;
+    let i = 0;
+
+    function buildHTML(upTo) {
+      if (upTo <= iStart)  return plain.slice(0, upTo);
+      if (upTo <= iEnd)    return plain.slice(0, iStart) + '<em>' + plain.slice(iStart, upTo) + '</em>';
+      return plain.slice(0, iStart) + '<em>' + italicWord + '</em>' + plain.slice(iEnd, upTo);
+    }
+
+    (function type() {
+      el.innerHTML = buildHTML(i) + '<span class="hero-cursor"></span>';
+      if (i < plain.length) { i++; setTimeout(type, speed); }
+      else setTimeout(() => { el.innerHTML = buildHTML(plain.length); }, 900);
+    })();
+  }
+
+  function toggleFav(btn) {
+    btn.classList.toggle('saved');
+    btn.textContent = btn.classList.contains('saved') ? '♥' : '♡';
+    btn.classList.remove('pop');
+    void btn.offsetWidth; // reflow to restart animation
+    btn.classList.add('pop');
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('.form-submit');
+    const data = new FormData(form);
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        // Send phone notification via ntfy
+        const firstName = data.get('first_name') || '';
+        const lastName  = data.get('last_name')  || '';
+        const email     = data.get('email')       || '';
+        const phone     = data.get('phone')       || 'N/A';
+        const hood      = data.get('neighborhood')|| 'N/A';
+        const budget    = data.get('budget')      || 'N/A';
+        const message   = data.get('message')     || '';
+        fetch('https://ntfy.sh/centennial-advisers-leads', {
+          method: 'POST',
+          headers: {
+            'Title': `New Lead: ${firstName} ${lastName}`,
+            'Priority': 'high',
+            'Tags': 'envelope,house',
+          },
+          body: `Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+Neighborhood: ${hood}
+Budget: ${budget}
+
+${message}`.trim(),
+        });
+
+        btn.textContent = '✓ Message Sent!';
+        btn.style.background = '#2ecc71';
+        btn.style.color = '#fff';
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = 'Send Message →';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 4000);
+      } else {
+        throw new Error(json.message || 'Submission failed');
+      }
+    } catch (err) {
+      btn.textContent = 'Failed — please try again';
+      btn.style.background = '#e74c3c';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 3500);
+    }
+  }
+
+  // ── STREET / AERIAL IMAGE TOGGLE ──
+  function setView(btn, mode) {
+    const wrap = btn.closest('.avail-card-img');
+    const img  = wrap.querySelector('img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = mode === 'sv' ? wrap.dataset.sv : wrap.dataset.sat;
+      img.style.opacity = '1';
+    }, 180);
+    wrap.querySelectorAll('.img-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ── FROM THE DESK CAROUSEL ──
+  let _deskIdx = 0;
+  const _deskCards = document.querySelectorAll('.desk-card');
+  const _deskDots  = document.querySelectorAll('.desk-dot');
+  function goDesk(n) {
+    _deskCards[_deskIdx].classList.remove('active');
+    _deskDots[_deskIdx].classList.remove('active');
+    _deskIdx = (n + _deskCards.length) % _deskCards.length;
+    _deskCards[_deskIdx].classList.add('active');
+    _deskDots[_deskIdx].classList.add('active');
+  }
+  function shiftDesk(dir) { goDesk(_deskIdx + dir); }
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '0.75rem 5%' : '1.1rem 5%';
+
+    // Hero parallax — shift background as user scrolls down
+    const hero = document.getElementById('hero');
+    if (window.scrollY <= hero.offsetHeight) {
+      hero.style.backgroundPositionY = `calc(50% + ${(window.scrollY * 0.3).toFixed(1)}px)`;
+    }
+  }, { passive: true });
+
+  // ── INTRO SEQUENCE ──
+  (function () {
+    const intro  = document.getElementById('intro');
+    const title  = document.getElementById('intro-title');
+    const logoEl = title.querySelector('.intro-logo-title');
+    const words  = title.querySelectorAll('.intro-word');
+
+    document.body.style.overflow = 'hidden';
+
+    // Hide hero content for staggered reveal once intro fades
+    const heroSelectors = ['.hero-tag', '#hero h1', '#hero p', '.hero-btns', '.hero-stats'];
+    const heroAnimEls = [];
+    heroSelectors.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) { el.classList.add('hero-animate'); heroAnimEls.push(el); }
+    });
+
+    // Clear h1 so typewriter fills it in on reveal
+    const h1El = heroAnimEls[1];
+    if (h1El) h1El.innerHTML = '';
+
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+
+    const canvas = document.createElement('canvas');
+    canvas.width  = W; canvas.height = H;
+    canvas.style.cssText = 'position:absolute;inset:0;z-index:2;pointer-events:none;';
+    intro.insertBefore(canvas, title);
+    const ctx = canvas.getContext('2d');
+
+    const LINE_DUR = 700;  // blue line sweeps across
+
+    const centreY = H * 0.5;
+
+    let startTime = null;
+
+    function tick(ts) {
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+      const totalP  = Math.min(elapsed / LINE_DUR, 1);
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Thin teal line sweeps left → right
+      const lineX  = totalP * W * 2 - W;
+      const lineDL = Math.max(0, lineX);
+      const lineDR = Math.min(W, lineX + W);
+      if (lineDR > lineDL) {
+        ctx.shadowBlur  = 14;
+        ctx.shadowColor = 'rgba(0,180,200,0.9)';
+        ctx.fillStyle   = '#00b4c8';
+        ctx.fillRect(lineDL, centreY - 1, lineDR - lineDL, 2);
+      }
+
+      if (totalP < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        let fs = performance.now();
+        (function fadeCanvas(t) {
+          const fp = Math.min((t - fs) / 280, 1);
+          canvas.style.opacity = String(1 - fp);
+          if (fp < 1) {
+            requestAnimationFrame(fadeCanvas);
+          } else {
+            // Trails fully gone — spring logo then words
+            title.classList.add('visible');
+            logoEl.classList.add('spring');
+            setTimeout(() => words[0].classList.add('spring'), 260);
+            setTimeout(() => words[1].classList.add('spring'), 480);
+            setTimeout(() => title.classList.add('title-out'), 2800);
+            setTimeout(() => {
+              intro.classList.add('intro-out');
+              // Stagger hero content in as intro fades out
+              heroAnimEls.forEach((el, i) => {
+                setTimeout(() => {
+                  el.classList.add('hero-visible');
+                  if (i === 1) typewriterH1(el);           // h1 types itself in
+                  if (i === 4) setTimeout(runStatCounters, 300); // stats count up
+                }, i * 220);
+              });
+              // Glow pulse the nav logo
+              const navLogo = document.querySelector('.logo-img');
+              if (navLogo) navLogo.classList.add('glow-pulse');
+            }, 3700);
+            setTimeout(() => { intro.remove(); document.body.style.overflow = ''; }, 4750);
+          }
+        })(fs);
+      }
+    }
+
+    const preload = new Image();
+    preload.onload = preload.onerror = () => requestAnimationFrame(tick);
+    preload.src = 'logo2.png';
+  })();
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>
