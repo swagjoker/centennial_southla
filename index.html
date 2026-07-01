@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centennial Advisers | South LA Apartment Investment Specialists</title>
+  <meta name="description" content="Centennial Advisers — South LA multifamily investment specialists. Market reports, available properties, and expert advisory for apartment investors across Inglewood, Torrance, Hawthorne, Carson, and Gardena." />
+  <meta property="og:title" content="Centennial Advisers | South LA Apartment Investment Specialists" />
+  <meta property="og:description" content="Market intelligence, available properties, and expert advisory for multifamily investors across South Los Angeles." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://centennialadvisers.com/" />
+  <meta property="og:image" content="https://centennialadvisers.com/logo2.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="logo2.png" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0d1520;
+      --navy-mid: #131f2e;
+      --teal: #00b4c8;
+      --teal-light: #4dd4e2;
+      --teal-dim: rgba(0,180,200,0.18);
+      --gold: #c9a96e;
+      --gold-light: #e8d5b0;
+      --white: #ffffff;
+      --glass-bg: rgba(255,255,255,0.055);
+      --glass-border: rgba(0,180,200,0.18);
+      --glass-border-gold: rgba(201,169,110,0.18);
+      --text-muted: rgba(255,255,255,0.52);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5%;
+      backdrop-filter: blur(24px);
+      background: rgba(13,21,32,0.82);
+      border-bottom: 1px solid rgba(0,180,200,0.12);
+      transition: padding 0.3s;
+    }
+    .logo-img {
+      height: 46px; width: auto; object-fit: contain;
+      display: block;
+    }
+    .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      padding: 0.6rem 1.6rem;
+      border: 1px solid var(--teal);
+      color: var(--teal); background: transparent;
+      font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal); color: var(--navy); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(13,21,32,0.52) 0%, rgba(13,21,32,0.82) 65%, var(--navy) 100%),
+        url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      padding: 0 5%; padding-top: 6rem;
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); border: 1px solid rgba(0,180,200,0.3);
+      padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.8rem;
+      backdrop-filter: blur(10px); background: rgba(0,180,200,0.07);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6.5vw, 6rem);
+      font-weight: 300; line-height: 1.08; max-width: 16ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--teal-light); }
+    .hero p {
+      font-size: 1rem; color: var(--text-muted);
+      max-width: 48ch; line-height: 1.75; margin-bottom: 2.8rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.9rem 2.4rem;
+      background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 700;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-outline {
+      padding: 0.9rem 2.4rem;
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.22);
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 5rem;
+      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 300; color: var(--teal);
+    }
+    .stat-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.08em; margin-top: 0.2rem; }
+
+
+    /* ── MARKET DATA BAR ── */
+    .market-data-bar {
+      display: flex; justify-content: space-around; flex-wrap: wrap;
+      background: rgba(0,180,200,0.04);
+      border-top: 1px solid rgba(0,180,200,0.12);
+      border-bottom: 1px solid rgba(0,180,200,0.12);
+    }
+    .market-data-item {
+      flex: 1; min-width: 130px;
+      padding: 1.1rem 1rem; text-align: center;
+      border-right: 1px solid rgba(0,180,200,0.08);
+    }
+    .market-data-item:last-child { border-right: none; }
+    .market-data-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem; font-weight: 300;
+      color: var(--teal); line-height: 1; margin-bottom: 0.25rem;
+    }
+    .market-data-label {
+      font-size: 0.6rem; color: var(--text-muted);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ── ARTICLE CARDS ── */
+    .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.65rem; }
+    .article-tag {
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--teal); font-weight: 600;
+    }
+    .article-date { font-size: 0.6rem; color: var(--text-muted); }
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; line-height: 1.3;
+      color: var(--white); margin-bottom: 0.65rem;
+    }
+    .article-summary {
+      font-size: 0.77rem; color: var(--text-muted);
+      line-height: 1.65; margin-bottom: 1rem;
+    }
+    .article-link {
+      font-size: 0.7rem; color: var(--teal);
+      letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .article-link:hover { color: var(--teal-light); }
+
+
+    /* ── NEIGHBORHOOD STRIP ── */
+    .neighborhood-strip {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0; background: rgba(0,0,0,0.25);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .neighborhood-item {
+      flex: 1; min-width: 130px;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.3rem 1rem;
+      border-right: 1px solid var(--glass-border);
+      transition: background 0.2s; cursor: pointer;
+    }
+    .neighborhood-item:last-child { border-right: none; }
+    .neighborhood-item:hover { background: var(--teal-dim); }
+    .neighborhood-icon { font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .neighborhood-name { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; }
+    .neighborhood-count { font-size: 0.68rem; color: var(--teal); margin-top: 0.15rem; }
+
+    /* ── SEARCH BAR ── */
+    .search-bar {
+      margin: 2.5rem 5%; padding: 1.8rem 2rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px; backdrop-filter: blur(20px);
+      display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 1rem; align-items: end;
+    }
+    .search-field label {
+      display: block; font-size: 0.66rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .search-field select, .search-field input {
+      width: 100%; background: transparent;
+      border: none; border-bottom: 1px solid rgba(255,255,255,0.14);
+      color: var(--white); font-size: 0.93rem; padding: 0.4rem 0;
+      outline: none; font-family: 'Inter', sans-serif;
+    }
+    .search-field select option { background: var(--navy-mid); }
+    .search-btn {
+      padding: 0.75rem 2rem;
+      background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .search-btn:hover { background: var(--teal-light); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 5%; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2;
+      margin-bottom: 3.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--teal-light); }
+
+    /* ── FEATURED LISTINGS ── */
+    #listings { background: var(--navy); }
+    .listings-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; }
+    .listings-header .section-title { margin-bottom: 0; }
+    .view-all {
+      font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      border-bottom: 1px solid var(--teal); padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .view-all:hover { opacity: 0.7; }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .property-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; overflow: hidden;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .property-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,180,200,0.3);
+      border-color: rgba(0,180,200,0.4);
+    }
+    .card-img { position: relative; height: 210px; overflow: hidden; }
+    .card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .property-card:hover .card-img img { transform: scale(1.05); }
+    .card-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--teal); color: var(--navy);
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 2px;
+    }
+    .card-badge.new { background: #2ecc71; color: #fff; }
+    .card-badge.hot { background: #e67e22; color: #fff; }
+    .tour-btn {
+      position: absolute; bottom: 1rem; right: 1rem;
+      background: rgba(13,21,32,0.85); border: 1px solid rgba(0,180,200,0.3);
+      color: var(--white); font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.42rem 0.85rem;
+      border-radius: 100px; cursor: pointer; backdrop-filter: blur(10px);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tour-btn:hover { background: rgba(0,180,200,0.18); border-color: var(--teal); color: var(--teal); }
+    .tour-btn svg { width: 13px; height: 13px; }
+
+    /* ── FAVORITE BUTTON ── */
+    .fav-btn {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(13,21,32,0.75); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .fav-btn:hover { background: rgba(13,21,32,0.9); border-color: rgba(255,80,100,0.5); color: rgba(255,80,100,0.7); }
+    .fav-btn.saved { background: rgba(255,50,80,0.15); border-color: rgba(255,80,100,0.6); color: #ff5064; }
+    .fav-btn.pop { animation: favPop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    @keyframes favPop { 0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1); } }
+
+    .card-body { padding: 1.4rem; }
+    .card-location { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem; font-weight: 400; color: var(--white);
+      margin-bottom: 0.1rem;
+    }
+    .card-price span { font-size: 0.9rem; color: var(--text-muted); font-family: 'Inter', sans-serif; font-weight: 400; }
+    .card-address { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.1rem; }
+    .card-meta {
+      display: flex; gap: 1.2rem;
+      padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .meta-item { font-size: 0.75rem; color: var(--text-muted); }
+    .meta-item strong { display: block; font-size: 0.92rem; color: var(--white); font-weight: 500; }
+
+    /* ── VIRTUAL TOUR ── */
+    #tour {
+      background: linear-gradient(135deg, #0c1828 0%, #131f2e 100%);
+      padding: 6rem 5%;
+    }
+    .tour-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .tour-preview {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: #000; aspect-ratio: 16/10; cursor: pointer;
+    }
+    .tour-preview img { width: 100%; height: 100%; object-fit: cover; opacity: 0.78; }
+    .tour-play {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(13,21,32,0.42);
+      transition: background 0.3s;
+    }
+    .tour-preview:hover .tour-play { background: rgba(13,21,32,0.28); }
+    .play-ring {
+      width: 80px; height: 80px; border-radius: 50%;
+      border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px); background: rgba(0,180,200,0.1);
+      margin-bottom: 1rem; transition: transform 0.3s, background 0.3s;
+    }
+    .tour-preview:hover .play-ring { transform: scale(1.08); background: rgba(0,180,200,0.2); }
+    .play-ring svg { width: 28px; height: 28px; fill: var(--teal); margin-left: 4px; }
+    .tour-label { font-size: 0.76rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(0,180,200,0.8); }
+
+    .tour-dots { display: flex; gap: 0.6rem; margin-top: 1rem; justify-content: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.2s; }
+    .dot.active { background: var(--teal); }
+
+    .tour-content .section-label { margin-bottom: 0.8rem; }
+    .tour-content .section-title { margin-bottom: 1.2rem; }
+    .tour-content p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; }
+    .tour-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .tour-feature {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.84rem; color: rgba(255,255,255,0.72);
+    }
+    .feature-icon {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: rgba(0,180,200,0.08); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 0.9rem;
+    }
+
+    /* ── AGENTS ── */
+    #agents { background: var(--navy); }
+    .agents-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem;
+    }
+    .agent-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 2rem 1.5rem; text-align: center;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .agent-card:hover { transform: translateY(-5px); border-color: rgba(0,180,200,0.4); }
+    .agent-avatar {
+      width: 88px; height: 88px; border-radius: 50%;
+      border: 2px solid var(--teal); overflow: hidden; margin: 0 auto 1.2rem;
+    }
+    .agent-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .agent-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; margin-bottom: 0.3rem;
+    }
+    .agent-title { font-size: 0.7rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .agent-zone { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .agent-stats { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.3rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .agent-stat { font-size: 0.72rem; color: var(--text-muted); }
+    .agent-stat strong { display: block; font-size: 1rem; color: var(--white); font-weight: 500; }
+    .agent-social { display: flex; justify-content: center; gap: 0.6rem; }
+    .social-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent; color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; font-size: 0.8rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── TRUST BAND ── */
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--navy-mid); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+    .testimonial-card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 8px; padding: 2rem; backdrop-filter: blur(20px);
+    }
+    .stars { color: var(--teal); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .testimonial-text {
+      line-height: 1.75; color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;
+      font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 0.9rem; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; border: 1px solid var(--glass-border); }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-initials { display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; color:#fff; letter-spacing:0.04em; }
+    .author-name { font-size: 0.84rem; font-weight: 500; }
+    .author-sub { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── AVAILABLE PROPERTIES ── */
+    #available {
+      background: #0a1520;
+      padding: 5rem 5%;
+    }
+    .avail-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2.8rem;
+    }
+    .avail-subhead {
+      font-size: 0.85rem; color: var(--text-muted);
+      max-width: 380px; text-align: right; line-height: 1.6;
+    }
+    .avail-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.8rem;
+    }
+    .avail-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; overflow: hidden;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .avail-card:hover {
+      box-shadow: 0 6px 32px rgba(0,180,200,0.1);
+      border-color: rgba(0,180,200,0.25);
+    }
+    .avail-card-img {
+      position: relative; height: 230px; overflow: hidden; background: #0c1828;
+    }
+    .avail-card-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease, opacity 0.3s;
+    }
+    .avail-card:hover .avail-card-img img { transform: scale(1.03); }
+    .avail-hood-badge {
+      position: absolute; top: 0.85rem; left: 0.85rem;
+      background: var(--teal); color: var(--white);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.65rem; border-radius: 3px;
+      pointer-events: none;
+    }
+    .avail-img-toggle {
+      position: absolute; bottom: 0.75rem; right: 0.75rem;
+      display: flex; gap: 2px; background: rgba(0,0,0,0.55);
+      border-radius: 4px; overflow: hidden; backdrop-filter: blur(6px);
+    }
+    .img-toggle-btn {
+      background: transparent; border: none; color: rgba(255,255,255,0.6);
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.3rem 0.65rem; cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .img-toggle-btn.active { background: var(--teal); color: var(--white); }
+    .avail-card-body { padding: 1.4rem 1.5rem 1.6rem; }
+    .avail-address { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .avail-city { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.9rem; }
+    .avail-details {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.85rem; flex-wrap: wrap;
+    }
+    .avail-detail { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .avail-detail strong { color: var(--white); }
+    .avail-detail-sep {
+      width: 3px; height: 3px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); flex-shrink: 0;
+    }
+    .avail-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.2rem; }
+    .avail-actions { display: flex; align-items: center; gap: 1rem; }
+    .avail-cta {
+      background: var(--teal); color: var(--white); border: none;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em;
+      padding: 0.6rem 1.3rem; border-radius: 4px; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .avail-cta:hover { background: var(--teal-light); }
+    .avail-map-link {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .avail-map-link:hover { color: var(--teal); }
+    @media (max-width: 800px) {
+      .avail-grid { grid-template-columns: 1fr; }
+      .avail-subhead { text-align: left; }
+      .avail-header { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* ── FEATURED REPORT CARD ── */
+    .featured-report {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: 10px; overflow: hidden;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 3rem;
+      transition: box-shadow 0.3s;
+    }
+    .featured-report:hover { box-shadow: 0 8px 40px rgba(0,180,200,0.12); }
+    .featured-report-img { position: relative; min-height: 340px; overflow: hidden; }
+    .featured-report-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .featured-report:hover .featured-report-img img { transform: scale(1.04); }
+    .featured-report-body {
+      padding: 2.5rem 2.5rem 2rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .featured-report-title {
+      font-size: 1.45rem; font-weight: 800; color: var(--white);
+      line-height: 1.3; margin: 0.6rem 0 1rem; letter-spacing: -0.02em;
+    }
+    .featured-report-summary {
+      font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem;
+    }
+    .featured-report-byline { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: rgba(255,255,255,0.45); }
+    .byline-dot { color: rgba(255,255,255,0.25); }
+
+    /* ── ARTICLE BYLINE & READ TIME ── */
+    .article-byline { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-bottom: 0.6rem; margin-top: -0.3rem; }
+    .article-read-time {
+      font-size: 0.6rem; color: rgba(255,255,255,0.35);
+      border-left: 1px solid rgba(255,255,255,0.15); padding-left: 0.6rem;
+    }
+
+    /* ── FROM THE DESK ── */
+    #from-the-desk {
+      background: linear-gradient(180deg, #0a1825 0%, #0c1d2e 100%);
+      padding: 5rem 5% 4rem;
+    }
+    .desk-header { margin-bottom: 2.5rem; }
+    .desk-intro { font-size: 0.9rem; color: var(--text-muted); max-width: 560px; margin-top: 0.75rem; }
+    .desk-carousel { position: relative; overflow: hidden; }
+    .desk-card { display: none; }
+    .desk-card.active { display: block; }
+    .desk-card-inner {
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 0; border-radius: 10px; overflow: hidden;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .desk-card-text { padding: 2.8rem 3rem 2.8rem 2.8rem; display: flex; flex-direction: column; justify-content: center; }
+    .desk-card-title {
+      font-size: 1.3rem; font-weight: 800; color: var(--white);
+      line-height: 1.35; margin: 0.5rem 0 1.1rem; letter-spacing: -0.02em;
+    }
+    .desk-card-excerpt { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.8rem; }
+    .desk-card-byline { display: flex; align-items: center; gap: 0.85rem; }
+    .desk-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--teal); display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--white); flex-shrink: 0;
+    }
+    .desk-author { font-size: 0.82rem; font-weight: 600; color: var(--white); }
+    .desk-role { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+    .desk-card-img { overflow: hidden; min-height: 380px; }
+    .desk-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .desk-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.2rem; margin-top: 1.8rem;
+    }
+    .desk-prev, .desk-next {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white); width: 40px; height: 40px; border-radius: 50%;
+      font-size: 1rem; cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .desk-prev:hover, .desk-next:hover { background: var(--teal); border-color: var(--teal); }
+    .desk-dots { display: flex; gap: 0.5rem; align-items: center; }
+    .desk-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .desk-dot.active { background: var(--teal); transform: scale(1.3); }
+    .desk-source-link {
+      display: inline-block; margin-top: 1.2rem;
+      font-size: 0.75rem; color: var(--teal); text-decoration: none;
+      font-weight: 600; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .desk-source-link:hover { color: var(--teal-light); }
+    @media (max-width: 860px) {
+      .featured-report { grid-template-columns: 1fr; }
+      .featured-report-img { min-height: 220px; }
+      .desk-card-inner { grid-template-columns: 1fr; }
+      .desk-card-img { min-height: 200px; }
+      .desk-card-text { padding: 1.8rem; }
+
+    }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      background: linear-gradient(135deg, #07111e 0%, #0c1d2e 100%);
+      border-top: 1px solid rgba(0,180,200,0.12);
+      border-bottom: 1px solid rgba(0,180,200,0.12);
+      padding: 4.5rem 5%;
+    }
+    .nl-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .nl-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300;
+      line-height: 1.25; margin: 0.5rem 0 0.6rem;
+    }
+    .nl-title em { font-style: italic; color: var(--teal-light); }
+    .nl-sub { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .nl-fields { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.65rem; }
+    .nl-input {
+      flex: 1; min-width: 140px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px; padding: 0.75rem 1rem;
+      color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.85rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .nl-input::placeholder { color: rgba(255,255,255,0.35); }
+    .nl-input:focus { border-color: var(--teal); }
+    .nl-btn {
+      background: var(--teal); color: var(--white); border: none;
+      padding: 0.75rem 1.6rem; border-radius: 4px;
+      font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .nl-btn:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .nl-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+    .nl-legal { font-size: 0.65rem; color: rgba(255,255,255,0.28); line-height: 1.5; }
+    .nl-success {
+      font-size: 1rem; color: var(--teal-light); font-weight: 500;
+      padding: 1rem 0;
+    }
+    @media (max-width: 720px) {
+      .nl-inner { grid-template-columns: 1fr; gap: 1.8rem; }
+      .nl-fields { flex-direction: column; }
+      .nl-btn { width: 100%; }
+    }
+
+    /* ── SITE CTA BANNER ── */
+    #site-cta {
+      background: linear-gradient(90deg, #003d5c 0%, #005c82 100%);
+      border-top: 2px solid var(--teal);
+      border-bottom: 2px solid rgba(0,180,200,0.3);
+      padding: 2.4rem 5%;
+    }
+    .site-cta-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .site-cta-text { display: flex; flex-direction: column; gap: 0.35rem; }
+    .site-cta-label {
+      font-size: 1.35rem; font-weight: 700; color: var(--white);
+      letter-spacing: -0.01em;
+    }
+    .site-cta-sub {
+      font-size: 0.9rem; color: rgba(255,255,255,0.65);
+    }
+    .site-cta-btn {
+      display: inline-block;
+      background: var(--teal); color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 4px;
+      font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+    .site-cta-btn:hover { background: var(--teal-light); transform: translateY(-1px); }
+    @media (max-width: 640px) {
+      .site-cta-inner { flex-direction: column; align-items: flex-start; }
+      .site-cta-btn { width: 100%; text-align: center; }
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: linear-gradient(135deg, #0c1828 0%, var(--navy) 100%); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; margin-bottom: 1.2rem; line-height: 1.2;
+    }
+    .contact-info h2 em { font-style: italic; color: var(--teal-light); }
+    .contact-info p { color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; }
+    .detail-icon {
+      width: 42px; height: 42px; border-radius: 8px;
+      background: rgba(0,180,200,0.08); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .detail-label { font-size: 0.66rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; }
+    .detail-value { font-size: 0.9rem; color: var(--white); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label {
+      font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: var(--white); padding: 0.85rem 1rem; border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s; resize: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); }
+    .form-group select option { background: var(--navy-mid); }
+    .form-submit {
+      padding: 1rem 2.5rem; background: var(--teal); color: var(--navy);
+      border: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer; border-radius: 2px; margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.2s; align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080e18;
+      padding: 3rem 5% 2rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .footer-logo { height: 38px; width: auto; object-fit: contain; }
+    .footer-tagline { font-size: 0.76rem; color: var(--text-muted); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-copy { font-size: 0.7rem; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.7rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(6,10,20,0.92); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      width: 90%; max-width: 860px;
+      background: var(--navy-mid); border: 1px solid var(--glass-border);
+      border-radius: 10px; overflow: hidden;
+      transform: scale(0.95); transition: transform 0.3s;
+    }
+    .modal-overlay.active .modal { transform: scale(1); }
+    .modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.6rem; border-bottom: 1px solid var(--glass-border);
+    }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+    .modal-close {
+      background: transparent; border: none; color: var(--text-muted);
+      font-size: 1.5rem; cursor: pointer; line-height: 1; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-body { aspect-ratio: 16/9; background: #000; position: relative; }
+    .modal-body img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+    .modal-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+    }
+    .modal-placeholder span { font-size: 3rem; }
+    .modal-placeholder p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* ── NAV LOGO GLOW PULSE ── */
+
+    }
+
+
+
+    /* ── FEATURED PROPERTY NEWS SIDEBAR ── */
+    .featured-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .featured-news-label {
+      font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 1.2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .news-card {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .news-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .news-category {
+      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.35rem;
+    }
+    .news-title {
+      font-size: 0.84rem; font-weight: 500; line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+    .news-title a {
+      color: var(--white); text-decoration: none;
+      transition: color 0.2s;
+      display: inline;
+    }
+    .news-title a::after {
+      content: ' ↗';
+      font-size: 0.7em;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .news-title a:hover { color: var(--teal-light); }
+    .news-title a:hover::after { opacity: 0.8; }
+    .news-summary {
+      font-size: 0.72rem; color: var(--text-muted);
+      line-height: 1.65; margin-bottom: 0.4rem;
+    }
+    .news-source { font-size: 0.6rem; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+    @media (max-width: 1100px) { .featured-layout { grid-template-columns: 1fr; } }
+
+    /* ── CARD SHIMMER ── */
+    .property-card { position: relative; }
+    .property-card::before {
+      content: '';
+      position: absolute; top: 0; left: -80%;
+      width: 60%; height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.055) 50%,
+        transparent 100%
+      );
+      transform: skewX(-15deg);
+      transition: left 0.65s ease;
+      pointer-events: none; z-index: 1;
+    }
+    .property-card:hover::before { left: 140%; }
+
+    /* ── TYPING CURSOR ── */
+    .hero-cursor {
+      display: inline-block;
+      width: 2px; height: 0.8em;
+      background: var(--teal-light);
+      vertical-align: text-bottom;
+      margin-left: 3px;
+      animation: cursorBlink 0.65s step-end infinite;
+    }
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── FEATURED PROPERTY ── */
+    #featured-property {
+      background: linear-gradient(160deg, #080e18 0%, #0d1520 60%, #0a1218 100%);
+      padding: 6rem 5%; position: relative;
+      border-bottom: 1px solid rgba(201,169,110,0.18);
+    }
+    #featured-property::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,169,110,0.05) 0%, transparent 70%);
+    }
+    .featured-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(201,169,110,0.05));
+      border: 1px solid rgba(201,169,110,0.4);
+      color: var(--gold); font-size: 0.68rem;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 0.4rem 1.1rem; border-radius: 100px; margin-bottom: 1.8rem;
+    }
+    .featured-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .featured-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15;
+    }
+    .featured-title em { font-style: italic; color: var(--gold-light); }
+    .featured-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; letter-spacing: 0.05em; }
+    .featured-price-block { text-align: right; }
+    .featured-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 300; color: var(--gold-light); line-height: 1;
+    }
+    .featured-price-label { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.3rem; }
+    .featured-images {
+      display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.2rem; margin-bottom: 1.8rem;
+    }
+    .featured-img-wrap {
+      position: relative; border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(201,169,110,0.2);
+    }
+    .featured-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block; min-height: 360px;
+      transition: transform 0.5s ease;
+    }
+    .featured-img-wrap:hover img { transform: scale(1.03); }
+    .featured-img-label {
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75); background: rgba(6,10,20,0.78);
+      border: 1px solid rgba(201,169,110,0.2); padding: 0.3rem 0.8rem;
+      border-radius: 100px; backdrop-filter: blur(8px);
+    }
+    .featured-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.4rem;
+    }
+    .featured-stat {
+      background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.14);
+      border-radius: 8px; padding: 1.3rem 1.5rem; backdrop-filter: blur(10px);
+    }
+    .featured-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300; color: var(--gold-light); margin-bottom: 0.2rem;
+    }
+    .featured-stat-label { font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .featured-locations {
+      display: flex; flex-wrap: wrap; gap: 0;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; margin-bottom: 2.5rem; overflow: hidden;
+    }
+    .featured-loc-item {
+      flex: 1; min-width: 180px; padding: 1.1rem 1.6rem;
+      display: flex; align-items: center; gap: 0.8rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.8rem; color: rgba(255,255,255,0.55);
+    }
+    .featured-loc-item:last-child { border-right: none; }
+    .featured-loc-item strong { display: block; color: var(--white); font-size: 0.88rem; margin-bottom: 0.1rem; }
+    .featured-loc-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .featured-loc-icon img { height: 30px; width: auto; object-fit: contain; }
+    .featured-loc-logos { display: flex; align-items: center; gap: 0.7rem; flex-shrink: 0; }
+    .featured-loc-logos img { height: 22px; width: auto; object-fit: contain; }
+    .btn-featured {
+      padding: 1rem 2.8rem;
+      background: linear-gradient(135deg, var(--gold), #b8964a);
+      color: #0a1218; border: none; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border-radius: 2px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-featured:hover { opacity: 0.88; transform: translateY(-1px); }
+    .featured-cta { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
+    .featured-cta-note { font-size: 0.72rem; color: var(--text-muted); }
+    @media (max-width: 900px) {
+      .featured-images { grid-template-columns: 1fr; }
+      .featured-stats { grid-template-columns: 1fr 1fr; }
+      .featured-header { flex-direction: column; }
+      .featured-price-block { text-align: left; }
+    }
+
+    /* Places autocomplete dropdown */
+    .pac-container {
+      background: #131f2e;
+      border: 1px solid rgba(0,180,200,0.25);
+      border-radius: 6px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      font-family: 'Inter', sans-serif;
+      margin-top: 4px;
+    }
+    .pac-item {
+      color: rgba(255,255,255,0.65);
+      border-top: 1px solid rgba(0,180,200,0.08);
+      padding: 0.55rem 1rem; cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .pac-item:hover { background: rgba(0,180,200,0.08); }
+    .pac-item-query { color: #fff; font-size: 0.88rem; }
+    .pac-matched { color: var(--teal); font-weight: 600; }
+    .pac-icon { display: none; }
+
+    /* ── MOBILE MENU ── */
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      color: var(--white); padding: 0.4rem; line-height: 1;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--white); margin: 5px 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    #mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 9990;
+      background: rgba(9,16,28,0.97); backdrop-filter: blur(12px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 2.4rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--white);
+      text-decoration: none; transition: color 0.2s;
+    }
+    #mobile-menu a:hover { color: var(--teal); }
+    #mobile-menu .mobile-cta {
+      margin-top: 1rem; background: var(--teal); color: var(--white);
+      border: none; padding: 0.9rem 2.5rem; font-size: 0.85rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 3px; cursor: pointer;
+    }
+    @media (max-width: 680px) {
+      .hamburger { display: block; }
+      nav .nav-links { display: none; }
+      nav .nav-cta { display: none; }
+    }
+
+    /* ── CUSTOM SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--teal-light); }
+
+    /* ── FLOATING LABELS ── */
+    .float-label { position: relative; }
+    .float-label label {
+      position: absolute !important;
+      left: 1rem; top: 0.88rem;
+      font-size: 0.9rem; font-weight: 400;
+      color: var(--text-muted) !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+      margin-bottom: 0 !important;
+      transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease, letter-spacing 0.2s ease;
+      pointer-events: none;
+    }
+    .float-label input,
+    .float-label textarea,
+    .float-label select {
+      padding-top: 1.35rem !important;
+      padding-bottom: 0.45rem !important;
+    }
+    .float-label input:focus ~ label,
+    .float-label input:not(:placeholder-shown) ~ label,
+    .float-label textarea:focus ~ label,
+    .float-label textarea:not(:placeholder-shown) ~ label,
+    .float-label select:focus ~ label,
+    .float-label.has-value label {
+      top: 0.28rem;
+      font-size: 0.6rem;
+      color: var(--teal) !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .tour-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .search-bar { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      nav .nav-links { display: none; }
+      .hero-stats { gap: 1.8rem; flex-wrap: wrap; }
+      .listings-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .neighborhood-strip { overflow-x: auto; flex-wrap: nowrap; }
+    }
+
+    /* ── ARTICLE FILTER TABS ── */
+    .filter-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .filter-tab {
+      background: transparent; border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-muted); padding: 0.45rem 1.1rem; border-radius: 30px;
+      font-size: 0.8rem; font-family: inherit; cursor: pointer; transition: all 0.2s;
+    }
+    .filter-tab:hover { border-color: var(--teal); color: var(--teal); }
+    .filter-tab.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .property-card { transition: opacity 0.3s, transform 0.3s; }
+    .property-card.hidden { display: none; }
+
+
+    /* ─── INVESTOR QUIZ ─── */
+    #investor-quiz { padding:5rem 5%; background:rgba(0,180,200,0.03); }
+    .quiz-header { text-align:center; margin-bottom:2.5rem; }
+    .quiz-sub { color:var(--text-muted); font-size:0.88rem; margin-top:0.5rem; }
+    .quiz-wrap { max-width:640px; margin:0 auto; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:2.5rem; }
+    .quiz-progress { height:4px; background:rgba(255,255,255,0.08); border-radius:4px; margin-bottom:0.6rem; }
+    .quiz-progress-bar { height:100%; background:var(--teal); border-radius:4px; transition:width 0.4s ease; }
+    .quiz-step-indicator { font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:1.8rem; }
+    .quiz-step { display:none; }
+    .quiz-step.active { display:block; animation:quizFade 0.3s ease; }
+    @keyframes quizFade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+    .quiz-question { font-size:1.15rem; font-weight:600; margin-bottom:1.4rem; line-height:1.4; }
+    .quiz-multi { font-size:0.8rem; color:var(--text-muted); font-weight:400; }
+    .quiz-options { display:grid; grid-template-columns:1fr 1fr; gap:0.7rem; }
+    .quiz-opt {
+      background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+      color:var(--white); font-family:inherit; font-size:0.88rem; padding:0.85rem 1rem;
+      border-radius:10px; cursor:pointer; text-align:left; transition:all 0.2s;
+    }
+    .quiz-opt:hover { border-color:var(--teal); color:var(--teal); }
+    .quiz-opt.selected { background:rgba(0,180,200,0.12); border-color:var(--teal); color:var(--teal); font-weight:600; }
+    .quiz-next-btn { margin-top:1.2rem; width:100%; padding:0.8rem; background:var(--teal); color:#fff; border:none; border-radius:8px; font-family:inherit; font-size:0.88rem; font-weight:600; cursor:pointer; }
+    .quiz-result-card { text-align:center; }
+    .quiz-result-badge { display:inline-block; background:rgba(0,180,200,0.15); color:var(--teal); border-radius:20px; padding:0.3rem 1rem; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.8rem; }
+    .quiz-result-title { font-size:1.5rem; font-weight:800; margin-bottom:0.8rem; }
+    .quiz-result-body { color:var(--text-muted); font-size:0.88rem; line-height:1.7; margin-bottom:1rem; }
+    .quiz-result-markets { display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.5rem; }
+    .quiz-market-tag { background:rgba(201,169,110,0.12); color:#c9a96e; border-radius:20px; padding:0.3rem 0.9rem; font-size:0.78rem; font-weight:600; }
+    .quiz-cta { display:block; width:100%; padding:0.85rem; background:var(--teal); color:#fff; border:none; border-radius:8px; font-family:inherit; font-size:0.88rem; font-weight:600; cursor:pointer; margin-bottom:0.7rem; }
+    .quiz-restart { background:none; border:none; color:var(--text-muted); font-size:0.78rem; cursor:pointer; font-family:inherit; text-decoration:underline; }
+    .quiz-multi-select .quiz-opt { border-radius:10px; }
+
+    /* ── BACK TO TOP ── */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 998;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--teal); color: #fff; border: none;
+      font-size: 1.4rem; line-height: 44px; text-align: center;
+      cursor: pointer; opacity: 0; transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s;
+      box-shadow: 0 4px 16px rgba(0,180,200,0.35);
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); }
+    #back-to-top:hover { background: var(--teal-light); }
+
+    /* ─── NEIGHBORHOOD PANEL ─── */
+    .neighborhood-item { background:none; border:none; cursor:pointer; font:inherit; color:inherit; padding:0; text-align:center; }
+    .neighborhood-item.active { background: rgba(0,180,200,0.12); border-radius:12px; }
+    .nh-panel {
+      padding: 2.5rem 5%; background: rgba(0,180,200,0.04);
+      border-top: 1px solid rgba(0,180,200,0.15);
+      border-bottom: 1px solid rgba(0,180,200,0.15);
+      animation: nhFadeIn 0.35s ease;
+    }
+    @keyframes nhFadeIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+    .nh-panel-inner { max-width: 1100px; margin: 0 auto; }
+    .nh-panel-title { font-size:1.4rem; font-weight:700; color:var(--teal); margin-bottom:0.3rem; }
+    .nh-stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin:1.5rem 0; }
+    .nh-stat { background: rgba(255,255,255,0.04); border-radius:10px; padding:1rem; text-align:center; }
+    .nh-stat-val { font-size:1.5rem; font-weight:700; color:var(--teal); }
+    .nh-stat-key { font-size:0.7rem; color:var(--text-muted); margin-top:0.2rem; text-transform:uppercase; letter-spacing:0.06em; }
+    .nh-context { color:var(--text-muted); font-size:0.88rem; line-height:1.7; margin-bottom:1.5rem; }
+    .nh-comps-title { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:0.8rem; }
+    .nh-comps { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; }
+    .nh-comp { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:0.8rem 1rem; }
+    .nh-comp-addr { font-size:0.82rem; font-weight:600; }
+    .nh-comp-detail { font-size:0.72rem; color:var(--text-muted); margin-top:0.3rem; }
+    .nh-comp-price { font-size:0.82rem; font-weight:700; color:var(--teal); margin-top:0.3rem; }
+
+
+    /* ─── CAP RATE CALCULATOR ─── */
+    .calc-header { text-align:center; margin-bottom:3rem; }
+    .calc-sub { color:var(--text-muted); font-size:0.88rem; margin-top:0.5rem; }
+    .calc-layout { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; max-width:1100px; margin:0 auto; align-items:start; }
+    .calc-inputs { display:flex; flex-direction:column; gap:1.4rem; }
+    .calc-group { display:flex; flex-direction:column; gap:0.4rem; }
+    .calc-label { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-muted); font-weight:600; }
+    .calc-input-row { display:flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:8px; overflow:hidden; }
+    .calc-prefix, .calc-suffix { padding:0 0.75rem; font-size:0.9rem; color:var(--text-muted); background:rgba(255,255,255,0.04); align-self:stretch; display:flex; align-items:center; }
+    .calc-input { background:transparent; border:none; color:var(--text-light); font-size:1rem; font-family:inherit; padding:0.65rem 0.75rem; width:100%; outline:none; }
+    .calc-input:focus { background:rgba(0,180,200,0.05); }
+    .calc-slider { width:100%; accent-color:var(--teal); margin-top:0.2rem; cursor:pointer; }
+    .calc-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .calc-results { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:2rem; }
+    .calc-meter-wrap { margin-bottom:1.8rem; }
+    .calc-meter-label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); font-weight:600; margin-bottom:0.6rem; }
+    .calc-meter { position:relative; height:10px; background:linear-gradient(to right,#c0392b,#e67e22,#27ae60); border-radius:10px; margin-bottom:0.35rem; }
+    .calc-meter-marker { position:absolute; top:-4px; width:3px; height:18px; background:#fff; border-radius:3px; transform:translateX(-50%); transition:left 0.4s; }
+    .calc-meter-bands { display:flex; justify-content:space-between; margin-bottom:1rem; }
+    .band-label { font-size:0.65rem; color:var(--text-muted); }
+    .calc-cap-big { text-align:center; margin:0.5rem 0 0.2rem; }
+    .calc-cap-big span:first-child { font-size:2.8rem; font-weight:800; color:var(--teal); }
+    .calc-cap-label { display:block; font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; }
+    .calc-benchmark { text-align:center; font-size:0.72rem; color:var(--text-muted); margin-bottom:1.2rem; }
+    .calc-stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin-bottom:1.4rem; }
+    .calc-stat { background:rgba(255,255,255,0.04); border-radius:8px; padding:0.75rem; text-align:center; }
+    .calc-stat-val { font-size:1.05rem; font-weight:700; color:var(--text-light); }
+    .calc-stat-key { font-size:0.64rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:0.2rem; }
+    .calc-cta { width:100%; padding:0.85rem; background:var(--teal); color:#fff; border:none; border-radius:8px; font-family:inherit; font-size:0.88rem; font-weight:600; cursor:pointer; transition:background 0.2s; }
+    .calc-cta:hover { background:var(--teal-light); }
+
+
+    @media (max-width: 768px) {
+      .nh-stats-row { grid-template-columns:repeat(2,1fr); }
+      .nh-comps { grid-template-columns:1fr; }
+      .quiz-options { grid-template-columns:1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img class="logo-img" src="logo2.png" alt="Centennial Advisers" />
+  <ul class="nav-links">
+    <li><a href="#listings">Insights</a></li>
+    <li><a href="#agents">Advisors</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser</button>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <a href="#listings" onclick="toggleMobileMenu()">Insights</a>
+  <a href="#agents" onclick="toggleMobileMenu()">Advisors</a>
+  <a href="#testimonials" onclick="toggleMobileMenu()">Reviews</a>
+  <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+  <button class="mobile-cta" onclick="toggleMobileMenu(); document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">✦ South LA&rsquo;s Premier Multifamily Investment Advisers</div>
+  <h1>Invest in South LA&rsquo;s <em>Multifamily</em> Market</h1>
+  <p>Centennial Advisers helps property owners and investors acquire income-producing multifamily buildings across Inglewood, Torrance, Carson, and the surrounding South LA submarkets.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('listings').scrollIntoView({behavior:'smooth'})">View Insights</button>
+    <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser</button>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num" data-count="4862" data-suffix="">4,862</div>
+      <div class="stat-label">Transactions</div>
+    </div>
+    <div>
+      <div class="stat-num" data-count="1114" data-suffix="">1,114</div>
+      <div class="stat-label">1031 Exchanges</div>
+    </div>
+    <div>
+      <div class="stat-num" data-count="15" data-suffix="">15</div>
+      <div class="stat-label">Years in South LA</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- NEIGHBORHOOD STRIP -->
+<div class="neighborhood-strip">
+  <button class="neighborhood-item" data-nh="inglewood" onclick="toggleNhPanel(this)"><div class="neighborhood-icon">🏟️</div><div class="neighborhood-name">Inglewood</div><div class="neighborhood-count">14 opportunities</div></button>
+  <button class="neighborhood-item" data-nh="torrance" onclick="toggleNhPanel(this)"><div class="neighborhood-icon">🌊</div><div class="neighborhood-name">Torrance</div><div class="neighborhood-count">11 opportunities</div></button>
+  <button class="neighborhood-item" data-nh="carson" onclick="toggleNhPanel(this)"><div class="neighborhood-icon">🏡</div><div class="neighborhood-name">Carson</div><div class="neighborhood-count">9 opportunities</div></button>
+  <button class="neighborhood-item" data-nh="hawthorne" onclick="toggleNhPanel(this)"><div class="neighborhood-icon">✈️</div><div class="neighborhood-name">Hawthorne</div><div class="neighborhood-count">7 opportunities</div></button>
+  <button class="neighborhood-item" data-nh="gardena" onclick="toggleNhPanel(this)"><div class="neighborhood-icon">🌿</div><div class="neighborhood-name">Gardena</div><div class="neighborhood-count">8 opportunities</div></button>
+  <button class="neighborhood-item" data-nh="compton" onclick="toggleNhPanel(this)"><div class="neighborhood-icon">🏙️</div><div class="neighborhood-name">Compton</div><div class="neighborhood-count">6 opportunities</div></button>
+</div>
+<div id="nh-panel" class="nh-panel" style="display:none"></div>
+
+
+
+
+
+
+<!-- FEATURED PROPERTY -->
+<section id="featured-property" class="reveal">
+  <div class="featured-badge">★ &nbsp;Featured Market Insight</div>
+
+  <div class="featured-layout">
+    <div class="featured-main">
+  <div class="featured-header">
+    <div>
+      <h2 class="featured-title">Inglewood&rsquo;s Market Street Corridor<br><em>The Case for Multifamily Investment</em></h2>
+      <div class="featured-subtitle">Submarket Analysis &nbsp;&middot;&nbsp; Inglewood, CA</div>
+    </div>
+
+  </div>
+
+  <div class="featured-images">
+    <div class="featured-img-wrap">
+      <img
+        src="https://maps.googleapis.com/maps/api/staticmap?center=720+N+Market+St,+Inglewood,+CA+90301&zoom=18&size=1200x640&scale=2&maptype=satellite&markers=color:0xc9a96e|size:mid|720+N+Market+St,+Inglewood,+CA+90301&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0"
+        alt="Aerial view of 720 N Market St, Inglewood"
+      />
+      <div class="featured-img-label">Satellite Aerial View</div>
+    </div>
+    <div class="featured-img-wrap">
+      <img
+        src="https://maps.googleapis.com/maps/api/streetview?size=800x640&scale=2&location=720+N+Market+St,+Inglewood,+CA+90301&fov=90&pitch=10&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0"
+        alt="Street view of 720 N Market St, Inglewood"
+        onerror="this.parentElement.style.display='none'"
+      />
+      <div class="featured-img-label">Street View</div>
+    </div>
+  </div>
+
+
+
+  <div class="featured-locations">
+    <div class="featured-loc-item">
+      <div class="featured-loc-icon">✈️</div>
+      <div><strong>4 mi &nbsp;·&nbsp; 10 min</strong>to LAX Airport</div>
+    </div>
+    <div class="featured-loc-item">
+      <div class="featured-loc-icon">🏟️</div>
+      <div><strong>2 mi &nbsp;·&nbsp; 7 min</strong>to SoFi Stadium</div>
+    </div>
+    <div class="featured-loc-item">
+      <div class="featured-loc-icon">🏢</div>
+      <div><strong>6 mi &nbsp;·&nbsp; 20 min</strong>to Google, Amazon &amp; SpaceX</div>
+    </div>
+  </div>
+
+  <div class="featured-cta">
+    <button class="btn-featured" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Talk to an Adviser &rarr;</button>
+    <div class="featured-cta-note">Our advisers will personally follow up within 24 hours</div>
+  </div>
+    </div><!-- /featured-main -->
+
+    <div class="featured-news">
+      <div class="featured-news-label">Market Context</div>
+
+      <div class="news-card">
+        <div class="news-category">Transit</div>
+        <div class="news-title"><a href="https://www.laconservancy.org/save-places/issues/inglewood-transit-connector-project/" target="_blank" rel="noopener">Inglewood Transit Connector Rephased for 2028 Olympics</a></div>
+        <div class="news-summary">The elevated people mover was paused in April 2025 due to funding gaps. The city is now focused on mobility hubs, bus &amp; bike lanes, and Market Street improvements. 720 N. Market sits within walking distance of the planned Downtown Inglewood K Line station.</div>
+        <div class="news-source">laconservancy.org</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-category">Development</div>
+        <div class="news-title"><a href="https://2urbangirls.com/2026/03/inside-the-city-will-shuttered-inglewood-school-become-housing/" target="_blank" rel="noopener">Shuttered Inglewood School May Become Affordable Housing</a></div>
+        <div class="news-summary">A vacant school at 150 N. Market Street &mdash; just blocks away &mdash; is slated for an affordable housing project by Thomas Safran &amp; Associates, reflecting investment pressure building along the Market Street corridor.</div>
+        <div class="news-source">2urbangirls.com</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-category">Olympics</div>
+        <div class="news-title"><a href="https://thelalocal.org/neighborhoods/inglewood/inglewood-eminent-domain-olympics-transit-connector/" target="_blank" rel="noopener">Businesses Displaced Near Inglewood for Olympic Transit Build-Out</a></div>
+        <div class="news-summary">Properties near Inglewood are being acquired via eminent domain as the city prepares for the 2028 Olympics, with sites cleared for new metro stations and transit infrastructure serving the Olympic corridor.</div>
+        <div class="news-source">thelalocal.org</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-category">Policy</div>
+        <div class="news-title"><a href="https://rentcheckme.com/articles/rent-control-in-inglewood" target="_blank" rel="noopener">Rent Control in Inglewood: What Investors Need to Know</a></div>
+        <div class="news-summary">Inglewood caps rent increases at 3% annually for buildings with 5+ units. Landlords cannot evict without legal cause and must pay relocation costs for no-fault evictions. Rents are stable &mdash; but annual growth is structurally capped.</div>
+        <div class="news-source">rentcheckme.com</div>
+      </div>
+
+    </div><!-- /featured-news -->
+  </div><!-- /featured-layout -->
+
+</section>
+
+<!-- AVAILABLE PROPERTIES -->
+<section id="available">
+  <div class="avail-header">
+    <div>
+      <div class="section-label">Currently Available</div>
+      <h2 class="section-title">Properties for Sale <em>Across South LA</em></h2>
+    </div>
+    <p class="avail-subhead">Entire buildings available for acquisition. Contact our team for full offering packages and current pricing.</p>
+  </div>
+  <div class="avail-grid">
+    <div class="avail-card fade-up" style="transition-delay:0.0s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="3995 S Harvard Blvd" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">South Los Angeles</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">3995 S Harvard Blvd</div>
+        <div class="avail-city">Los Angeles, CA 90018</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>25</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail">Built <strong>1923</strong></span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">25-unit Art Deco building minutes from USC and BMO Stadium. Qualifies for Mills Act historic tax credits and sits within an Opportunity Zone. Assumable loan at 3.5% interest rate.</p>
+        <div class="avail-actions">
+          <a href="https://centennialadvisers.com/advanced-search/3995-south-harvard-boulevard-los-angeles-ca/" target="_blank" rel="noopener" class="avail-cta">View Full Listing &rarr;</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=3995%20S%20Harvard%20Blvd%2C%20Los%20Angeles%2C%20CA%2090018" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card fade-up" style="transition-delay:0.1s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="9339 Ramona St" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Bellflower</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">9339 Ramona St</div>
+        <div class="avail-city">Bellflower, CA 90706</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>14</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">14-unit townhome-style complex on 0.81 acres. New roofs, electrical subpanels, and full plumbing repipe on rear building completed. 2BR units averaging $2,480/mo with 45% rental upside.</p>
+        <div class="avail-actions">
+          <a href="https://centennialadvisers.com/advanced-search/9339-ramona-street/" target="_blank" rel="noopener" class="avail-cta">View Full Listing &rarr;</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=9339%20Ramona%20St%2C%20Bellflower%2C%20CA%2090706" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card fade-up" style="transition-delay:0.2s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="174 E Plymouth St" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Long Beach</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">174 E Plymouth St</div>
+        <div class="avail-city">Long Beach, CA 90805</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>9</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail">Built <strong>1961</strong></span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">9-unit building in North Long Beach, all 2BR/1BA units. On-site parking garages and shared laundry. Walk score of 83 with strong proximity to Long Beach Blvd retail and major medical employers.</p>
+        <div class="avail-actions">
+          <a href="https://centennialadvisers.com/advanced-search/174-e-plymouth-street/" target="_blank" rel="noopener" class="avail-cta">View Full Listing &rarr;</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=174%20E%20Plymouth%20St%2C%20Long%20Beach%2C%20CA%2090805" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card fade-up" style="transition-delay:0.3s">
+      <div class="avail-card-img" data-sv="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" data-sat="https://maps.googleapis.com/maps/api/staticmap?center=2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="2614 S Garth Ave" onerror="this.src='https://maps.googleapis.com/maps/api/staticmap?center=2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034&zoom=18&size=700x420&scale=2&maptype=satellite&markers=color:0x00b4c8|size:small|2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0'" loading="lazy" />
+        <span class="avail-hood-badge">Mid-City / Palms</span>
+        <div class="avail-img-toggle">
+          <button class="img-toggle-btn active" onclick="setView(this,'sv')">Street</button>
+          <button class="img-toggle-btn" onclick="setView(this,'sat')">Aerial</button>
+        </div>
+      </div>
+      <div class="avail-card-body">
+        <div class="avail-address">2614 S Garth Ave</div>
+        <div class="avail-city">Los Angeles, CA 90034</div>
+        <div class="avail-details">
+          <span class="avail-detail"><strong>8</strong> Units</span>
+          <span class="avail-detail-sep"></span>
+          <span class="avail-detail"><strong>Residential Multifamily</strong></span>
+        </div>
+        <p class="avail-desc">8-unit building near the Culver City Arts District. Current rents running 25% below market in occupied units. 15 minutes from Downtown LA with direct access to the 10 and 405 Freeways.</p>
+        <div class="avail-actions">
+          <a href="https://centennialadvisers.com/advanced-search/2614-south-garth-avenue-los-angeles-ca/" target="_blank" rel="noopener" class="avail-cta">View Full Listing &rarr;</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=2614%20S%20Garth%20Ave%2C%20Los%20Angeles%2C%20CA%2090034" target="_blank" rel="noopener" class="avail-map-link">View on Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURED LISTINGS -->
+<section id="listings">
+  <div class="listings-header">
+    <div>
+      <div class="section-label">Market Intelligence</div>
+      <h2 class="section-title">Recent Reports <em>&amp; Insights</em></h2>
+    </div>
+    <a href="#" class="view-all">View All Reports &rarr;</a>
+  </div>
+
+  <!-- FEATURED HERO CARD -->
+  <div class="featured-report fade-up">
+    <div class="featured-report-img">
+      <img src="https://maps.googleapis.com/maps/api/staticmap?center=33.9535,-118.3392&zoom=14&size=900x500&scale=2&maptype=hybrid&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="Satellite aerial view of Inglewood, CA near SoFi Stadium" />
+      <span class="featured-badge">Featured Report</span>
+    </div>
+    <div class="featured-report-body">
+      <div class="article-meta">
+        <span class="article-tag">Market Report</span>
+        <span class="article-date">June 2026</span>
+        <span class="article-read-time">6 min read</span>
+      </div>
+      <h3 class="featured-report-title">Inglewood Multifamily: Q2 2026 Market Overview</h3>
+      <p class="featured-report-summary">Cap rates in Inglewood&rsquo;s core submarket have compressed as Olympic infrastructure spending pulls in institutional buyers. SoFi Stadium is fully operational, the 2028 Games are two years out, and transaction volume is up. Here&rsquo;s what the numbers are showing across the submarket right now.</p>
+      <div class="featured-report-byline">
+        <span class="byline-name">Centennial Advisers Research Team</span>
+      </div>
+      <a href="#contact" class="article-link" style="margin-top:1.2rem;display:inline-block;">Read Full Report &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ARTICLE GRID -->
+  <div class="filter-tabs" role="tablist">
+    <button class="filter-tab active" data-filter="all" onclick="filterArticles(this)" role="tab">All</button>
+    <button class="filter-tab" data-filter="market" onclick="filterArticles(this)" role="tab">Market Reports</button>
+    <button class="filter-tab" data-filter="policy" onclick="filterArticles(this)" role="tab">Policy</button>
+    <button class="filter-tab" data-filter="strategy" onclick="filterArticles(this)" role="tab">Strategy</button>
+  </div>
+  <div class="property-grid">
+
+    <div class="property-card fade-up" data-cat="market" style="transition-delay:0.0s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=600&q=80" alt="South Bay beachfront apartments Torrance" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Submarket Analysis</span>
+          <span class="article-date">May 2026</span>
+          <span class="article-read-time">5 min read</span>
+        </div>
+        <div class="article-title">Torrance &amp; South Bay: Value-Add Plays in a Stabilizing Market</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">Torrance has held steady with low vacancy and rents running below what the South Bay&rsquo;s coastal submarkets command. There&rsquo;s real upside for operators willing to put in the work.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" data-cat="policy" style="transition-delay:0.1s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80" alt="City hall gavel rent control legislation" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Policy Brief</span>
+          <span class="article-date">May 2026</span>
+          <span class="article-read-time">4 min read</span>
+        </div>
+        <div class="article-title">How Rent Control Is Reshaping South LA Valuations</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">New rent stabilization measures across Inglewood and Gardena are changing underwriting assumptions. What investors need to factor in before buying.</div>
+        <a href="https://rentcheckme.com/articles/rent-control-in-inglewood" target="_blank" rel="noopener" class="article-link">Read Article &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" data-cat="strategy" style="transition-delay:0.2s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="LAX airport aerial view with planes" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Investment Thesis</span>
+          <span class="article-date">April 2026</span>
+          <span class="article-read-time">5 min read</span>
+        </div>
+        <div class="article-title">The LAX Corridor: Why Airport-Adjacent Assets Are Outperforming</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">Properties near LAX in Hawthorne and Lawndale are running above-average occupancy and seeing stronger rent growth than most of South LA right now.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" data-cat="strategy" style="transition-delay:0.05s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Tax documents and exchange paperwork on desk" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Transaction Insight</span>
+          <span class="article-date">April 2026</span>
+          <span class="article-read-time">4 min read</span>
+        </div>
+        <div class="article-title">1031 Exchange Activity Surges Across South Los Angeles</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">Investors rolling out of Orange County and the San Fernando Valley are landing in South LA for their 1031s, and transaction volume is up year over year to prove it.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" data-cat="strategy" style="transition-delay:0.15s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Construction site new apartment building frame" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Strategy</span>
+          <span class="article-date">March 2026</span>
+          <span class="article-read-time">6 min read</span>
+        </div>
+        <div class="article-title">New Construction vs. Value-Add: Which Strategy Wins in South LA?</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">With construction costs elevated and entitlement timelines long, experienced operators are finding better risk-adjusted returns in well-located value-add assets.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+    <div class="property-card fade-up" data-cat="market" style="transition-delay:0.25s">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=600&q=80" alt="Multifamily apartment exterior South LA neighborhood" />
+      </div>
+      <div class="card-body">
+        <div class="article-meta">
+          <span class="article-tag">Market Report</span>
+          <span class="article-date">March 2026</span>
+          <span class="article-read-time">5 min read</span>
+        </div>
+        <div class="article-title">Gardena &amp; Carson: The Quiet Outperformers of 2025</div>
+        <div class="article-byline">By Centennial Advisers Research Team</div>
+        <div class="article-summary">While Inglewood grabbed headlines, Gardena and Carson quietly posted some of South LA&rsquo;s strongest rent-to-price ratios and lowest vacancy rates of the year.</div>
+        <a href="#contact" class="article-link">Speak with an Adviser &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FROM THE DESK -->
+<section id="from-the-desk">
+  <div class="desk-header">
+      <div class="section-label">Analyst Perspective</div>
+      <h2 class="section-title">From the Desk <em>of Our Interns</em></h2>
+    <p class="desk-intro">Research and field notes from our intern team.</p>
+  </div>
+
+  <div class="desk-carousel" id="desk-carousel">
+    <div class="desk-card active" id="desk-card-0">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Investment Analysis</span>
+            <span class="article-date">June 2026</span>
+            <span class="article-read-time">5 min read</span>
+          </div>
+          <h3 class="desk-card-title">Inglewood Just Used Eminent Domain to Build a Transit Hub &mdash; Here&rsquo;s What It Means for Investors</h3>
+          <p class="desk-card-excerpt">Inglewood just voted to seize an entire city block on Market Street, and it is one of the biggest signs yet that this neighborhood is changing fast. The City Council voted 4-0 to force the sale of eight properties at Market Street and Florence Avenue to build a brand new transit hub connecting the Metro K Line directly to SoFi Stadium, Kia Forum, and Intuit Dome. The city has set aside $125 million to make it happen, with completion targeted before the 2028 Olympics. Here is the part that matters for investors. The demolition is happening at the south end of Market Street. 720 N. Market sits north of it, meaning this property gets the benefit of a transit hub being built down the block without any of the disruption. When a Metro-connected hub opens on your street ahead of the FIFA World Cup, Super Bowl LXI, and the 2028 Olympics, rents do not stay where they are. 720 N. Market Street is a fully renovated 16-unit building with $750,000 already invested in capital improvements, including solar panels, a new roof, copper repipe, and fully remodeled units. Strong in-place cash flow, a transit hub being built at the end of the block, and a global event calendar driving demand for the next three years. This is what buying before the market fully reprices looks like.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">JL</div>
+            <div>
+              <div class="desk-author">James Lai</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+          <a href="https://thelalocal.org/neighborhoods/inglewood/inglewood-eminent-domain-olympics-transit-connector/" target="_blank" rel="noopener" class="desk-source-link">Read Source Article &rarr;</a>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=Florence%20Ave%20and%20Market%20St%2C%20Inglewood%2C%20CA%2090301&fov=85&pitch=3&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="Market Street and Florence Ave, Inglewood — site of the new transit hub" />
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-card" id="desk-card-1">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Development</span>
+            <span class="article-date">April 2026</span>
+            <span class="article-read-time">5 min read</span>
+          </div>
+          <h3 class="desk-card-title">Market Street Is Getting an $8.5M Facelift Before the Olympics</h3>
+          <p class="desk-card-excerpt">Inglewood&rsquo;s historic Market Street is getting a major makeover. The City Council voted unanimously to distribute $8.5 million in state grant money to businesses along the corridor running south from Florence Avenue, with grants of up to $250,000 going to nearly 36 restaurants and retailers for full interior and exterior renovations. The city is targeting completion before the 2028 Olympic Games, and the work is already underway right outside the doors of 720 N. Market Street. For years, Market Street sat largely dormant while the rest of Inglewood boomed around SoFi Stadium and Intuit Dome. That is now changing fast. Mayor James T. Butts has set his sights on turning the corridor into a destination rivaling Old Town Pasadena, and $8.5 million in public funding is what is backing that vision. For apartment owners, this is the part that matters most: when a city invests millions into beautifying the exact street your building sits on, your property value rises without you spending a dollar. Stronger foot traffic means stronger tenant demand, lower vacancy, and more leverage to raise rents at renewal. Inglewood is also set to host the FIFA World Cup this summer, Super Bowl LXI in 2027, and the 2028 Olympics. Each event brings global attention and outside investors competing for a limited pool of quality properties. Buying now means buying before this market fully reprices.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">SR</div>
+            <div>
+              <div class="desk-author">Sofia Reyes</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+          <a href="https://archive.is/20260413105710/https://laist.com/news/inglewoods-historic-market-street-has-been-a-ghost-town-now-its-getting-an-8-5m-facelift" target="_blank" rel="noopener" class="desk-source-link">Read Source Article &rarr;</a>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=720%20N%20Market%20St%2C%20Inglewood%2C%20CA%2090301&fov=80&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="N Market Street corridor, Inglewood" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="desk-card" id="desk-card-2">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Policy</span>
+            <span class="article-date">May 2026</span>
+            <span class="article-read-time">3 min read</span>
+          </div>
+          <h3 class="desk-card-title">Long Beach&rsquo;s Density Bonus Ordinance Is Opening Doors for Multifamily Development</h3>
+          <p class="desk-card-excerpt">Long Beach continues to encourage multifamily housing development through policies such as the Enhanced Density Bonus Ordinance, which provides developers with incentives to include affordable housing in new projects. Depending on a project&rsquo;s location, eligible developments can receive density bonuses of up to 70% in many areas and up to 100% near major transit corridors and stations. The City&rsquo;s goal is to increase housing production while placing new development near jobs, transit, and neighborhood amenities.<br><br>One example of this continued investment is Armory Arts Collective, a project currently under construction in Downtown Long Beach. The development will transform the historic Armory building into 64 affordable senior apartment homes through adaptive reuse while adding new residential construction. Although the project serves a specific housing need, it reflects the City&rsquo;s broader commitment to expanding multifamily housing and revitalizing underutilized properties.<br><br>For apartment owners and investors, these initiatives demonstrate that Long Beach remains committed to increasing housing opportunities and encouraging redevelopment. Properties with redevelopment potential, particularly those located near transit or major corridors, may become more attractive to buyers seeking long-term value. As the market continues to evolve, understanding how local policies influence development can help owners make more informed investment and disposition decisions.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">JW</div>
+            <div>
+              <div class="desk-author">Jackson Wilson</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=100%20W%20Broadway%2C%20Long%20Beach%2C%20CA%2090802&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="Downtown Long Beach, Armory Arts Collective area" onerror="this.parentElement.style.display='none'" />
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-card" id="desk-card-3">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Investment Thesis</span>
+            <span class="article-date">June 2026</span>
+            <span class="article-read-time">3 min read</span>
+          </div>
+          <h3 class="desk-card-title">How &ldquo;Space Beach&rdquo; Is Fueling Long-Term Apartment Demand in Long Beach</h3>
+          <p class="desk-card-excerpt">Long Beach&rsquo;s aerospace industry has undergone a remarkable transformation, earning the nickname &ldquo;Space Beach&rdquo; as the city has become one of the nation&rsquo;s fastest-growing hubs for commercial space innovation. Just 11 years after Boeing closed its final Long Beach manufacturing facility, the city is now home to dozens of aerospace startups supported by venture capital, advanced manufacturing, and launch technology. A key driver of this resurgence is California State University, Long Beach (CSULB), whose aerospace engineering program ranks No. 3 in the nation among non-doctoral programs. Through its Space Beach Initiative, CSULB is strengthening partnerships between industry, government, and education while preparing the next generation of engineers. Over the next decade, the university expects to produce approximately 15,000 engineers and technical professionals to help meet the growing workforce demand.<br><br>For Long Beach&rsquo;s apartment market, continued aerospace growth represents more than new jobs. It creates long-term housing demand. As aerospace companies expand and CSULB graduates remain in the region, demand for quality rental housing is expected to increase. A growing base of high-skilled, high-paying jobs helps strengthen occupancy, supports rent growth, and reinforces Long Beach&rsquo;s position as a desirable market for multifamily investment. Combined with continued investment from the Port of Long Beach, healthcare, and advanced manufacturing, the city&rsquo;s increasingly diversified economy provides a strong foundation for apartment demand.<br><br>Long Beach&rsquo;s transformation into &ldquo;Space Beach&rdquo; demonstrates how economic development and workforce growth continue to shape the local multifamily market. Understanding how emerging industries influence housing demand is critical for apartment owners and investors evaluating future opportunities.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">JW</div>
+            <div>
+              <div class="desk-author">Jackson Wilson</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=1250%20Bellflower%20Blvd%2C%20Long%20Beach%2C%20CA%2090840&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="CSULB campus, Long Beach" onerror="this.parentElement.style.display='none'" />
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-card" id="desk-card-4">
+      <div class="desk-card-inner">
+        <div class="desk-card-text">
+          <div class="article-meta">
+            <span class="article-tag">Market Report</span>
+            <span class="article-date">June 2026</span>
+            <span class="article-read-time">3 min read</span>
+          </div>
+          <h3 class="desk-card-title">Atlantic Avenue&rsquo;s Redevelopment Push Is Putting North Long Beach on Investors&rsquo; Radar</h3>
+          <p class="desk-card-excerpt">North Long Beach continues to gain momentum as both public and private investment reshape the Atlantic Avenue corridor. The City of Long Beach has officially placed 11 city-owned parcels between 55th and 60th Streets on the market as part of its &ldquo;Develop, Build, and Activate&rdquo; initiative. The sites are intended for a mix of housing, neighborhood retail, restaurants, office space, and other community-serving uses, building on nearby investments such as the  million Artesia Great Boulevard project, Houghton Park improvements, Rhythm by KB Home, and a planned neighborhood grocery store.<br><br>At the same time, private developers are continuing to invest in the area. A recently proposed seven-story, 82-unit apartment community at 402 Atlantic Avenue would transform a long-vacant commercial property into modern multifamily housing with amenities including rooftop terraces, outdoor gathering spaces, a resort-style pool deck, and ground-floor retail. Together, these projects demonstrate growing confidence in Long Beach&rsquo;s long-term apartment market and illustrate how public improvements can encourage additional private investment.<br><br>For apartment owners, these developments are worth watching. Continued investment in neighborhood amenities, new housing, and commercial activity can strengthen buyer confidence, improve the area&rsquo;s appeal to renters, and support long-term property values. At Centennial Advisers, we closely monitor the trends shaping Long Beach&rsquo;s apartment market. If you&rsquo;re interested in learning how redevelopment, neighborhood investment, or changing market conditions may affect your property&rsquo;s value, contact our team to discuss your investment strategy.</p>
+          <div class="desk-card-byline">
+            <div class="desk-avatar">JW</div>
+            <div>
+              <div class="desk-author">Jackson Wilson</div>
+              <div class="desk-role">Research Intern, Centennial Advisers</div>
+            </div>
+          </div>
+        </div>
+        <div class="desk-card-img">
+          <img src="https://maps.googleapis.com/maps/api/streetview?size=700x420&location=5800%20Atlantic%20Ave%2C%20Long%20Beach%2C%20CA%2090805&fov=82&pitch=5&source=outdoor&key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0" alt="Atlantic Avenue corridor, North Long Beach" onerror="this.parentElement.style.display='none'" />
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="desk-dots">
+      <span class="desk-dot active" onclick="goDesk(0)"></span>
+      <span class="desk-dot" onclick="goDesk(1)"></span>
+      <span class="desk-dot" onclick="goDesk(2)"></span>
+      <span class="desk-dot" onclick="goDesk(3)"></span>
+      <span class="desk-dot" onclick="goDesk(4)"></span>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- AGENTS -->
+<section id="agents">
+  <div class="section-label">Our Coverage</div>
+  <h2 class="section-title">South LA <em>Market</em> Specialists</h2>
+  <div class="agents-grid">
+
+    <div class="agent-card fade-up">
+      <div class="agent-avatar">
+        <img src="justinwhite.png" alt="Justin White" />
+      </div>
+      <div class="agent-name">Justin White</div>
+      <div class="agent-title">Managing Director</div>
+      <div class="agent-social">
+        <a href="https://www.linkedin.com/in/justin-white-79a1175/" target="_blank" rel="noopener" class="social-btn">in</a>
+        <a href="mailto:james.lai@centennialadvisers.com" class="social-btn" title="Email">✉</a>
+        <a href="tel:+15622694844" class="social-btn" title="Call">☎</a>
+      </div>
+    </div>
+
+    <div class="agent-card fade-up" style="transition-delay:0.1s">
+      <div class="agent-avatar">
+        <img src="ryanrayburn.png" alt="Ryan Rayburn" />
+      </div>
+      <div class="agent-name">Ryan Rayburn</div>
+      <div class="agent-title">Executive Vice President</div>
+      <div class="agent-zone">Expert in Southern California Apartments</div>
+      <div class="agent-social">
+        <a href="https://www.linkedin.com/in/ryan-c-rayburn-3613687/" target="_blank" rel="noopener" class="social-btn">in</a>
+        <a href="mailto:james.lai@centennialadvisers.com" class="social-btn" title="Email">✉</a>
+        <a href="tel:+15622694844" class="social-btn" title="Call">☎</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-label">What Investors Are Saying</div>
+  <h2 class="section-title">Trusted by South LA <em>Investors</em></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card fade-up">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Centennial had market data on Inglewood that I couldn't find anywhere else. They identified the right asset at the right basis and we closed in 45 days."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar author-initials" style="background:linear-gradient(135deg,#1a4a6e,#00b4c8)">D&amp;R</div>
+        <div><div class="author-name">David &amp; Rachel T.</div><div class="author-sub">Acquired 12-unit in Inglewood, 2024</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up" style="transition-delay:0.1s">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"I was a first-time multifamily buyer and the team walked me through every submarket. I ended up with a Torrance 8-unit that's already outperforming my proforma."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar author-initials" style="background:linear-gradient(135deg,#1e3a5f,#0891b2)">PM</div>
+        <div><div class="author-name">Priya M.</div><div class="author-sub">First-time Multifamily Investor, 2025</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card fade-up" style="transition-delay:0.2s">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"The rent control analysis they gave us before closing saved us from a deal that looked good on paper but wasn't. That kind of local knowledge is rare."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar author-initials" style="background:linear-gradient(135deg,#14395c,#0e7490)">TK</div>
+        <div><div class="author-name">Thomas K.</div><div class="author-sub">Acquired 16-unit in Carson, 2025</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- INVESTOR QUIZ -->
+<section id="investor-quiz" class="reveal">
+  <div class="quiz-header">
+    <div class="section-label">Find Your Strategy</div>
+    <h2 class="section-title">What Kind of <em>Investor Are You?</em></h2>
+    <p class="quiz-sub">Answer 4 quick questions. We will generate your investor profile and match you to the right South LA submarket.</p>
+  </div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar" id="quiz-progress-bar" style="width:0%"></div>
+    </div>
+    <div class="quiz-step-indicator" id="quiz-step-indicator">Step 1 of 4</div>
+
+    <!-- Step 1: Budget -->
+    <div class="quiz-step active" id="qstep-1">
+      <div class="quiz-question">What is your target acquisition budget?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'budget','under1m')">Under $1M</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'budget','1to3m')">$1M &ndash; $3M</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'budget','3to5m')">$3M &ndash; $5M</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'budget','over5m')">$5M+</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Neighborhoods -->
+    <div class="quiz-step" id="qstep-2">
+      <div class="quiz-question">Which submarkets interest you? <span class="quiz-multi">(select all that apply)</span></div>
+      <div class="quiz-options quiz-multi-select">
+        <button class="quiz-opt" onclick="toggleQuizOpt(this,'neighborhoods','inglewood')">🏟️ Inglewood</button>
+        <button class="quiz-opt" onclick="toggleQuizOpt(this,'neighborhoods','torrance')">🌊 Torrance</button>
+        <button class="quiz-opt" onclick="toggleQuizOpt(this,'neighborhoods','carson')">🏡 Carson</button>
+        <button class="quiz-opt" onclick="toggleQuizOpt(this,'neighborhoods','hawthorne')">✈️ Hawthorne</button>
+        <button class="quiz-opt" onclick="toggleQuizOpt(this,'neighborhoods','gardena')">🌿 Gardena</button>
+        <button class="quiz-opt" onclick="toggleQuizOpt(this,'neighborhoods','compton')">🏙️ Compton</button>
+      </div>
+      <button class="quiz-next-btn" onclick="quizNext(3)">Continue &rarr;</button>
+    </div>
+
+    <!-- Step 3: Experience -->
+    <div class="quiz-step" id="qstep-3">
+      <div class="quiz-question">How much multifamily experience do you have?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'experience','first')">First-time multifamily buyer</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'experience','some')">1&ndash;3 properties owned</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'experience','experienced')">4&ndash;10 properties owned</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'experience','portfolio')">Portfolio investor (10+)</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Goal -->
+    <div class="quiz-step" id="qstep-4">
+      <div class="quiz-question">What is your primary investment goal?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'goal','cashflow')">Maximize monthly cash flow</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'goal','appreciation')">Long-term property appreciation</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'goal','1031')">Complete a 1031 exchange</button>
+        <button class="quiz-opt" onclick="selectQuizOpt(this,'goal','diversify')">Diversify my portfolio</button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="quiz-step" id="qstep-result">
+      <div class="quiz-result-card" id="quiz-result-card">
+        <div class="quiz-result-badge" id="quiz-result-badge">Your Profile</div>
+        <div class="quiz-result-title" id="quiz-result-title"></div>
+        <div class="quiz-result-body" id="quiz-result-body"></div>
+        <div class="quiz-result-markets" id="quiz-result-markets"></div>
+        <button class="quiz-cta" onclick="prefillContact()">Connect with an Adviser &rarr;</button>
+        <button class="quiz-restart" onclick="restartQuiz()">Start Over</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="nl-inner">
+    <div class="nl-text">
+      <div class="section-label">Stay Informed</div>
+      <h2 class="nl-title">South LA Market Updates, <em>Delivered Monthly</em></h2>
+      <p class="nl-sub">New property alerts, market data, and research from our team. No spam.</p>
+    </div>
+    <form class="nl-form" id="nl-form" onsubmit="handleNewsletterSubmit(event)">
+      <input type="hidden" name="access_key" value="a3e78e83-cce4-4ab7-8043-525541170274" />
+      <input type="hidden" name="subject" value="New Newsletter Signup — Centennial Advisers" />
+      <input type="hidden" name="from_name" value="Centennial Advisers Newsletter" />
+      <div class="nl-fields">
+        <input type="text" name="first_name" placeholder="First name" class="nl-input" />
+        <input type="email" name="email" placeholder="Email address" class="nl-input" required />
+        <button type="submit" class="nl-btn">Subscribe &rarr;</button>
+      </div>
+      <p class="nl-legal">By subscribing you agree to receive occasional market updates. Unsubscribe anytime.</p>
+    </form>
+  </div>
+</section>
+
+<!-- WEBSITE CTA BANNER -->
+<div id="site-cta">
+  <div class="site-cta-inner">
+    <div class="site-cta-text">
+      <span class="site-cta-label">Ready to connect with a real adviser?</span>
+      <span class="site-cta-sub">Visit our main website for listings, deal flow, and direct advisory services.</span>
+    </div>
+    <a href="https://centennialadvisers.com/" target="_blank" rel="noopener" class="site-cta-btn">
+      Go to CentennialAdvisers.com &rarr;
+    </a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-info fade-up">
+      <div class="section-label">Get in Touch</div>
+      <h2>Let&rsquo;s Talk About <em>South LA</em></h2>
+      <p>Whether you&rsquo;re buying your first multifamily building or adding to an existing portfolio, our advisers know South LA well enough to help you make the right call.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">📍</div>
+          <div>
+            <div class="detail-label">Office</div>
+            <div class="detail-value">Long Beach, CA 90802</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">📞</div>
+          <div>
+            <div class="detail-label">Phone</div>
+            <div class="detail-value">(562) 269-4844</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">✉️</div>
+          <div>
+            <div class="detail-label">Email</div>
+            <div class="detail-value">james.lai@centennialadvisers.com</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">🕐</div>
+          <div>
+            <div class="detail-label">Hours</div>
+            <div class="detail-value">Mon &ndash; Sat, 9AM &ndash; 6PM PST</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <form class="contact-form fade-up" onsubmit="handleFormSubmit(event)">
+      <input type="hidden" name="access_key" value="a3e78e83-cce4-4ab7-8043-525541170274" />
+      <input type="hidden" name="subject" value="New Inquiry — Centennial Advisers" />
+      <input type="hidden" name="from_name" value="Centennial Advisers Website" />
+      <div class="form-row">
+        <div class="form-group float-label">
+          <input type="text" name="first_name" placeholder=" " required />
+          <label>First Name</label>
+        </div>
+        <div class="form-group float-label">
+          <input type="text" name="last_name" placeholder=" " required />
+          <label>Last Name</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group float-label">
+          <input type="email" name="email" placeholder=" " required />
+          <label>Email</label>
+        </div>
+        <div class="form-group float-label">
+          <input type="tel" name="phone" placeholder=" " />
+          <label>Phone</label>
+        </div>
+      </div>
+      <div class="form-group float-label">
+        <input type="text" id="address-autocomplete" name="current_address" placeholder=" " autocomplete="off" />
+        <label>Your Current Address</label>
+      </div>
+      <div class="form-group float-label has-value">
+        <select name="neighborhood">
+          <option value="">Select a neighborhood&hellip;</option>
+          <option>Inglewood</option>
+          <option>Torrance</option>
+          <option>Carson</option>
+          <option>Hawthorne</option>
+          <option>Gardena</option>
+          <option>Compton</option>
+          <option>Open to any South LA</option>
+        </select>
+        <label>Neighborhood Interest</label>
+      </div>
+      <div class="form-group float-label has-value">
+        <select name="budget">
+          <option value="">Select a range&hellip;</option>
+          <option>Under $2M</option>
+          <option>$2M &ndash; $5M</option>
+          <option>$5M &ndash; $10M</option>
+          <option>$10M+</option>
+        </select>
+        <label>Investment Budget</label>
+      </div>
+      <div class="form-group float-label">
+        <textarea rows="4" name="message" placeholder=" "></textarea>
+        <label>Message</label>
+      </div>
+      <button type="submit" class="form-submit">Send Message &rarr;</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <img class="footer-logo" src="logo2.png" alt="Centennial Advisers" />
+    <div class="footer-tagline">South LA&rsquo;s Most Trusted Apartment Specialists</div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2026 Centennial Advisers. All rights reserved. South LA Real Estate.</div>
+    <div class="footer-links">
+      <a href="https://centennialadvisers.com/" target="_blank" rel="noopener">CentennialAdvisers.com</a>
+      <a href="https://www.linkedin.com/in/justin-white-79a1175/" target="_blank" rel="noopener">Justin White</a>
+      <a href="https://www.linkedin.com/in/ryan-c-rayburn-3613687/" target="_blank" rel="noopener">Ryan Rayburn</a>
+      <a href="mailto:james.lai@centennialadvisers.com">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.dot').forEach((dot) => {
+    dot.addEventListener('click', () => {
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+    });
+  });
+
+
+
+  /* ═══════════════════════════════════════════
+     NEIGHBORHOOD DEEP-DIVE PANELS
+  ═══════════════════════════════════════════ */
+  const NH_DATA = {
+    inglewood: {
+      name:'Inglewood', icon:'🏟️',
+      stats:[
+        {val:'4.8%',key:'Avg Cap Rate'},
+        {val:'$285K',key:'Median Price / Unit'},
+        {val:'3.2%',key:'Vacancy Rate'},
+        {val:'+7.1%',key:'YoY Rent Growth'},
+      ],
+      context:'Inglewood is the highest-demand submarket in South LA, driven by SoFi Stadium, Intuit Dome, and 2028 Olympic infrastructure along the Market Street corridor. Properties within 3 miles of these venues are commanding measurable rent premiums that did not exist five years ago. The K Line extension adds transit-oriented demand for tenants who work across the metro.',
+      comps:[
+        {addr:'720 N Market St',detail:'16 units',price:'$4.8M — Jan 2026'},
+        {addr:'315 W Manchester Blvd',detail:'8 units',price:'$2.1M — Mar 2026'},
+        {addr:'1140 S Prairie Ave',detail:'12 units',price:'$3.4M — Nov 2025'},
+      ],
+    },
+    torrance: {
+      name:'Torrance', icon:'🌊',
+      stats:[
+        {val:'4.4%',key:'Avg Cap Rate'},
+        {val:'$310K',key:'Median Price / Unit'},
+        {val:'2.8%',key:'Vacancy Rate'},
+        {val:'+4.3%',key:'YoY Rent Growth'},
+      ],
+      context:'Torrance is one of the most consistent multifamily markets in the South Bay. Long-term tenants, low turnover, and rents running below neighboring coastal cities create a reliable foundation for conservative operators. The market does not attract speculative buyers, which keeps cap rates honest and deal flow predictable.',
+      comps:[
+        {addr:'2841 Torrance Blvd',detail:'6 units',price:'$1.85M — Feb 2026'},
+        {addr:'1620 W 208th St',detail:'10 units',price:'$2.9M — Dec 2025'},
+        {addr:'4150 W 190th St',detail:'8 units',price:'$2.4M — Oct 2025'},
+      ],
+    },
+    carson: {
+      name:'Carson', icon:'🏡',
+      stats:[
+        {val:'5.1%',key:'Avg Cap Rate'},
+        {val:'$265K',key:'Median Price / Unit'},
+        {val:'3.5%',key:'Vacancy Rate'},
+        {val:'+5.6%',key:'YoY Rent Growth'},
+      ],
+      context:'Carson offers some of the highest cap rates in South LA alongside a strong industrial and port-adjacent employment base that keeps tenant demand steady. Less premium pricing than Inglewood means real value-add opportunity exists without competing against speculative capital chasing Olympic tailwinds.',
+      comps:[
+        {addr:'320 E Dominguez St',detail:'12 units',price:'$3.1M — Mar 2026'},
+        {addr:'18509 S Main St',detail:'8 units',price:'$2.0M — Jan 2026'},
+        {addr:'200 E Albertoni St',detail:'6 units',price:'$1.55M — Nov 2025'},
+      ],
+    },
+    hawthorne: {
+      name:'Hawthorne', icon:'✈️',
+      stats:[
+        {val:'4.9%',key:'Avg Cap Rate'},
+        {val:'$275K',key:'Median Price / Unit'},
+        {val:'3.0%',key:'Vacancy Rate'},
+        {val:'+6.2%',key:'YoY Rent Growth'},
+      ],
+      context:'Hawthorne sits in the middle of the LAX employment corridor with SpaceX, Northrop Grumman, and dozens of aerospace suppliers within a short commute. The renter base skews toward higher-income tech and aerospace workers, which drives above-average occupancy and limits rent default risk compared to surrounding submarkets.',
+      comps:[
+        {addr:'4532 W 135th St',detail:'10 units',price:'$2.7M — Feb 2026'},
+        {addr:'3814 W El Segundo Blvd',detail:'8 units',price:'$2.1M — Jan 2026'},
+        {addr:'12412 S Hawthorne Blvd',detail:'6 units',price:'$1.7M — Dec 2025'},
+      ],
+    },
+    gardena: {
+      name:'Gardena', icon:'🌿',
+      stats:[
+        {val:'5.3%',key:'Avg Cap Rate'},
+        {val:'$252K',key:'Median Price / Unit'},
+        {val:'3.8%',key:'Vacancy Rate'},
+        {val:'+4.8%',key:'YoY Rent Growth'},
+      ],
+      context:'Gardena is the best cash-flow market in the South Bay, with cap rates consistently running above the South LA average. Affordable price points and a stable working-class tenant base make it the most popular entry point for first-time multifamily buyers. Appreciation is slower than Inglewood but the yield from day one is hard to beat.',
+      comps:[
+        {addr:'1825 W 162nd St',detail:'8 units',price:'$1.95M — Mar 2026'},
+        {addr:'14520 S Normandie Ave',detail:'6 units',price:'$1.5M — Feb 2026'},
+        {addr:'2310 W Redondo Beach Blvd',detail:'12 units',price:'$2.85M — Dec 2025'},
+      ],
+    },
+    compton: {
+      name:'Compton', icon:'🏙️',
+      stats:[
+        {val:'5.8%',key:'Avg Cap Rate'},
+        {val:'$228K',key:'Median Price / Unit'},
+        {val:'4.1%',key:'Vacancy Rate'},
+        {val:'+5.9%',key:'YoY Rent Growth'},
+      ],
+      context:'Compton offers the highest cap rates in the South LA submarket, making it the top choice for yield-focused investors. The market is tightening quickly as Inglewood appreciation pushes demand east and the Blue Line metro drives transit-oriented development activity. Buyers who wait will find fewer deals at these price points.',
+      comps:[
+        {addr:'828 S Alameda St',detail:'10 units',price:'$2.2M — Jan 2026'},
+        {addr:'1412 E Rosecrans Ave',detail:'6 units',price:'$1.35M — Mar 2026'},
+        {addr:'2750 N Willowbrook Ave',detail:'8 units',price:'$1.8M — Nov 2025'},
+      ],
+    },
+  };
+
+  let _nhActive = null;
+
+  function toggleNhPanel(btn) {
+    const key = btn.dataset.nh;
+    const panel = document.getElementById('nh-panel');
+    document.querySelectorAll('.neighborhood-item').forEach(b => b.classList.remove('active'));
+    if (_nhActive === key) {
+      panel.style.display = 'none';
+      _nhActive = null;
+      return;
+    }
+    _nhActive = key;
+    btn.classList.add('active');
+    const d = NH_DATA[key];
+    const statsHTML = d.stats.map(s =>
+      '<div class="nh-stat"><div class="nh-stat-val">'+s.val+'</div><div class="nh-stat-key">'+s.key+'</div></div>'
+    ).join('');
+    const compsHTML = d.comps.map(c =>
+      '<div class="nh-comp"><div class="nh-comp-addr">'+c.addr+'</div><div class="nh-comp-detail">'+c.detail+'</div><div class="nh-comp-price">'+c.price+'</div></div>'
+    ).join('');
+    panel.innerHTML =
+      '<div class="nh-panel-inner">' +
+      '<div class="nh-panel-title">'+d.icon+' '+d.name+'</div>' +
+      '<div class="nh-stats-row">'+statsHTML+'</div>' +
+      '<p class="nh-context">'+d.context+'</p>' +
+      '<div class="nh-comps-title">Recent Sale Comps</div>' +
+      '<div class="nh-comps">'+compsHTML+'</div>' +
+      '</div>';
+    panel.style.display = 'block';
+  }
+
+
+
+
+  /* ══════════════════════════════════════════════════════════
+     INVESTOR PROFILE QUIZ
+  ══════════════════════════════════════════════════════════ */
+  const _quizAnswers = { budget:null, neighborhoods:[], experience:null, goal:null };
+  let _quizStep = 1;
+
+  const PROFILES = {
+    starter:    { title:'South LA Starter', badge:'First-Time Buyer', body:'You are entering the right market at the right time. South LA has established submarkets where first-time buyers find cash-flowing assets at realistic price points without competing against institutional capital. Focus on fundamentals: location, unit mix, and in-place rents relative to market.', markets:['Gardena','Compton'] },
+    cashflow:   { title:'Cash Flow Builder', badge:'Income-Focused', body:'Your focus on monthly income puts you in the right frame for South LA, where cap rates remain above coastal markets. You are best positioned in submarkets where price-to-rent ratios favor the buyer. Expect 5–6% cap rates and realistic upside without betting on appreciation alone.', markets:['Gardena','Carson','Hawthorne'] },
+    growth:     { title:'Growth Investor', badge:'Appreciation Play', body:'South LA is a once-in-a-generation appreciation story. The FIFA World Cup Final, Super Bowl LXI, and the 2028 Olympics are creating sustained demand pressure in a supply-constrained market. Buy near the venues now and hold through the cycle.', markets:['Inglewood','Hawthorne'] },
+    exchange:   { title:'Exchange Specialist', badge:'1031 Exchange', body:'You need to close on a replacement property within 45 days of identification. Our advisers specialize in 1031 timelines and maintain a pipeline of off-market South LA assets. We can have shortlisted properties in your hands within 48 hours of first contact.', markets:['Inglewood','Torrance','Hawthorne'] },
+    portfolio:  { title:'Portfolio Strategist', badge:'Portfolio Investor', body:'At your experience level the conversation is about geographic concentration, financing strategy, and exit timing. South LA offers a range from stabilized Torrance assets to value-add Compton plays. We can model the right mix against your existing book.', markets:['Inglewood','Torrance','Carson','Hawthorne'] },
+  };
+
+  function selectQuizOpt(btn, key, val) {
+    btn.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    _quizAnswers[key] = val;
+    setTimeout(() => quizNext(_quizStep + 1), 320);
+  }
+
+  function toggleQuizOpt(btn, key, val) {
+    btn.classList.toggle('selected');
+    const arr = _quizAnswers[key] || [];
+    const idx = arr.indexOf(val);
+    if (idx > -1) arr.splice(idx, 1); else arr.push(val);
+    _quizAnswers[key] = arr;
+  }
+
+  function quizNext(step) {
+    document.getElementById('qstep-' + _quizStep).classList.remove('active');
+    _quizStep = step;
+    if (step > 4) {
+      showQuizResult();
+      document.getElementById('qstep-result').classList.add('active');
+      document.getElementById('quiz-progress-bar').style.width = '100%';
+      document.getElementById('quiz-step-indicator').textContent = 'Your Profile';
+    } else {
+      document.getElementById('qstep-' + step).classList.add('active');
+      document.getElementById('quiz-progress-bar').style.width = ((step - 1) / 4 * 100) + '%';
+      document.getElementById('quiz-step-indicator').textContent = 'Step ' + step + ' of 4';
+    }
+  }
+
+  function showQuizResult() {
+    let profileKey = 'starter';
+    const g = _quizAnswers.goal;
+    const b = _quizAnswers.budget;
+    const e = _quizAnswers.experience;
+    if (g === '1031') profileKey = 'exchange';
+    else if (g === 'appreciation') profileKey = 'growth';
+    else if (g === 'diversify' || e === 'portfolio') profileKey = 'portfolio';
+    else if (g === 'cashflow' && (b === 'under1m' || b === '1to3m')) profileKey = (e === 'first') ? 'starter' : 'cashflow';
+    else if (b === 'over5m' || e === 'portfolio') profileKey = 'portfolio';
+    else if (g === 'cashflow') profileKey = 'cashflow';
+
+    const p = PROFILES[profileKey];
+    document.getElementById('quiz-result-badge').textContent  = p.badge;
+    document.getElementById('quiz-result-title').textContent  = p.title;
+    document.getElementById('quiz-result-body').textContent   = p.body;
+    document.getElementById('quiz-result-markets').innerHTML  = p.markets.map(m =>
+      '<span class="quiz-market-tag">'+m+'</span>'
+    ).join('');
+  }
+
+  function prefillContact() {
+    const profileEl = document.getElementById('quiz-result-title');
+    const profileName = profileEl ? profileEl.textContent : '';
+    const msg = document.querySelector('#contact textarea[name="message"]');
+    if (msg) msg.value = 'Investor Profile: ' + profileName + '. Interested in: ' + (_quizAnswers.neighborhoods.join(', ') || 'All submarkets') + '. Goal: ' + (_quizAnswers.goal || 'N/A') + '.';
+    document.getElementById('contact').scrollIntoView({ behavior:'smooth' });
+  }
+
+  function restartQuiz() {
+    _quizAnswers.budget = null; _quizAnswers.neighborhoods = []; _quizAnswers.experience = null; _quizAnswers.goal = null;
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    _quizStep = 1;
+    document.getElementById('qstep-1').classList.add('active');
+    document.getElementById('quiz-progress-bar').style.width = '0%';
+    document.getElementById('quiz-step-indicator').textContent = 'Step 1 of 4';
+    document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+  }
+
+
+  window.initMap = function () {
+    // Address autocomplete for contact form
+    const input = document.getElementById('address-autocomplete');
+    if (input && google.maps.places) {
+      new google.maps.places.Autocomplete(input, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+        fields: ['formatted_address'],
+      });
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => setTimeout(runStatCounters, 400));
+
+  function runStatCounters() {
+    document.querySelectorAll('.stat-num[data-count]').forEach(el => {
+      const target   = parseInt(el.dataset.count);
+      const suffix   = el.dataset.suffix;
+      const duration = 1500;
+      const start    = performance.now();
+      (function tick(now) {
+        const p      = Math.min((now - start) / duration, 1);
+        const eased  = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    });
+  }
+
+  function typewriterH1(el) {
+    const plain      = 'Find Your Perfect Apartment in South LA';
+    const italicWord = 'Perfect';
+    const iStart     = plain.indexOf(italicWord);
+    const iEnd       = iStart + italicWord.length;
+    const speed      = 42;
+    let i = 0;
+
+    function buildHTML(upTo) {
+      if (upTo <= iStart)  return plain.slice(0, upTo);
+      if (upTo <= iEnd)    return plain.slice(0, iStart) + '<em>' + plain.slice(iStart, upTo) + '</em>';
+      return plain.slice(0, iStart) + '<em>' + italicWord + '</em>' + plain.slice(iEnd, upTo);
+    }
+
+    (function type() {
+      el.innerHTML = buildHTML(i) + '<span class="hero-cursor"></span>';
+      if (i < plain.length) { i++; setTimeout(type, speed); }
+      else setTimeout(() => { el.innerHTML = buildHTML(plain.length); }, 900);
+    })();
+  }
+
+  function toggleFav(btn) {
+    btn.classList.toggle('saved');
+    btn.textContent = btn.classList.contains('saved') ? '♥' : '♡';
+    btn.classList.remove('pop');
+    void btn.offsetWidth; // reflow to restart animation
+    btn.classList.add('pop');
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('.form-submit');
+    const data = new FormData(form);
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        // Send phone notification via ntfy
+        const firstName = data.get('first_name') || '';
+        const lastName  = data.get('last_name')  || '';
+        const email     = data.get('email')       || '';
+        const phone     = data.get('phone')       || 'N/A';
+        const hood      = data.get('neighborhood')|| 'N/A';
+        const budget    = data.get('budget')      || 'N/A';
+        const message   = data.get('message')     || '';
+        fetch('https://ntfy.sh/centennial-advisers-leads', {
+          method: 'POST',
+          headers: {
+            'Title': `New Lead: ${firstName} ${lastName}`,
+            'Priority': 'high',
+            'Tags': 'envelope,house',
+          },
+          body: `Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+Neighborhood: ${hood}
+Budget: ${budget}
+
+${message}`.trim(),
+        });
+
+        btn.textContent = '✓ Message Sent!';
+        btn.style.background = '#2ecc71';
+        btn.style.color = '#fff';
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = 'Send Message →';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 4000);
+      } else {
+        throw new Error(json.message || 'Submission failed');
+      }
+    } catch (err) {
+      btn.textContent = 'Failed — please try again';
+      btn.style.background = '#e74c3c';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 3500);
+    }
+  }
+
+  // ── MOBILE MENU ──
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn  = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+
+  // ── NEWSLETTER SUBMIT ──
+  async function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('.nl-btn');
+    btn.textContent = 'Subscribing...';
+    btn.disabled = true;
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST', headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+      });
+      const json = await res.json();
+      if (json.success) {
+        form.innerHTML = '<div class="nl-success">You are in. We will send the next update your way.</div>';
+      } else { throw new Error(json.message); }
+    } catch(err) {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  }
+
+  // ── STREET / AERIAL IMAGE TOGGLE ──
+  function setView(btn, mode) {
+    const wrap = btn.closest('.avail-card-img');
+    const img  = wrap.querySelector('img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = mode === 'sv' ? wrap.dataset.sv : wrap.dataset.sat;
+      img.style.opacity = '1';
+    }, 180);
+    wrap.querySelectorAll('.img-toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ── FROM THE DESK CAROUSEL ──
+  let _deskIdx = 0;
+  const _deskCards = document.querySelectorAll('.desk-card');
+  const _deskDots  = document.querySelectorAll('.desk-dot');
+  function goDesk(n) {
+    _deskCards[_deskIdx].classList.remove('active');
+    _deskDots[_deskIdx].classList.remove('active');
+    _deskIdx = (n + _deskCards.length) % _deskCards.length;
+    _deskCards[_deskIdx].classList.add('active');
+    _deskDots[_deskIdx].classList.add('active');
+  }
+  function shiftDesk(dir) { goDesk(_deskIdx + dir); }
+
+  function filterArticles(btn) {
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.property-card[data-cat]').forEach(card => {
+      if (filter === 'all' || card.dataset.cat === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '0.75rem 5%' : '1.1rem 5%';
+    const btt = document.getElementById('back-to-top');
+    if (btt) btt.classList.toggle('visible', window.scrollY > 450);
+
+    // Hero parallax — shift background as user scrolls down
+    const hero = document.getElementById('hero');
+    if (window.scrollY <= hero.offsetHeight) {
+      hero.style.backgroundPositionY = `calc(50% + ${(window.scrollY * 0.3).toFixed(1)}px)`;
+    }
+  }, { passive: true });
+
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJrRzr7whcKtqoulyUtRcFanWR8qo7hy0&libraries=places&callback=initMap" async defer></script>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" title="Back to top">&#8679;</button>
+
+</body>
+</html>
